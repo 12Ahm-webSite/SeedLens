@@ -2,7 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import type { Cluster, SearchBounds } from '@/types/seedlens';
+import type { Cluster, SearchBounds, WorldSpawn } from '@/types/seedlens';
 import { Compass } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -10,6 +10,7 @@ interface SeedMapProps {
   seed?: string | number;
   clusters: Cluster[];
   searchBounds?: SearchBounds;
+  worldSpawn?: WorldSpawn;
   selectedClusterId?: number | null;
   onSelectCluster?: (clusterId: number) => void;
   className?: string;

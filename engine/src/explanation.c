@@ -62,14 +62,14 @@ void generate_explanation_internal(
         if (villages >= 1 && d_v_ac > 0.0 && d_v_ac <= 450.0)
         {
             snprintf(out_buf, out_buf_size,
-                "An Ancient City is located within %.1f blocks of a Village in a %.1f block cluster, "
+                "An Ancient City is located within %.1f blocks (XZ) of a Village in a %.1f block cluster, "
                 "creating a compact surface-to-underground exploration opportunity.",
                 d_v_ac, cluster->max_distance);
         }
         else
         {
             snprintf(out_buf, out_buf_size,
-                "An Ancient City is located within %.1f blocks of a Shipwreck in a %.1f block cluster, "
+                "An Ancient City is located within %.1f blocks (XZ) of a Shipwreck in a %.1f block cluster, "
                 "combining coastal exploration with access to a nearby deep underground location.",
                 d_sw_ac, cluster->max_distance);
         }
@@ -77,9 +77,8 @@ void generate_explanation_internal(
     else if (strcmp(primary, "Spawn Outpost") == 0)
     {
         snprintf(out_buf, out_buf_size,
-            "Located %.1f blocks from world spawn with %d structures within a %.1f block cluster. "
-            "Being close to world spawn makes this cluster useful for early-game exploration, "
-            "establishing a base, and accessing nearby structures without extensive travel.",
+            "Located approximately %.1f blocks from estimated world spawn with %d structures within a %.1f block cluster. "
+            "Being close to world spawn makes this cluster useful for early-game exploration and initial base development.",
             cluster->nearest_spawn, cluster->count, cluster->max_distance);
     }
     else if (strcmp(primary, "Dense Multi") == 0)

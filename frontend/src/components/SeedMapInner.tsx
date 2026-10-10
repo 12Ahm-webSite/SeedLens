@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import type { Cluster, SearchBounds } from '@/types/seedlens';
+import type { Cluster, SearchBounds, WorldSpawn } from '@/types/seedlens';
 import { getStructureMetadata } from '@/components/StructureBadge';
 import { Compass } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
@@ -13,6 +13,7 @@ interface SeedMapInnerProps {
   seed?: string | number;
   clusters: Cluster[];
   searchBounds?: SearchBounds;
+  worldSpawn?: WorldSpawn;
   selectedClusterId?: number | null;
   onSelectCluster?: (clusterId: number) => void;
   className?: string;
@@ -117,6 +118,7 @@ export default function SeedMapInner({
   seed,
   clusters,
   searchBounds = { min_x: -5000, max_x: 5000, min_z: -5000, max_z: 5000 },
+  worldSpawn,
   selectedClusterId,
   onSelectCluster,
   className = '',
@@ -250,7 +252,41 @@ export default function SeedMapInner({
       interactive: false,
     }).addTo(map);
 
-    // World Spawn Marker at (0, 0)
+    // World Origin Marker at (0, 0)
+    const originIcon = L.divIcon({
+      className: 'custom-origin-marker',
+      html: `
+        <div style="display:flex; flex-direction:column; align-items:center; cursor:pointer;">
+          <div style="width:20px; height:20px; background:#4B5563; border:2px solid #9CA3AF; box-shadow:1px 1px 0 #000; display:flex; align-items:center; justify-content:center;">
+            <div style="width:4px; height:4px; background:#FFFFFF;"></div>
+          </div>
+          <div style="margin-top:2px; padding:1px 4px; background:#111827; color:#E5E7EB; font-family:monospace; font-size:8px; font-weight:bold; border:1px solid #000; white-space:nowrap; box-shadow:1px 1px 0 rgba(0,0,0,0.5);">
+            ORIGIN [0, 0]
+          </div>
+        </div>
+      `,
+      iconSize: [60, 36],
+      iconAnchor: [30, 10],
+    });
+
+    const originMarker = L.marker([0, 0], { icon: originIcon, zIndexOffset: 950 }).addTo(map);
+    originMarker.bindPopup(`
+      <div style="background:#C6C6C6; color:#1E1E1E; padding:8px 10px; font-family:monospace; font-size:11px; min-width:160px; border-top:2px solid #FFF; border-left:2px solid #FFF; border-right:2px solid #555; border-bottom:2px solid #555; box-shadow:1px 1px 0 #000;">
+        <div style="font-weight:bold; font-size:12px; margin-bottom:4px; color:#374151;">
+          ⦿ ${t.mapOriginMarker}
+        </div>
+        <div style="background:#8B8B8B; color:#FFF; padding:2px 6px; border-top:1px solid #373737; border-left:1px solid #373737; border-right:1px solid #FFF; border-bottom:1px solid #FFF; font-weight:bold;" dir="ltr">
+          X: 0 &nbsp;|&nbsp; Z: 0
+        </div>
+      </div>
+    `);
+
+    // World Spawn Marker
+    const spX = worldSpawn?.x ?? 0;
+    const spZ = worldSpawn?.z ?? 0;
+    const spawnLat = -spZ;
+    const spawnLng = spX;
+
     const spawnIcon = L.divIcon({
       className: 'custom-spawn-marker',
       html: `
@@ -261,22 +297,22 @@ export default function SeedMapInner({
             </svg>
           </div>
           <div style="margin-top:2px; padding:1px 4px; background:#1E1E1E; color:#FADB44; font-family:monospace; font-size:9px; font-weight:bold; border:1px solid #000; white-space:nowrap; box-shadow:1px 1px 0 rgba(0,0,0,0.5);">
-            SPAWN [0, 0]
+            SPAWN [${spX}, ${spZ}]
           </div>
         </div>
       `,
-      iconSize: [64, 40],
-      iconAnchor: [32, 12],
+      iconSize: [68, 40],
+      iconAnchor: [34, 12],
     });
 
-    const spawnMarker = L.marker([0, 0], { icon: spawnIcon, zIndexOffset: 1000 }).addTo(map);
+    const spawnMarker = L.marker([spawnLat, spawnLng], { icon: spawnIcon, zIndexOffset: 1000 }).addTo(map);
     spawnMarker.bindPopup(`
       <div style="background:#C6C6C6; color:#1E1E1E; padding:8px 10px; font-family:monospace; font-size:11px; min-width:160px; border-top:2px solid #FFF; border-left:2px solid #FFF; border-right:2px solid #555; border-bottom:2px solid #555; box-shadow:1px 1px 0 #000;">
         <div style="font-weight:bold; font-size:12px; margin-bottom:4px; color:#5B8731;">
           ★ ${t.mapSpawnMarker}
         </div>
         <div style="background:#8B8B8B; color:#FFF; padding:2px 6px; border-top:1px solid #373737; border-left:1px solid #373737; border-right:1px solid #FFF; border-bottom:1px solid #FFF; font-weight:bold;" dir="ltr">
-          X: 0 &nbsp;|&nbsp; Z: 0 (Y: 64)
+          X: ${spX} &nbsp;|&nbsp; Z: ${spZ}
         </div>
       </div>
     `);
@@ -305,7 +341,7 @@ export default function SeedMapInner({
       mapRef.current = null;
       biomeLayerRef.current = null;
     };
-  }, [searchBounds, terrainEngine, t.mapSpawnMarker]);
+  }, [searchBounds, terrainEngine, t.mapSpawnMarker, t.mapOriginMarker, worldSpawn]);
 
   // Handle Biome Layer Toggle
   useEffect(() => {
@@ -469,7 +505,14 @@ export default function SeedMapInner({
     mapRef.current.fitBounds(bounds, { padding: [20, 20] });
   };
 
+  const spX = worldSpawn?.x ?? 0;
+  const spZ = worldSpawn?.z ?? 0;
   const handleFocusSpawn = () => {
+    if (!mapRef.current) return;
+    mapRef.current.flyTo([-spZ, spX], 0, { duration: 0.6 });
+  };
+
+  const handleFocusOrigin = () => {
     if (!mapRef.current) return;
     mapRef.current.flyTo([0, 0], 0, { duration: 0.6 });
   };
@@ -507,6 +550,12 @@ export default function SeedMapInner({
             {t.mapFocusSpawn || 'Spawn'}
           </button>
           <button
+            onClick={handleFocusOrigin}
+            className="px-2 py-0.5 mc-button text-[#333333] hover:text-[#111111] font-mc-mono text-[11px] font-bold cursor-pointer"
+          >
+            {t.mapFocusOrigin || '(0, 0)'}
+          </button>
+          <button
             onClick={() => setShowLegend(!showLegend)}
             className="px-2 py-0.5 mc-button text-[#333333] hover:text-[#111111] font-mc-mono text-[11px] font-bold cursor-pointer"
           >
@@ -517,6 +566,12 @@ export default function SeedMapInner({
 
       {/* Map Viewport with Parchment Tone */}
       <div className="relative w-full flex-1 min-h-[360px] my-1.5 overflow-hidden bg-[#E5D7B5] border-2 border-[#A49272] shadow-[inset_0_0_24px_rgba(110,80,40,0.25)]">
+        {/* Stylized Preview Disclaimer Badge */}
+        <div className="absolute top-2 start-2 z-20 pointer-events-none bg-[#1E1E1E]/90 text-[#FBBF24] border border-[#555] px-2 py-0.5 text-[10px] font-mc-mono flex items-center gap-1.5 shadow-md">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#FBBF24] animate-pulse"></span>
+          <span>{t.mapStylizedBadge}</span>
+        </div>
+
         {/* Leaflet map container */}
         <div ref={mapContainerRef} className="w-full h-full z-0 cursor-crosshair" />
 

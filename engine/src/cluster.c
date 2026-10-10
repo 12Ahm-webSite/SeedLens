@@ -11,6 +11,7 @@ static Cluster build_cluster(
 
     cluster.closest_distance = 1e30;
     cluster.nearest_spawn = 1e30;
+    cluster.nearest_origin = 1e30;
     cluster.density = 0.0;
 
     int type_seen[FEATURE_NUM];
@@ -44,9 +45,14 @@ static Cluster build_cluster(
             }
         }
 
-        if (records[i].distance < cluster.nearest_spawn)
+        if (records[i].distance_to_spawn < cluster.nearest_spawn)
         {
-            cluster.nearest_spawn = records[i].distance;
+            cluster.nearest_spawn = records[i].distance_to_spawn;
+        }
+
+        if (records[i].distance < cluster.nearest_origin)
+        {
+            cluster.nearest_origin = records[i].distance;
         }
     }
 
@@ -167,6 +173,7 @@ int detect_clusters_internal(
     StructureRecord *records,
     int record_count,
     Cluster *final_clusters,
+    int max_final_clusters,
     int *candidate_count_out
 )
 {
@@ -205,9 +212,9 @@ int detect_clusters_internal(
         }
     }
 
-    /* Deduplicate top clusters up to SEEDLENS_MAX_CLUSTERS */
+    /* Deduplicate candidate clusters up to max_final_clusters without premature dropping */
     int final_count = 0;
-    for (int i = 0; i < candidate_count && final_count < SEEDLENS_MAX_CLUSTERS; i++)
+    for (int i = 0; i < candidate_count && final_count < max_final_clusters; i++)
     {
         int duplicate = 0;
         for (int j = 0; j < final_count; j++)

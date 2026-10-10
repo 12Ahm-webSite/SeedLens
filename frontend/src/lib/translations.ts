@@ -117,12 +117,16 @@ export interface Translations {
   mapTitle: string;
   mapBounds: string;
   mapSpawnMarker: string;
+  mapOriginMarker: string;
   mapHoverCoords: string;
   mapZoomIn: string;
   mapZoomOut: string;
   mapFocusSpawn: string;
+  mapFocusOrigin: string;
   mapFitBounds: string;
   legendSpawn: string;
+  legendOrigin: string;
+  mapStylizedBadge: string;
   legendVillage: string;
   legendAncientCity: string;
   legendShipwreck: string;
@@ -208,7 +212,7 @@ export const translations: Record<Locale, Translations> = {
     heroDesc:
       'أدخل أي Minecraft Java Seed لاكتشاف التجمعات الهيكلية النادرة، العواصم التجارية، الروابط السحيقة بين السطح والمدن القديمة، والبؤر الاستيطانية عبر نطاق 10,000×10,000 بلوك.',
     statRadiusTitle: 'نطاق 10 آلاف بلوك',
-    statRadiusDesc: 'يغطي [-5000، 5000] حول نقطة التكاثر Spawn',
+    statRadiusDesc: 'يغطي [-5000، 5000] حول مركز العالم',
     statTaxonomyTitle: 'تصنيف v3.1 الاستراتيجي',
     statTaxonomyDesc: '5 فلاتر لتصنيف أهم المواقع المفيدة عملياً',
     statCubiomesTitle: 'موثق عبر Cubiomes',
@@ -310,13 +314,17 @@ export const translations: Record<Locale, Translations> = {
     // Map
     mapTitle: 'شبكة ماين كرافت المكانية',
     mapBounds: '[-5000 إلى +5000]',
-    mapSpawnMarker: 'نقطة البداية World Spawn (0, 0)',
+    mapSpawnMarker: 'نقطة البداية (World Spawn)',
+    mapOriginMarker: 'مركز العالم World Origin (0, 0)',
     mapHoverCoords: 'مرر الفأرة على الخريطة لعرض إحداثيات X / Z',
     mapZoomIn: 'تكبير',
     mapZoomOut: 'تصغير',
-    mapFocusSpawn: 'الذهاب إلى نقطة البداية (0, 0)',
+    mapFocusSpawn: 'الذهاب إلى نقطة البداية (Spawn)',
+    mapFocusOrigin: 'الذهاب إلى مركز العالم (0, 0)',
     mapFitBounds: 'ملاءمة حدود نطاق البحث',
     legendSpawn: 'نقطة البداية (Spawn)',
+    legendOrigin: 'مركز العالم (0, 0)',
+    mapStylizedBadge: 'خريطة استرشادية تكتيكية (Stylized Preview) — ليست تضاريس Minecraft الفعلية',
     legendVillage: 'قرية',
     legendAncientCity: 'مدينة قديمة',
     legendShipwreck: 'حطام سفينة',
@@ -350,7 +358,7 @@ export const translations: Record<Locale, Translations> = {
       'محرك C عالي الأداء مع خوارزميات التجميع المكاني يقدم تحليلاً فورياً ومؤكداً دون الحاجة لتشغيل اللعبة.',
     step1Title: 'محاكاة قطعية لتوليد العالم',
     step1Desc:
-      'استخدام نواة Cubiomes لمحاكاة تضاريس وتوزيع بيئات وهياكل إصدار جافا 1.20.6 بدقة 100%.',
+      'استخدام نواة Cubiomes لمحاكاة توزيع البيئات وقواعد توليد الهياكل لإصدار جافا 1.20.6 قطعيّاً.',
     step2Title: 'مسح محيطي بمساحة 10 آلاف بلوك',
     step2Desc:
       'مسح النطاق [-5000، 5000] عبر محوري X و Z وتسجيل القرى والمدن القديمة والأهرامات وحطام السفن ومعابد الغابة.',
@@ -516,13 +524,17 @@ export const translations: Record<Locale, Translations> = {
     // Map
     mapTitle: 'Minecraft Spatial Grid',
     mapBounds: '[-5000 to +5000]',
-    mapSpawnMarker: 'World Spawn (0, 0)',
+    mapSpawnMarker: 'World Spawn',
+    mapOriginMarker: 'World Origin (0, 0)',
     mapHoverCoords: 'Hover map for coordinates',
     mapZoomIn: 'Zoom In',
     mapZoomOut: 'Zoom Out',
-    mapFocusSpawn: 'Go to World Spawn (0, 0)',
+    mapFocusSpawn: 'Go to World Spawn',
+    mapFocusOrigin: 'Go to World Origin (0, 0)',
     mapFitBounds: 'Fit Search Bounds',
-    legendSpawn: 'Spawn',
+    legendSpawn: 'World Spawn',
+    legendOrigin: 'World Origin (0, 0)',
+    mapStylizedBadge: 'Stylized Tactical Preview — Not actual Minecraft voxel terrain',
     legendVillage: 'Village',
     legendAncientCity: 'Ancient City',
     legendShipwreck: 'Shipwreck',
@@ -556,7 +568,7 @@ export const translations: Record<Locale, Translations> = {
       'High-performance native C engine combined with spatial clustering algorithms to deliver instant, verified seed intelligence.',
     step1Title: 'Deterministic Seed Viability',
     step1Desc:
-      'Uses cubiomes C core to deterministically simulate Minecraft Java 1.20.6 terrain, biome distribution, and structure generation rules without launching the game.',
+      'Uses cubiomes C core to deterministically simulate Minecraft Java 1.20.6 biome distribution and structure generation rules without launching the game.',
     step2Title: '10K Spatial Block Perimeter',
     step2Desc:
       'Scans [-5000, 5000] along both X and Z axes from world spawn, recording villages, ancient cities, desert pyramids, shipwrecks, and jungle temples.',

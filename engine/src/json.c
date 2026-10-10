@@ -131,8 +131,10 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
 
     /* Summary */
     jbuf_append(&b, "  \"summary\": {\n");
+    jbuf_printf(&b, "    \"total_candidates\": %d,\n", result->summary.total_candidates);
     jbuf_printf(&b, "    \"total_clusters\": %d,\n", result->summary.total_clusters);
-    jbuf_printf(&b, "    \"useful_clusters\": %d\n", result->summary.useful_clusters);
+    jbuf_printf(&b, "    \"useful_clusters\": %d,\n", result->summary.useful_clusters);
+    jbuf_printf(&b, "    \"clusters_truncated\": %s\n", result->summary.clusters_truncated ? "true" : "false");
     jbuf_append(&b, "  },\n");
 
     /* Clusters */
@@ -169,6 +171,7 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
         jbuf_printf(&b, "        \"diameter\": %.1f,\n", cr->metrics.diameter);
         jbuf_printf(&b, "        \"closest_pair\": %.1f,\n", cr->metrics.closest_pair);
         jbuf_printf(&b, "        \"nearest_spawn\": %.1f,\n", cr->metrics.nearest_spawn);
+        jbuf_printf(&b, "        \"nearest_origin\": %.1f,\n", cr->metrics.nearest_origin);
         jbuf_printf(&b, "        \"density\": %.8f\n", cr->metrics.density);
         jbuf_append(&b, "      },\n");
 

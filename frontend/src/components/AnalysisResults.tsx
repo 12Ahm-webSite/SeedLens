@@ -340,6 +340,7 @@ export default function AnalysisResults({
               seed={seed}
               clusters={filteredAndSortedClusters}
               searchBounds={search}
+              worldSpawn={data.world_spawn}
               selectedClusterId={selectedClusterId}
               onSelectCluster={(id) => {
                 setSelectedClusterId(id);
@@ -368,6 +369,7 @@ export default function AnalysisResults({
             seed={seed}
             clusters={filteredAndSortedClusters}
             searchBounds={search}
+            worldSpawn={data.world_spawn}
             selectedClusterId={selectedClusterId}
             onSelectCluster={(id) => setSelectedClusterId(id)}
             className="h-[750px]"

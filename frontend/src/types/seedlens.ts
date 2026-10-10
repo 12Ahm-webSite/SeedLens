@@ -6,8 +6,10 @@ export interface SearchBounds {
 }
 
 export interface Summary {
+  total_candidates?: number;
   total_clusters: number;
   useful_clusters: number;
+  clusters_truncated?: boolean;
 }
 
 export interface ClusterCenter {
@@ -21,6 +23,7 @@ export interface ClusterMetrics {
   diameter: number;
   closest_pair: number;
   nearest_spawn: number;
+  nearest_origin?: number;
   density: number;
 }
 

@@ -30,7 +30,7 @@ typedef struct {
     int x;
     int z;
     double distance;          /* distance to origin (0, 0) */
-    double distance_to_spawn; /* distance to world spawn */
+    double distance_to_spawn; /* distance to estimated true world spawn */
     const char *viability_status;
 } StructureRecord;
 
@@ -40,7 +40,8 @@ typedef struct {
     int type_count;
     double center_x;
     double center_z;
-    double nearest_spawn;
+    double nearest_spawn;     /* min distance among members to World Spawn */
+    double nearest_origin;    /* min distance among members to Origin (0, 0) */
     double max_distance;
     double closest_distance;
     int closest_a;
@@ -65,9 +66,21 @@ int count_type(const Cluster *cluster, const StructureRecord *records, int type)
 double type_pair_distance(const Cluster *cluster, const StructureRecord *records, int type_a, int type_b, int maximum);
 
 int collect_records_internal(uint64_t seed, int mc, StructureRecord *records, Pos *spawn_out);
-int detect_clusters_internal(StructureRecord *records, int record_count, Cluster *final_clusters, int *candidate_count_out);
+int detect_clusters_internal(
+    StructureRecord *records,
+    int record_count,
+    Cluster *final_clusters,
+    int max_final_clusters,
+    int *candidate_count_out
+);
 ClusterAnalysis analyze_cluster_internal(const Cluster *cluster, const StructureRecord *records);
 const char *primary_category_internal(const ClusterAnalysis *analysis);
-void generate_explanation_internal(const Cluster *cluster, const StructureRecord *records, const ClusterAnalysis *analysis, char *out_buf, size_t out_buf_size);
+void generate_explanation_internal(
+    const Cluster *cluster,
+    const StructureRecord *records,
+    const ClusterAnalysis *analysis,
+    char *out_buf,
+    size_t out_buf_size
+);
 
 #endif /* SEEDLENS_INTERNAL_H */

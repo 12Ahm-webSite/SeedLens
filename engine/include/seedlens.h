@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 #ifdef __cplusplus
-extern C {
+extern "C" {
 #endif
 
 #define SEEDLENS_SEARCH_RADIUS 5000
@@ -37,7 +37,8 @@ typedef struct {
     int type_count;
     double center_x;
     double center_z;
-    double nearest_spawn;
+    double nearest_spawn;   /* Distance to estimated true World Spawn */
+    double nearest_origin;  /* Distance to World Origin (0, 0) */
     double diameter;
     double closest_pair;
     double density;
@@ -88,8 +89,10 @@ typedef struct {
 
 /* Summary */
 typedef struct {
-    int total_clusters;
-    int useful_clusters;
+    int total_candidates;    /* Total candidate clusters found before dedup */
+    int total_clusters;      /* Total deduplicated clusters evaluated */
+    int useful_clusters;     /* Total Useful v3.1 clusters found */
+    int clusters_truncated;  /* 1 if useful_clusters > SEEDLENS_MAX_CLUSTERS */
 } SeedLensSummary;
 
 /* Full analysis result */
