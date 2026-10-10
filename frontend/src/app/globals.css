@@ -1,0 +1,199 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Cairo:wght@500;700;800&family=Tajawal:wght@500;700;800&display=swap');
+@import "tailwindcss";
+
+:root {
+  --background: #C8C8C8;
+  --foreground: #1E1E1E;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: "Plus Jakarta Sans", "Cairo", "Tajawal", system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Monospace & Heading utility classes */
+.font-mc-heading {
+  font-family: "Space Grotesk", "Cairo", "Tajawal", sans-serif;
+}
+
+.font-mc-mono {
+  font-family: "JetBrains Mono", monospace;
+}
+
+/* Classic Minecraft GUI & Block Bevel Utilities */
+.mc-gui-panel {
+  background-color: #C6C6C6;
+  border-top: 3px solid #FFFFFF;
+  border-left: 3px solid #FFFFFF;
+  border-right: 3px solid #555555;
+  border-bottom: 3px solid #555555;
+  box-shadow: 1px 1px 0px #000000;
+  border-radius: 0px !important;
+}
+
+.mc-slot {
+  background-color: #8B8B8B;
+  border-top: 2px solid #373737;
+  border-left: 2px solid #373737;
+  border-right: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  border-radius: 0px !important;
+}
+
+.mc-slot-dark {
+  background-color: #2A2D32;
+  border-top: 2px solid #1A1C20;
+  border-left: 2px solid #1A1C20;
+  border-right: 2px solid #555555;
+  border-bottom: 2px solid #555555;
+  border-radius: 0px !important;
+}
+
+.mc-stone-card {
+  background-color: #E2E2E2;
+  border-top: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  border-right: 2px solid #737373;
+  border-bottom: 2px solid #737373;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 0px !important;
+}
+
+.mc-button {
+  background-color: #C6C6C6;
+  border-top: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  border-right: 2px solid #555555;
+  border-bottom: 2px solid #555555;
+  box-shadow: 1px 1px 0px #000000;
+  transition: all 0.05s ease;
+  user-select: none;
+  border-radius: 0px !important;
+}
+
+.mc-button:active {
+  border-top: 2px solid #555555;
+  border-left: 2px solid #555555;
+  border-right: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  transform: translate(1px, 1px);
+}
+
+.mc-btn-green {
+  background-color: #5B8731;
+  border-top: 2px solid #89BD44;
+  border-left: 2px solid #89BD44;
+  border-right: 2px solid #2A4413;
+  border-bottom: 2px solid #2A4413;
+  color: #FFFFFF;
+  text-shadow: 1px 1px 0px #1E330D;
+  box-shadow: 1px 1px 0px #000000;
+  transition: all 0.05s ease;
+  border-radius: 0px !important;
+}
+
+.mc-btn-green:hover {
+  background-color: #6DA03B;
+}
+
+.mc-btn-green:active {
+  border-top: 2px solid #2A4413;
+  border-left: 2px solid #2A4413;
+  border-right: 2px solid #89BD44;
+  border-bottom: 2px solid #89BD44;
+  transform: translate(1px, 1px);
+}
+
+.mc-wood-frame {
+  background-color: #866043;
+  border: 4px solid #5E4325;
+  box-shadow: inset 2px 2px 0px #A87954, inset -2px -2px 0px #382414, 3px 3px 8px rgba(0, 0, 0, 0.3);
+  border-radius: 0px !important;
+}
+
+.mc-text-shadow {
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
+}
+
+.mc-text-shadow-light {
+  text-shadow: 0.5px 0.5px 0px #FFFFFF;
+}
+
+/* Custom Minecraft-style scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #373737;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #C6C6C6;
+  border-top: 2px solid #FFFFFF;
+  border-left: 2px solid #FFFFFF;
+  border-right: 2px solid #555555;
+  border-bottom: 2px solid #555555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #E0E0E0;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Leaflet Minecraft Parchment Customizations */
+.leaflet-container {
+  background: #E5D7B5 !important;
+  outline: none;
+  font-family: inherit;
+  border-radius: 0px !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: #C6C6C6 !important;
+  color: #1E1E1E !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #555555 !important;
+  border-bottom: 2px solid #555555 !important;
+  border-radius: 0px !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: #C6C6C6 !important;
+  border: 1px solid #555555 !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  color: #555555 !important;
+  padding: 4px !important;
+}
+
+.leaflet-container a.leaflet-popup-close-button:hover {
+  color: #E03B24 !important;
+}

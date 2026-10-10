@@ -1,0 +1,16 @@
+# Build artifacts
+seedlens
+*.o
+*.a
+engine/libseedlens.a
+
+# Frontend dependencies and build outputs
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+
+# IDE and OS files
+.DS_Store
+*.swp
+*~
+frontend/.git.bak
