@@ -46,8 +46,8 @@ export default function ClusterCard({
       onClick={() => onSelect && onSelect(cluster)}
       className={`relative p-4 flex flex-col justify-between group cursor-pointer transition-all ${
         isSelected
-          ? 'bg-[#C6C6C6] border-2 border-[#5B8731] shadow-[inset_2px_2px_0_#FFFFFF,inset_-2px_-2px_0_#2A4413,2px_2px_0_rgba(0,0,0,0.3)]'
-          : 'mc-gui-panel hover:bg-[#D0D0D0]'
+          ? 'bg-[#C6C6C6] dark:bg-[#282C37] border-2 border-[#5B8731] shadow-[inset_2px_2px_0_#FFFFFF,inset_-2px_-2px_0_#2A4413,2px_2px_0_rgba(0,0,0,0.3)] dark:shadow-[inset_2px_2px_0_#3A404F,inset_-2px_-2px_0_#14161C,2px_2px_0_rgba(0,0,0,0.6)]'
+          : 'mc-gui-panel hover:bg-[#D0D0D0] dark:hover:bg-[#262A34]'
       }`}
     >
       {/* Active Selection Badge */}
@@ -73,7 +73,7 @@ export default function ClusterCard({
           </div>
 
           <div
-            className="flex items-center gap-1 font-mc-mono text-[11px] font-bold text-[#1E1E1E] bg-[#E2E2E2] px-2 py-0.5 border-t border-l border-[#FFFFFF] border-b border-r border-[#737373]"
+            className="flex items-center gap-1 font-mc-mono text-[11px] font-bold text-[#1E1E1E] dark:text-[#E2E8F0] bg-[#E2E2E2] dark:bg-[#181B22] px-2 py-0.5 border-t border-l border-[#FFFFFF] dark:border-[#333844] border-b border-r border-[#737373] dark:border-[#0E1015]"
             dir="ltr"
           >
             <MapPin className="w-3 h-3 text-[#5B8731] shrink-0" />
@@ -86,10 +86,10 @@ export default function ClusterCard({
         {/* Title & Structure List */}
         <div className="mb-2.5">
           <div className="flex items-center gap-2 mb-1.5">
-            <h3 className="font-mc-heading text-base text-[#1E1E1E] uppercase font-bold tracking-tight">
+            <h3 className="font-mc-heading text-base text-[#1E1E1E] dark:text-[#F1F5F9] uppercase font-bold tracking-tight">
               {primaryCatName}
             </h3>
-            <span className="text-xs text-[#555555] font-mc-mono font-bold">
+            <span className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono font-bold">
               ({cluster.cluster.count} POIs · {cluster.cluster.type_count} Types)
             </span>
           </div>
@@ -143,18 +143,18 @@ export default function ClusterCard({
         </div>
 
         {/* Engine Natural Language Explanation */}
-        <div className="bg-[#DFDFDF] p-2 text-[#222222] font-medium text-xs border-t border-l border-[#FFFFFF] border-b border-r border-[#999999] leading-relaxed italic mb-3">
+        <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2 text-[#222222] dark:text-[#CBD5E1] font-medium text-xs border-t border-l border-[#FFFFFF] dark:border-[#2D3340] border-b border-r border-[#999999] dark:border-[#0E1014] leading-relaxed italic mb-3">
           &ldquo;{cluster.explanation}&rdquo;
         </div>
       </div>
 
       {/* Card Action Buttons */}
-      <div className="pt-2 border-t border-[#A8A8A8] flex items-center justify-between gap-2">
+      <div className="pt-2 border-t border-[#A8A8A8] dark:border-[#2E3342] flex items-center justify-between gap-2">
         {/* Copy /tp Command */}
         <button
           type="button"
           onClick={copyTpCommand}
-          className="mc-button px-2.5 py-1 text-xs text-[#222222] font-bold flex items-center gap-1 hover:text-[#5B8731] cursor-pointer"
+          className="mc-button px-2.5 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold flex items-center gap-1 hover:text-[#5B8731] cursor-pointer"
           title="Copy Teleport Command"
         >
           {copiedTp ? (

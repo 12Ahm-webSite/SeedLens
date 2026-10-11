@@ -130,7 +130,7 @@ export default function SeedInput({
     <div className="w-full">
       {/* Quick Action Badges */}
       <div className="flex items-center gap-2 font-mc-mono text-xs flex-wrap mb-3">
-        <span className="text-[#555555] font-bold uppercase text-[11px] flex items-center gap-1">
+        <span className="text-[#555555] dark:text-[#94A3B8] font-bold uppercase text-[11px] flex items-center gap-1">
           <Sparkles className="w-3.5 h-3.5 text-[#5B8731]" />
           <span>{t.trySampleSeeds}:</span>
         </span>
@@ -140,10 +140,10 @@ export default function SeedInput({
             type="button"
             onClick={() => handleSelectPreset(preset.seed)}
             disabled={isLoading}
-            className="px-2.5 py-1 mc-button hover:bg-[#E0E0E0] text-[#222222] font-bold hover:text-[#5B8731] transition-colors cursor-pointer"
+            className="px-2.5 py-1 mc-button hover:bg-[#E0E0E0] dark:hover:bg-[#313745] text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] transition-colors cursor-pointer"
           >
             <span>#{preset.seed}</span>{' '}
-            <span className="text-[10px] text-[#555555] font-normal">
+            <span className="text-[10px] text-[#555555] dark:text-[#94A3B8] font-normal">
               ({preset.label})
             </span>
           </button>
@@ -155,7 +155,7 @@ export default function SeedInput({
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
           {/* Input Well: Seed Value */}
           <div className="lg:col-span-6 flex flex-col gap-1">
-            <label className="font-mc-mono text-[11px] text-[#333333] font-bold uppercase flex items-center justify-between">
+            <label className="font-mc-mono text-[11px] text-[#333333] dark:text-[#CBD5E1] font-bold uppercase flex items-center justify-between">
               <span>{t.seedLabel} / Keyphrase</span>
               <span className="text-[#5B8731] font-bold">JAVA 64-BIT HASH READY</span>
             </label>
@@ -210,7 +210,7 @@ export default function SeedInput({
 
           {/* Version Selector */}
           <div className="lg:col-span-3 flex flex-col gap-1">
-            <label className="font-mc-mono text-[11px] text-[#333333] font-bold uppercase flex items-center gap-1.5">
+            <label className="font-mc-mono text-[11px] text-[#333333] dark:text-[#CBD5E1] font-bold uppercase flex items-center gap-1.5">
               <span className="w-2 h-2 bg-[#5B8731]"></span>
               <span>{t.versionLabel} Generator</span>
             </label>
@@ -222,7 +222,7 @@ export default function SeedInput({
                 className="w-full bg-transparent text-[#FFFFFF] font-mc-mono text-xs font-semibold focus:outline-none cursor-pointer"
               >
                 {SUPPORTED_VERSIONS.map((v) => (
-                  <option key={v} value={v} className="bg-[#4A4A4A] text-[#FFFFFF]">
+                  <option key={v} value={v} className="bg-[#4A4A4A] dark:bg-[#1E2128] text-[#FFFFFF]">
                     Minecraft Java {v}
                   </option>
                 ))}

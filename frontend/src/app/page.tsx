@@ -55,7 +55,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#D0D0D0] text-[#1E1E1E] selection:bg-[#5B8731] selection:text-white">
+    <div className="flex flex-col min-h-screen bg-[#D0D0D0] dark:bg-[#121316] text-[#1E1E1E] dark:text-[#E2E8F0] selection:bg-[#5B8731] selection:text-white transition-colors duration-200">
       {/* Top Header */}
       <Header
         selectedVersion={selectedVersion}

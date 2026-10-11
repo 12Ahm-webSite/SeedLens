@@ -35,14 +35,14 @@ export default function Hero({
               <span>CHUNK SCANNER v3.1 // MINECRAFT WORLD FORGE</span>
             </div>
 
-            <h1 className="font-mc-heading text-3xl sm:text-4xl md:text-5xl text-[#1E1E1E] uppercase font-bold tracking-tight drop-shadow-[1px_1px_0_#FFF]">
+            <h1 className="font-mc-heading text-3xl sm:text-4xl md:text-5xl text-[#1E1E1E] dark:text-[#F1F5F9] uppercase font-bold tracking-tight drop-shadow-[1px_1px_0_#FFF] dark:drop-shadow-[1px_1px_0_#000]">
               {t.heroTitlePrefix}{' '}
               <span className="text-[#5B8731] underline decoration-[#89BD44] decoration-4">
                 {t.heroTitleHighlight}
               </span>
             </h1>
 
-            <p className="font-medium text-sm md:text-base text-[#4A4A4A] max-w-2xl mt-2 leading-relaxed">
+            <p className="font-medium text-sm md:text-base text-[#4A4A4A] dark:text-[#94A3B8] max-w-2xl mt-2 leading-relaxed">
               {t.heroDesc}
             </p>
           </div>
@@ -63,41 +63,41 @@ export default function Hero({
         {/* Feature Highlights underneath */}
         <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-start">
           <div className="mc-stone-card p-3.5 flex flex-col justify-between">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] dark:text-[#F1F5F9] mb-1">
               <Compass className="w-4 h-4 text-[#5B8731] shrink-0" />
               <span className="font-mc-heading uppercase">{t.statRadiusTitle}</span>
             </div>
-            <p className="text-[11px] text-[#555555] font-medium">
+            <p className="text-[11px] text-[#555555] dark:text-[#94A3B8] font-medium">
               {t.statRadiusDesc}
             </p>
           </div>
 
           <div className="mc-stone-card p-3.5 flex flex-col justify-between">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] dark:text-[#F1F5F9] mb-1">
               <Sparkles className="w-4 h-4 text-[#2CBAA8] shrink-0" />
               <span className="font-mc-heading uppercase">{t.statTaxonomyTitle}</span>
             </div>
-            <p className="text-[11px] text-[#555555] font-medium">
+            <p className="text-[11px] text-[#555555] dark:text-[#94A3B8] font-medium">
               {t.statTaxonomyDesc}
             </p>
           </div>
 
           <div className="mc-stone-card p-3.5 flex flex-col justify-between">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] dark:text-[#F1F5F9] mb-1">
               <ShieldCheck className="w-4 h-4 text-[#866043] shrink-0" />
               <span className="font-mc-heading uppercase">{t.statCubiomesTitle}</span>
             </div>
-            <p className="text-[11px] text-[#555555] font-medium">
+            <p className="text-[11px] text-[#555555] dark:text-[#94A3B8] font-medium">
               {t.statCubiomesDesc}
             </p>
           </div>
 
           <div className="mc-stone-card p-3.5 flex flex-col justify-between">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] mb-1">
+            <div className="flex items-center gap-2 text-xs font-bold text-[#1E1E1E] dark:text-[#F1F5F9] mb-1">
               <Map className="w-4 h-4 text-[#D49B1E] shrink-0" />
               <span className="font-mc-heading uppercase">{t.statMapTitle}</span>
             </div>
-            <p className="text-[11px] text-[#555555] font-medium">
+            <p className="text-[11px] text-[#555555] dark:text-[#94A3B8] font-medium">
               {t.statMapDesc}
             </p>
           </div>

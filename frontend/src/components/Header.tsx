@@ -3,6 +3,7 @@
 import React from 'react';
 import { Compass, Globe } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
+import MinecraftClockToggle from '@/components/MinecraftClockToggle';
 
 interface HeaderProps {
   onNavigate?: (sectionId: string) => void;
@@ -28,7 +29,7 @@ export default function Header({
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full h-16 bg-[#C6C6C6] border-t-2 border-l-2 border-[#FFFFFF] border-b-2 border-r-2 border-[#555555] shadow-[0_3px_6px_rgba(0,0,0,0.25)]">
+    <header className="sticky top-0 z-50 w-full h-16 bg-[#C6C6C6] dark:bg-[#1A1D24] border-t-2 border-l-2 border-[#FFFFFF] dark:border-[#363B47] border-b-2 border-r-2 border-[#555555] dark:border-[#101216] shadow-[0_3px_6px_rgba(0,0,0,0.25)] transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         {/* Brand & Logo */}
         <div className="flex items-center gap-3">
@@ -40,7 +41,7 @@ export default function Header({
               <Compass className="w-4 h-4 text-[#FFFFFF]" />
             </div>
             <div className="flex items-center gap-2">
-              <span className="font-mc-heading text-lg text-[#1C1C1C] font-bold tracking-wider uppercase drop-shadow-[0.5px_0.5px_0_#FFF]">
+              <span className="font-mc-heading text-lg text-[#1C1C1C] dark:text-[#F1F5F9] font-bold tracking-wider uppercase drop-shadow-[0.5px_0.5px_0_#FFF] dark:drop-shadow-[0.5px_0.5px_0_#000]">
                 SeedLens
               </span>
               <span className="font-mc-mono text-[10px] bg-[#5B8731] text-[#FFFFFF] px-2 py-0.5 border-t border-l border-[#89BD44] border-b border-r border-[#2A4413] font-bold shadow-[1px_1px_0_rgba(0,0,0,0.25)] hidden xs:inline-block">
@@ -54,19 +55,19 @@ export default function Header({
         <nav className="hidden md:flex items-center gap-2">
           <button
             onClick={() => scrollTo('analyzer')}
-            className="mc-button px-3 py-1 text-xs text-[#222222] font-bold hover:text-[#5B8731] cursor-pointer"
+            className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navAnalyzer}
           </button>
           <button
             onClick={() => scrollTo('how-it-works')}
-            className="mc-button px-3 py-1 text-xs text-[#222222] font-bold hover:text-[#5B8731] cursor-pointer"
+            className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navHowItWorks}
           </button>
           <button
             onClick={() => scrollTo('categories-info')}
-            className="mc-button px-3 py-1 text-xs text-[#222222] font-bold hover:text-[#5B8731] cursor-pointer"
+            className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navCategories}
           </button>
@@ -74,6 +75,9 @@ export default function Header({
 
         {/* Right Telemetry & Controls */}
         <div className="flex items-center gap-2 sm:gap-3">
+          {/* Minecraft Clock Day/Night Mode 180-degree Toggle */}
+          <MinecraftClockToggle showLabel size="md" />
+
           {/* Engine Status Inset Slot */}
           <div className="hidden lg:flex items-center mc-slot px-2.5 py-1 text-[#FFFFFF] font-mc-mono text-[11px] font-bold">
             <span className="w-2 h-2 bg-[#17B85E] mr-1.5 shadow-[0_0_6px_#17B85E]"></span>
@@ -81,15 +85,15 @@ export default function Header({
           </div>
 
           {/* POS Inset */}
-          <div className="hidden sm:flex items-center bg-[#B8B8B8] px-2.5 py-1 border-t border-l border-[#FFFFFF] border-b border-r border-[#555555] font-mc-mono text-[11px] font-bold">
-            <span className="text-[#4E4E4E] mr-1">POS</span>
+          <div className="hidden sm:flex items-center bg-[#B8B8B8] dark:bg-[#181B22] px-2.5 py-1 border-t border-l border-[#FFFFFF] dark:border-[#303642] border-b border-r border-[#555555] dark:border-[#0E1014] font-mc-mono text-[11px] font-bold">
+            <span className="text-[#4E4E4E] dark:text-[#94A3B8] mr-1">POS</span>
             <span className="text-[#2CBAA8]">X:0 Z:0</span>
           </div>
 
           {/* Language Switcher Button */}
           <button
             onClick={toggleLocale}
-            className="mc-button flex items-center gap-1.5 px-2.5 py-1 text-xs text-[#1E1E1E] font-bold hover:text-[#5B8731] cursor-pointer"
+            className="mc-button flex items-center gap-1.5 px-2.5 py-1 text-xs text-[#1E1E1E] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
             title={locale === 'ar' ? 'Switch to English' : 'التحويل إلى العربية'}
           >
             <Globe className="w-3.5 h-3.5 text-[#5B8731]" />

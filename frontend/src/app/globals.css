@@ -1,9 +1,15 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&family=Cairo:wght@500;700;800&family=Tajawal:wght@500;700;800&display=swap');
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
   --background: #C8C8C8;
   --foreground: #1E1E1E;
+}
+
+.dark {
+  --background: #121316;
+  --foreground: #E2E8F0;
 }
 
 body {
@@ -11,6 +17,7 @@ body {
   color: var(--foreground);
   font-family: "Plus Jakarta Sans", "Cairo", "Tajawal", system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
 /* Monospace & Heading utility classes */
@@ -113,12 +120,79 @@ body {
   border-radius: 0px !important;
 }
 
+/* Dark Mode Minecraft GUI Variants */
+.dark .mc-gui-panel {
+  background-color: #1E2128;
+  border-top: 3px solid #363B47;
+  border-left: 3px solid #363B47;
+  border-right: 3px solid #101216;
+  border-bottom: 3px solid #101216;
+  box-shadow: 2px 2px 0px #000000;
+}
+
+.dark .mc-slot {
+  background-color: #12141A;
+  border-top: 2px solid #0A0C10;
+  border-left: 2px solid #0A0C10;
+  border-right: 2px solid #282D38;
+  border-bottom: 2px solid #282D38;
+}
+
+.dark .mc-slot-dark {
+  background-color: #0E0F14;
+  border-top: 2px solid #060709;
+  border-left: 2px solid #060709;
+  border-right: 2px solid #20242E;
+  border-bottom: 2px solid #20242E;
+}
+
+.dark .mc-stone-card {
+  background-color: #232732;
+  border-top: 2px solid #3A404F;
+  border-left: 2px solid #3A404F;
+  border-right: 2px solid #12141A;
+  border-bottom: 2px solid #12141A;
+  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.5);
+}
+
+.dark .mc-button {
+  background-color: #262B35;
+  border-top: 2px solid #3E4554;
+  border-left: 2px solid #3E4554;
+  border-right: 2px solid #12141A;
+  border-bottom: 2px solid #12141A;
+  color: #E2E8F0;
+  box-shadow: 1px 1px 0px #000000;
+}
+
+.dark .mc-button:hover {
+  background-color: #313745;
+  color: #FFFFFF;
+}
+
+.dark .mc-button:active {
+  border-top: 2px solid #12141A;
+  border-left: 2px solid #12141A;
+  border-right: 2px solid #3E4554;
+  border-bottom: 2px solid #3E4554;
+}
+
+.dark .mc-wood-frame {
+  background-color: #4A3320;
+  border: 4px solid #302013;
+  box-shadow: inset 2px 2px 0px #63452B, inset -2px -2px 0px #1A1008, 3px 3px 8px rgba(0, 0, 0, 0.5);
+}
+
 .mc-text-shadow {
   text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
 }
 
 .mc-text-shadow-light {
   text-shadow: 0.5px 0.5px 0px #FFFFFF;
+}
+
+.dark .mc-text-shadow-light {
+  text-shadow: 0.5px 0.5px 0px rgba(0, 0, 0, 0.8);
 }
 
 /* Custom Minecraft-style scrollbar */
@@ -131,6 +205,10 @@ body {
   background: #373737;
 }
 
+.dark ::-webkit-scrollbar-track {
+  background: #101217;
+}
+
 ::-webkit-scrollbar-thumb {
   background: #C6C6C6;
   border-top: 2px solid #FFFFFF;
@@ -139,8 +217,20 @@ body {
   border-bottom: 2px solid #555555;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  background: #282D39;
+  border-top: 2px solid #3D4454;
+  border-left: 2px solid #3D4454;
+  border-right: 2px solid #101217;
+  border-bottom: 2px solid #101217;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   background: #E0E0E0;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #363C4D;
 }
 
 /* Animations */
@@ -196,4 +286,32 @@ body {
 
 .leaflet-container a.leaflet-popup-close-button:hover {
   color: #E03B24 !important;
+}
+
+/* Dark Mode Leaflet Map Customizations */
+.dark .leaflet-container {
+  background: #141720 !important;
+}
+
+.dark .leaflet-popup-content-wrapper {
+  background: #1E2128 !important;
+  color: #E2E8F0 !important;
+  border-top: 2px solid #363B47 !important;
+  border-left: 2px solid #363B47 !important;
+  border-right: 2px solid #101216 !important;
+  border-bottom: 2px solid #101216 !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+}
+
+.dark .leaflet-popup-tip {
+  background: #1E2128 !important;
+  border: 1px solid #101216 !important;
+}
+
+.dark .leaflet-container a.leaflet-popup-close-button {
+  color: #8E99AB !important;
+}
+
+.dark .leaflet-container a.leaflet-popup-close-button:hover {
+  color: #FF5A43 !important;
 }

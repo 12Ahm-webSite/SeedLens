@@ -46,7 +46,7 @@ export default function ClusterDetailsModal({
         onClick={(e) => e.stopPropagation()}
       >
         {/* Modal Header */}
-        <div className="flex items-start justify-between p-4 border-b border-[#A8A8A8] bg-[#BDBDBD]">
+        <div className="flex items-start justify-between p-4 border-b border-[#A8A8A8] dark:border-[#2E3342] bg-[#BDBDBD] dark:bg-[#1A1D24]">
           <div>
             <div className="flex items-center gap-2 mb-1.5">
               <span className="px-2 py-0.5 bg-[#866043] text-[#FADB44] font-mc-mono text-[10px] font-bold border border-[#4E3523]">
@@ -54,17 +54,17 @@ export default function ClusterDetailsModal({
               </span>
               <CategoryBadge category={cluster.primary_category} isPrimary size="sm" />
             </div>
-            <h3 className="font-mc-heading text-lg font-bold text-[#1E1E1E] uppercase">
+            <h3 className="font-mc-heading text-lg font-bold text-[#1E1E1E] dark:text-[#F1F5F9] uppercase">
               {primaryCatName} — {t.clusterDetailsTitle}
             </h3>
-            <p className="font-mc-mono text-xs text-[#555555] font-bold mt-0.5" dir="ltr">
+            <p className="font-mc-mono text-xs text-[#555555] dark:text-[#94A3B8] font-bold mt-0.5" dir="ltr">
               Anchor: X: {cluster.center.x.toFixed(0)}, Z: {cluster.center.z.toFixed(0)}
             </p>
           </div>
 
           <button
             onClick={onClose}
-            className="mc-button p-1.5 text-[#222222] hover:text-[#E03B24] cursor-pointer"
+            className="mc-button p-1.5 text-[#222222] dark:text-[#E2E8F0] hover:text-[#E03B24] cursor-pointer"
             aria-label={t.close}
           >
             <X className="w-5 h-5" />
@@ -74,12 +74,12 @@ export default function ClusterDetailsModal({
         {/* Modal Body */}
         <div className="flex-1 overflow-y-auto p-4 sm:p-5 space-y-4">
           {/* Engine Explanation */}
-          <div className="bg-[#DFDFDF] p-3 text-[#222222] border-t border-l border-[#FFFFFF] border-b border-r border-[#999999]">
+          <div className="bg-[#DFDFDF] dark:bg-[#161820] p-3 text-[#222222] dark:text-[#CBD5E1] border-t border-l border-[#FFFFFF] dark:border-[#2D3340] border-b border-r border-[#999999] dark:border-[#0E1014]">
             <h4 className="font-mc-mono text-xs font-bold uppercase tracking-wider text-[#5B8731] mb-1 flex items-center gap-1.5">
               <Compass className="w-4 h-4" />
               <span>{t.engineAnalysis}</span>
             </h4>
-            <p className="text-xs text-[#333333] leading-relaxed italic" dir="ltr">
+            <p className="text-xs text-[#333333] dark:text-[#E2E8F0] leading-relaxed italic" dir="ltr">
               &ldquo;{cluster.explanation}&rdquo;
             </p>
           </div>
@@ -123,7 +123,7 @@ export default function ClusterDetailsModal({
           {/* Structures List (POI Node Telemetry) */}
           <div>
             <div className="flex items-center justify-between mb-2">
-              <h4 className="font-mc-heading text-sm font-bold text-[#1E1E1E] flex items-center gap-1.5 uppercase">
+              <h4 className="font-mc-heading text-sm font-bold text-[#1E1E1E] dark:text-[#F1F5F9] flex items-center gap-1.5 uppercase">
                 <Layers className="w-4 h-4 text-[#5B8731]" />
                 <span>
                   {t.structuresInCluster.replace(
@@ -132,7 +132,7 @@ export default function ClusterDetailsModal({
                   )}
                 </span>
               </h4>
-              <span className="font-mc-mono text-[11px] text-[#666666] font-bold">
+              <span className="font-mc-mono text-[11px] text-[#666666] dark:text-[#94A3B8] font-bold">
                 {t.clickToCopyTp}
               </span>
             </div>
@@ -155,7 +155,7 @@ export default function ClusterDetailsModal({
 
                   <button
                     onClick={() => copyCoords(s.x, s.z, idx)}
-                    className="mc-button px-2 py-0.5 text-[#1E1E1E] font-bold flex items-center gap-1 cursor-pointer"
+                    className="mc-button px-2 py-0.5 text-[#1E1E1E] dark:text-[#E2E8F0] font-bold flex items-center gap-1 cursor-pointer"
                     title={t.tpCommand}
                   >
                     {copiedIndex === idx ? (
@@ -165,7 +165,7 @@ export default function ClusterDetailsModal({
                       </>
                     ) : (
                       <>
-                        <Terminal className="w-3.5 h-3.5 text-[#5E4325]" />
+                        <Terminal className="w-3.5 h-3.5 text-[#5E4325] dark:text-[#FADB44]" />
                         <span className="text-[10px]">/tp</span>
                       </>
                     )}
@@ -177,10 +177,10 @@ export default function ClusterDetailsModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="flex items-center justify-between p-3.5 border-t border-[#A8A8A8] bg-[#BDBDBD]">
+        <div className="flex items-center justify-between p-3.5 border-t border-[#A8A8A8] dark:border-[#2E3342] bg-[#BDBDBD] dark:bg-[#1A1D24]">
           <button
             onClick={onClose}
-            className="mc-button px-4 py-1.5 text-xs text-[#1E1E1E] font-bold cursor-pointer"
+            className="mc-button px-4 py-1.5 text-xs text-[#1E1E1E] dark:text-[#E2E8F0] font-bold cursor-pointer"
           >
             {t.close}
           </button>

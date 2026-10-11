@@ -125,20 +125,20 @@ export default function AnalysisResults({
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 animate-fade-in">
       {/* Active Telemetry HUD Strip */}
       <div className="w-full mb-6">
-        <div className="bg-[#BDBDBD] px-4 py-2.5 border-t-2 border-l-2 border-[#FFFFFF] border-b-2 border-r-2 border-[#555555] shadow-[1px_1px_0_rgba(0,0,0,0.2)] flex flex-wrap items-center justify-between gap-3 font-mc-mono">
+        <div className="bg-[#BDBDBD] dark:bg-[#1C1F26] px-4 py-2.5 border-t-2 border-l-2 border-[#FFFFFF] dark:border-[#363B47] border-b-2 border-r-2 border-[#555555] dark:border-[#101216] shadow-[1px_1px_0_rgba(0,0,0,0.2)] flex flex-wrap items-center justify-between gap-3 font-mc-mono">
           <div className="flex flex-wrap items-center gap-4 text-xs font-bold">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 bg-[#17B85E] shadow-[0_0_6px_#17B85E]"></span>
-              <span className="text-[#555555] uppercase text-[10px]">
+              <span className="text-[#555555] dark:text-[#94A3B8] uppercase text-[10px]">
                 {t.seedLabel}:
               </span>
-              <span className="text-[#1E1E1E] font-bold" dir="ltr">
+              <span className="text-[#1E1E1E] dark:text-[#F1F5F9] font-bold" dir="ltr">
                 {seed}
               </span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="text-[#555555] uppercase text-[10px]">
+              <span className="text-[#555555] dark:text-[#94A3B8] uppercase text-[10px]">
                 Spawn:
               </span>
               <span className="text-[#5B8731] font-bold">
@@ -147,19 +147,19 @@ export default function AnalysisResults({
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="text-[#555555] uppercase text-[10px]">
+              <span className="text-[#555555] dark:text-[#94A3B8] uppercase text-[10px]">
                 {t.usefulLocations}:
               </span>
-              <span className="text-[#866043] font-bold">
+              <span className="text-[#866043] dark:text-[#FADB44] font-bold">
                 {summary.useful_clusters}
               </span>
-              <span className="text-[#4E4E4E] font-normal">
+              <span className="text-[#4E4E4E] dark:text-[#94A3B8] font-normal">
                 ({summary.total_clusters} Total)
               </span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <span className="text-[#555555] uppercase text-[10px]">
+              <span className="text-[#555555] dark:text-[#94A3B8] uppercase text-[10px]">
                 {t.versionLabel}:
               </span>
               <span className="text-[#2CBAA8] font-bold">
@@ -171,7 +171,7 @@ export default function AnalysisResults({
           <div className="flex items-center gap-2 text-xs">
             <button
               onClick={copySeedToClipboard}
-              className="flex items-center gap-1 px-2.5 py-1 mc-button hover:bg-[#E0E0E0] text-[#222222] font-bold cursor-pointer"
+              className="flex items-center gap-1 px-2.5 py-1 mc-button hover:bg-[#E0E0E0] dark:hover:bg-[#313745] text-[#222222] dark:text-[#E2E8F0] font-bold cursor-pointer"
             >
               {copiedSeed ? (
                 <>
@@ -180,7 +180,7 @@ export default function AnalysisResults({
                 </>
               ) : (
                 <>
-                  <Copy className="w-3.5 h-3.5 text-[#5E4325]" />
+                  <Copy className="w-3.5 h-3.5 text-[#5E4325] dark:text-[#FADB44]" />
                   <span>{t.copySeed}</span>
                 </>
               )}
@@ -188,7 +188,7 @@ export default function AnalysisResults({
 
             <button
               onClick={handleShare}
-              className="flex items-center gap-1 px-2.5 py-1 mc-button hover:bg-[#E0E0E0] text-[#222222] font-bold cursor-pointer"
+              className="flex items-center gap-1 px-2.5 py-1 mc-button hover:bg-[#E0E0E0] dark:hover:bg-[#313745] text-[#222222] dark:text-[#E2E8F0] font-bold cursor-pointer"
             >
               {copiedShare ? (
                 <>
@@ -197,7 +197,7 @@ export default function AnalysisResults({
                 </>
               ) : (
                 <>
-                  <Share2 className="w-3.5 h-3.5 text-[#5E4325]" />
+                  <Share2 className="w-3.5 h-3.5 text-[#5E4325] dark:text-[#FADB44]" />
                   <span>Share</span>
                 </>
               )}
@@ -210,10 +210,10 @@ export default function AnalysisResults({
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-2">
           <span className="w-2.5 h-4 bg-[#5B8731] inline-block shadow-[1px_1px_0_#2A4413]"></span>
-          <h2 className="font-mc-heading text-lg sm:text-xl text-[#1E1E1E] uppercase font-bold tracking-tight">
+          <h2 className="font-mc-heading text-lg sm:text-xl text-[#1E1E1E] dark:text-[#F1F5F9] uppercase font-bold tracking-tight">
             {t.discoveredClustersTitle || 'Discovered Structural Clusters'}
           </h2>
-          <span className="font-mc-mono text-[11px] text-[#666666] font-bold ms-2 hidden sm:inline">
+          <span className="font-mc-mono text-[11px] text-[#666666] dark:text-[#94A3B8] font-bold ms-2 hidden sm:inline">
             {`// SORTED BY VIABILITY & DENSITY`}
           </span>
         </div>
@@ -221,11 +221,11 @@ export default function AnalysisResults({
         {/* Right side controls: Sorting & View Mode */}
         <div className="flex items-center gap-2 self-end md:self-auto font-mc-mono">
           <div className="flex items-center gap-1.5">
-            <ArrowUpDown className="w-3.5 h-3.5 text-[#555555] shrink-0" />
+            <ArrowUpDown className="w-3.5 h-3.5 text-[#555555] dark:text-[#94A3B8] shrink-0" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as SortOption)}
-              className="mc-button px-2 py-1 text-xs text-[#222222] font-bold focus:outline-none cursor-pointer"
+              className="mc-button px-2 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold focus:outline-none cursor-pointer"
             >
               <option value="default">{t.sortDefault}</option>
               <option value="spawn_asc">{t.sortSpawnAsc}</option>
@@ -236,7 +236,7 @@ export default function AnalysisResults({
           </div>
 
           {/* View mode switcher */}
-          <div className="flex items-center gap-1 bg-[#8B8B8B] p-0.5 border-t border-l border-[#373737] border-b border-r border-[#FFFFFF]">
+          <div className="flex items-center gap-1 bg-[#8B8B8B] dark:bg-[#181A22] p-0.5 border-t border-l border-[#373737] dark:border-[#2E3440] border-b border-r border-[#FFFFFF] dark:border-[#0E1014]">
             <button
               onClick={() => setViewMode('split')}
               className={`px-2 py-1 text-xs font-bold transition-colors cursor-pointer ${

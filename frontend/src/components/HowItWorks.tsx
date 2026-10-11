@@ -31,16 +31,16 @@ export default function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t-2 border-[#A8A8A8]">
+    <section id="how-it-works" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 border-t-2 border-[#A8A8A8] dark:border-[#2E3342]">
       <div className="text-center max-w-3xl mx-auto mb-8">
         <div className="inline-flex items-center gap-2 px-2.5 py-0.5 bg-[#866043] text-[#FADB44] font-mc-mono text-[11px] font-bold mb-2 border-t border-l border-[#A87954] border-b border-r border-[#4E3523] shadow-[1px_1px_0_rgba(0,0,0,0.3)]">
           <span className="w-2 h-2 bg-[#FADB44]"></span>
           <span>{t.howItWorksBadge}</span>
         </div>
-        <h2 className="font-mc-heading text-2xl sm:text-3xl font-bold text-[#1E1E1E] uppercase tracking-tight drop-shadow-[1px_1px_0_#FFF]">
+        <h2 className="font-mc-heading text-2xl sm:text-3xl font-bold text-[#1E1E1E] dark:text-[#F1F5F9] uppercase tracking-tight drop-shadow-[1px_1px_0_#FFF] dark:drop-shadow-[1px_1px_0_#000]">
           {t.howItWorksTitle}
         </h2>
-        <p className="text-[#4E4E4E] text-xs sm:text-sm font-medium mt-1">
+        <p className="text-[#4E4E4E] dark:text-[#94A3B8] text-xs sm:text-sm font-medium mt-1">
           {t.howItWorksDesc}
         </p>
       </div>
@@ -51,7 +51,7 @@ export default function HowItWorks() {
           return (
             <div
               key={idx}
-              className="mc-gui-panel p-5 flex flex-col justify-between hover:bg-[#D0D0D0] transition-colors"
+              className="mc-gui-panel p-5 flex flex-col justify-between hover:bg-[#D0D0D0] dark:hover:bg-[#262A34] transition-colors"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
@@ -62,10 +62,10 @@ export default function HowItWorks() {
                     0{idx + 1}
                   </span>
                 </div>
-                <h3 className="font-mc-heading text-sm font-bold text-[#1E1E1E] uppercase mb-1.5">
+                <h3 className="font-mc-heading text-sm font-bold text-[#1E1E1E] dark:text-[#F1F5F9] uppercase mb-1.5">
                   {step.title}
                 </h3>
-                <p className="text-xs text-[#444444] font-medium leading-relaxed">
+                <p className="text-xs text-[#444444] dark:text-[#CBD5E1] font-medium leading-relaxed">
                   {step.description}
                 </p>
               </div>
