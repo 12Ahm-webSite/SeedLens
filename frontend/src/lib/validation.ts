@@ -1,4 +1,4 @@
-export const SUPPORTED_VERSIONS = ['1.20.6'] as const;
+export const SUPPORTED_VERSIONS = ['1.20.6', '1.21.1'] as const;
 export type SupportedVersion = (typeof SUPPORTED_VERSIONS)[number];
 export const DEFAULT_VERSION: SupportedVersion = '1.20.6';
 
@@ -96,13 +96,23 @@ export function validateVersion(version: unknown): {
   }
 
   const trimmedVersion = version.trim();
-  if (!SUPPORTED_VERSIONS.includes(trimmedVersion as SupportedVersion)) {
-    return {
-      valid: false,
-      version: trimmedVersion,
-      error: `Unsupported Minecraft version '${trimmedVersion}'. Currently supported: ${SUPPORTED_VERSIONS.join(', ')}`,
-    };
+
+  // Check canonical supported versions
+  if (SUPPORTED_VERSIONS.includes(trimmedVersion as SupportedVersion)) {
+    return { valid: true, version: trimmedVersion };
   }
 
-  return { valid: true, version: trimmedVersion };
+  // Support common aliases
+  if (trimmedVersion === '1.20') {
+    return { valid: true, version: '1.20.6' };
+  }
+  if (trimmedVersion === '1.21') {
+    return { valid: true, version: '1.21.1' };
+  }
+
+  return {
+    valid: false,
+    version: trimmedVersion,
+    error: `Unsupported Minecraft version '${trimmedVersion}'. Currently supported: ${SUPPORTED_VERSIONS.join(', ')}`,
+  };
 }

@@ -192,6 +192,12 @@ export interface Translations {
   structAncientCity: string;
   structDesertPyramid: string;
   structJungleTemple: string;
+  structPillagerOutpost: string;
+  structOceanMonument: string;
+  structWoodlandMansion: string;
+  structTrailRuins: string;
+  discoveredPOIs: string;
+  discoveredDesc: string;
 }
 
 export const translations: Record<Locale, Translations> = {
@@ -403,6 +409,12 @@ export const translations: Record<Locale, Translations> = {
     structAncientCity: 'مدينة قديمة',
     structDesertPyramid: 'معبد صحراوي',
     structJungleTemple: 'معبد غابة',
+    structPillagerOutpost: 'مخفر نهابين',
+    structOceanMonument: 'معبد محيط',
+    structWoodlandMansion: 'قصر الغابة',
+    structTrailRuins: 'آثار المسار',
+    discoveredPOIs: 'معالم العالم المكتشفة',
+    discoveredDesc: 'هياكل موثقة بيوميًا في العالم خارج تقييم Useful v3.1.',
   },
 
   en: {
@@ -614,5 +626,11 @@ export const translations: Record<Locale, Translations> = {
     structAncientCity: 'Ancient City',
     structDesertPyramid: 'Desert Pyramid',
     structJungleTemple: 'Jungle Temple',
+    structPillagerOutpost: 'Pillager Outpost',
+    structOceanMonument: 'Ocean Monument',
+    structWoodlandMansion: 'Woodland Mansion',
+    structTrailRuins: 'Trail Ruins',
+    discoveredPOIs: 'Discovered World POIs',
+    discoveredDesc: 'Biome-verified world landmarks outside Useful v3.1 evaluation.',
   },
 };

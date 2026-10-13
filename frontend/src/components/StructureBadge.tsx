@@ -8,6 +8,10 @@ import {
   Pyramid,
   Trees,
   MapPin,
+  ShieldAlert,
+  Compass,
+  Castle,
+  Landmark,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -70,6 +74,42 @@ export function getStructureMetadata(type: string): {
         bgClass: 'bg-[#C6C6C6]',
         borderClass: 'border-t border-l border-[#FFFFFF] border-b border-r border-[#555555]',
         textClass: 'text-[#3B5A1C] font-bold',
+      };
+    case 'Pillager Outpost':
+      return {
+        label: 'Pillager Outpost',
+        icon: ShieldAlert,
+        color: '#DC2626',
+        bgClass: 'bg-[#C6C6C6]',
+        borderClass: 'border-t border-l border-[#FFFFFF] border-b border-r border-[#555555]',
+        textClass: 'text-[#991B1B] font-bold',
+      };
+    case 'Ocean Monument':
+      return {
+        label: 'Ocean Monument',
+        icon: Compass,
+        color: '#0284C7',
+        bgClass: 'bg-[#C6C6C6]',
+        borderClass: 'border-t border-l border-[#FFFFFF] border-b border-r border-[#555555]',
+        textClass: 'text-[#0369A1] font-bold',
+      };
+    case 'Woodland Mansion':
+      return {
+        label: 'Woodland Mansion',
+        icon: Castle,
+        color: '#78350F',
+        bgClass: 'bg-[#C6C6C6]',
+        borderClass: 'border-t border-l border-[#FFFFFF] border-b border-r border-[#555555]',
+        textClass: 'text-[#451A03] font-bold',
+      };
+    case 'Trail Ruins':
+      return {
+        label: 'Trail Ruins',
+        icon: Landmark,
+        color: '#D97706',
+        bgClass: 'bg-[#C6C6C6]',
+        borderClass: 'border-t border-l border-[#FFFFFF] border-b border-r border-[#555555]',
+        textClass: 'text-[#92400E] font-bold',
       };
     default:
       return {

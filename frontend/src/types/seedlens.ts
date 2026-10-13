@@ -59,6 +59,21 @@ export interface WorldSpawn {
   z: number;
 }
 
+export interface DiscoveredStructure {
+  type: string;
+  x: number;
+  z: number;
+  distance_to_spawn: number;
+  distance_to_origin?: number;
+  viability_status?: ViabilityStatus;
+}
+
+export interface DiscoverySummary {
+  total_discovered: number;
+  by_type: Record<string, number>;
+  structures: DiscoveredStructure[];
+}
+
 export interface SeedLensResult {
   schema_version?: number;
   seed: number | string;
@@ -68,6 +83,7 @@ export interface SeedLensResult {
   search: SearchBounds;
   summary: Summary;
   clusters: Cluster[];
+  discovery?: DiscoverySummary;
   interpreted_seed?: string;
 }
 

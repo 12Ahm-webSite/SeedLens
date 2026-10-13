@@ -15,7 +15,8 @@ endif
 CUBIOMES_DIR_ABS = $(abspath $(CUBIOMES_DIR))
 INCLUDES = -Iinclude -I$(CUBIOMES_DIR_ABS)
 
-SRCS = src/discovery.c \
+SRCS = src/version.c \
+       src/discovery.c \
        src/cluster.c \
        src/analysis.c \
        src/explanation.c \

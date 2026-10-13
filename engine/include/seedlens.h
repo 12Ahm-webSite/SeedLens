@@ -95,6 +95,28 @@ typedef struct {
     int clusters_truncated;  /* 1 if useful_clusters > SEEDLENS_MAX_CLUSTERS */
 } SeedLensSummary;
 
+#define SEEDLENS_MAX_DISCOVERED_STRUCTURES 1024
+
+/* Discovered structure outside Useful v3.1 scoring */
+typedef struct {
+    int type;
+    const char *name;
+    int x;
+    int z;
+    double distance_to_spawn;
+    double distance_to_origin;
+    const char *viability_status;
+} SeedLensDiscoveredStructure;
+
+/* Discovery summary */
+typedef struct {
+    int total_discovered;
+    int outpost_count;
+    int monument_count;
+    int mansion_count;
+    int trail_ruins_count;
+} SeedLensDiscoverySummary;
+
 /* Full analysis result */
 typedef struct {
     int schema_version;
@@ -107,6 +129,11 @@ typedef struct {
 
     int cluster_count;
     SeedLensClusterResult clusters[SEEDLENS_MAX_CLUSTERS];
+
+    /* Discovered structures (outside Useful v3.1 scoring) */
+    SeedLensDiscoverySummary discovery_summary;
+    int discovered_count;
+    SeedLensDiscoveredStructure discovered_structures[SEEDLENS_MAX_DISCOVERED_STRUCTURES];
 } SeedLensAnalysisResult;
 
 /* API functions */

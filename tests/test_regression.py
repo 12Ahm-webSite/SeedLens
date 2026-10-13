@@ -250,6 +250,148 @@ for c in d_check["clusters"]:
 
 print("Suite 8: PASSED (100% conformance between engine JSON and TypeScript types)")
 
+# ==============================================================================
+# Suite 9: Multi-Version Support Verification (Java 1.20.6 & 1.21.1)
+# ==============================================================================
+print("\n--- Suite 9: Multi-Version Support Verification (Java 1.20.6 & 1.21.1) ---")
+
+# 9.1 Explicit 1.21.1 run on baseline seed
+d_1211 = run_seedlens(123456789, "1.21.1")
+assert d_1211["minecraft_version"] == "1.21.1", f"Expected 1.21.1, got {d_1211['minecraft_version']}"
+assert d_1211["world_spawn"]["x"] == 64 and d_1211["world_spawn"]["z"] == -48, "Spawn mismatch in 1.21.1"
+assert d_1211["summary"]["useful_clusters"] == 5, f"Expected 5 useful clusters in 1.21.1, got {d_1211['summary']['useful_clusters']}"
+assert [c["id"] for c in d_1211["clusters"]] == [4, 10, 11, 19, 22], "Cluster ID mismatch in 1.21.1"
+print("Test 9.1 (Explicit 1.21.1 baseline execution): PASSED")
+
+# 9.2 Version alias resolution (1.21 -> 1.21.1, 1.20 -> 1.20.6)
+d_alias_21 = run_seedlens(123456789, "1.21")
+assert d_alias_21["minecraft_version"] == "1.21.1", "Alias 1.21 must resolve to canonical 1.21.1"
+
+d_alias_20 = run_seedlens(123456789, "1.20")
+assert d_alias_20["minecraft_version"] == "1.20.6", "Alias 1.20 must resolve to canonical 1.20.6"
+print("Test 9.2 (Version alias resolution: 1.21 and 1.20 correctly redirected): PASSED")
+
+# 9.3 Deep cross-version structure & scoring equivalence (1.20.6 vs 1.21.1)
+for test_seed in ["123456789", "-1467692750553100038", "1844674407370955161", "202620262026202626"]:
+    res_20 = run_seedlens(test_seed, "1.20.6")
+    res_21 = run_seedlens(test_seed, "1.21.1")
+    
+    assert res_20["summary"]["useful_clusters"] == res_21["summary"]["useful_clusters"], f"Seed {test_seed} useful count mismatch"
+    assert res_20["world_spawn"] == res_21["world_spawn"], f"Seed {test_seed} spawn mismatch"
+    assert len(res_20["clusters"]) == len(res_21["clusters"]), f"Seed {test_seed} cluster count mismatch"
+    
+    for c20, c21 in zip(res_20["clusters"], res_21["clusters"]):
+        assert c20["id"] == c21["id"], f"Seed {test_seed} cluster ID mismatch"
+        assert c20["primary_category"] == c21["primary_category"], f"Seed {test_seed} cluster {c20['id']} category mismatch"
+        assert c20["categories"] == c21["categories"], f"Seed {test_seed} cluster {c20['id']} categories mismatch"
+        assert c20["center"] == c21["center"], f"Seed {test_seed} cluster {c20['id']} center mismatch"
+        assert c20["cluster"] == c21["cluster"], f"Seed {test_seed} cluster {c20['id']} metrics mismatch"
+        assert c20["structures_summary"] == c21["structures_summary"], f"Seed {test_seed} summary mismatch"
+        assert len(c20["structures"]) == len(c21["structures"]), f"Seed {test_seed} structure count mismatch"
+        
+        for st20, st21 in zip(c20["structures"], c21["structures"]):
+            assert st20["type"] == st21["type"], f"Seed {test_seed} structure type mismatch"
+            assert st20["x"] == st21["x"], f"Seed {test_seed} structure X coord mismatch"
+            assert st20["z"] == st21["z"], f"Seed {test_seed} structure Z coord mismatch"
+            assert abs(st20["distance_to_spawn"] - st21["distance_to_spawn"]) < 1e-4, f"Seed {test_seed} spawn distance mismatch"
+            assert abs(st20["distance_to_origin"] - st21["distance_to_origin"]) < 1e-4, f"Seed {test_seed} origin distance mismatch"
+            assert st20["viability_status"] == st21["viability_status"], f"Seed {test_seed} viability mismatch"
+
+print("Test 9.3 (Full-depth cross-version structure coordinates, categories, and tags equivalence): PASSED")
+
+# 9.4 Rejection of unsupported versions (Bedrock, 1.21.3, 1.19, 1.18, empty)
+res_bedrock = run_cmd(["123456789", "--version", "bedrock"])
+assert res_bedrock.returncode == 1, "Expected failure for bedrock"
+assert "unsupported minecraft version 'bedrock'" in res_bedrock.stderr.lower()
+assert "supported versions: 1.20.6, 1.21.1" in res_bedrock.stderr.lower()
+
+res_1213 = run_cmd(["123456789", "--version", "1.21.3"])
+assert res_1213.returncode == 1, "Expected failure for 1.21.3 (not an alias of 1.21.1 due to spawn changes)"
+assert "unsupported minecraft version '1.21.3'" in res_1213.stderr.lower()
+assert "supported versions: 1.20.6, 1.21.1" in res_1213.stderr.lower()
+
+res_119 = run_cmd(["123456789", "--version", "1.19"])
+assert res_119.returncode == 1, "Expected failure for 1.19"
+assert "unsupported minecraft version '1.19'" in res_119.stderr.lower()
+assert "supported versions: 1.20.6, 1.21.1" in res_119.stderr.lower()
+
+res_empty_ver = run_cmd(["123456789", "--version", ""])
+assert res_empty_ver.returncode == 1, "Expected failure for empty version"
+
+print("Test 9.4 (Unsupported version rejection & helpful error messages): PASSED")
+print("Suite 9: PASSED (Multi-version support and validation successfully verified)")
+
+# ==============================================================================
+# Suite 10: Structure Discovery & Useful v3.1 Strict Isolation Verification
+# ==============================================================================
+print("\n--- Suite 10: Structure Discovery & Useful v3.1 Strict Isolation ---")
+
+# 10.1 Non-leakage: Useful v3.1 clusters MUST contain only the 5 original structures
+legacy_5_types = {"Village", "Desert Pyramid", "Jungle Temple", "Shipwreck", "Ancient City"}
+for check_seed in ["123456789", "-1467692750553100038", "1844674407370955161", "202620262026202626"]:
+    d_leak = run_seedlens(check_seed)
+    for cl in d_leak["clusters"]:
+        for st in cl["structures"]:
+            assert st["type"] in legacy_5_types, f"LEAKAGE DETECTED: {st['type']} found inside Useful v3.1 cluster #{cl['id']}"
+print("Test 10.1 (Strict non-leakage into Useful v3.1 clusters): PASSED")
+
+# 10.2 Discovery schema and counts on baseline seed
+d_disc = run_seedlens(123456789)
+assert "discovery" in d_disc, "Missing discovery object in JSON output"
+disc = d_disc["discovery"]
+assert disc["total_discovered"] == 77, f"Expected 77 discovered structures, got {disc['total_discovered']}"
+assert disc["by_type"]["Pillager Outpost"] == 19
+assert disc["by_type"]["Ocean Monument"] == 24
+assert disc["by_type"]["Woodland Mansion"] == 1
+assert disc["by_type"]["Trail Ruins"] == 33
+assert "Ruined Portal" not in disc["by_type"], "Ruined Portal must not be included"
+assert len(disc["structures"]) == 77, f"Expected 77 structures in discovery array, got {len(disc['structures'])}"
+print("Test 10.2 (Discovery schema, counts, and exclusion of unverified Ruined Portal): PASSED")
+
+# 10.3 Specific reference coordinates and viability statuses
+# Woodland Mansion: only 1 in baseline, verified terrain check
+mansion_list = [s for s in disc["structures"] if s["type"] == "Woodland Mansion"]
+assert len(mansion_list) == 1, "Expected 1 Woodland Mansion"
+assert mansion_list[0]["x"] == 1888 and mansion_list[0]["z"] == -368, f"Mansion coords mismatch: {mansion_list[0]}"
+assert mansion_list[0]["viability_status"] == "terrain_validated", "Mansion must be terrain_validated"
+
+# Ocean Monument: verify known monuments and biome_viable status
+monuments = [s for s in disc["structures"] if s["type"] == "Ocean Monument"]
+assert any(m["x"] == 576 and m["z"] == -3872 for m in monuments), "Missing reference Ocean Monument (576, -3872)"
+assert any(m["x"] == -992 and m["z"] == -2912 for m in monuments), "Missing reference Ocean Monument (-992, -2912)"
+assert all(m["viability_status"] == "biome_viable" for m in monuments), "Monuments must be tagged biome_viable"
+
+# Pillager Outposts: verify known outposts and biome_viable status
+outposts = [s for s in disc["structures"] if s["type"] == "Pillager Outpost"]
+assert any(o["x"] == -3856 and o["z"] == -4880 for o in outposts), "Missing reference Outpost (-3856, -4880)"
+assert any(o["x"] == 1808 and o["z"] == -3312 for o in outposts), "Missing reference Outpost (1808, -3312)"
+assert all(o["viability_status"] == "biome_viable" for o in outposts), "Outposts must be tagged biome_viable"
+
+# Trail Ruins: verify known trail ruins and biome_viable status
+trail_ruins = [s for s in disc["structures"] if s["type"] == "Trail Ruins"]
+assert any(tr["x"] == -3520 and tr["z"] == -4560 for tr in trail_ruins), "Missing reference Trail Ruins (-3520, -4560)"
+assert all(tr["viability_status"] == "biome_viable" for tr in trail_ruins), "Trail Ruins must be tagged biome_viable"
+print("Test 10.3 (Reference coordinates and terrain vs biome viability tags): PASSED")
+
+# 10.4 Cross-version equivalence for discovered structures (1.20.6 vs 1.21.1)
+d_20 = run_seedlens(123456789, "1.20.6")
+d_21 = run_seedlens(123456789, "1.21.1")
+assert d_20["discovery"]["total_discovered"] == d_21["discovery"]["total_discovered"]
+assert d_20["discovery"]["by_type"] == d_21["discovery"]["by_type"]
+for s20, s21 in zip(d_20["discovery"]["structures"], d_21["discovery"]["structures"]):
+    assert s20["type"] == s21["type"]
+    assert s20["x"] == s21["x"] and s20["z"] == s21["z"]
+    assert s20["viability_status"] == s21["viability_status"]
+    assert abs(s20["distance_to_spawn"] - s21["distance_to_spawn"]) < 1e-4
+print("Test 10.4 (Cross-version discovered structures 100% equivalence): PASSED")
+
+# 10.5 Complete Useful v3.1 immutability check
+# Baseline seed 123456789 must still produce EXACTLY the same 5 clusters with IDs [4, 10, 11, 19, 22]
+assert d_20["summary"]["useful_clusters"] == 5
+assert [c["id"] for c in d_20["clusters"]] == [4, 10, 11, 19, 22]
+print("Test 10.5 (Useful v3.1 absolute immutability confirmed): PASSED")
+print("Suite 10: PASSED (Structure discovery and isolation successfully verified)")
+
 print("\n=======================================================")
-print("ALL 8 TEST SUITES COMPLETED AND PASSED SUCCESSFULLY!")
+print("ALL 10 TEST SUITES COMPLETED AND PASSED SUCCESSFULLY!")
 print("=======================================================")

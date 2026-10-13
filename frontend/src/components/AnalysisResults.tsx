@@ -6,6 +6,7 @@ import ClusterCard from '@/components/ClusterCard';
 import ClusterDetailsModal from '@/components/ClusterDetailsModal';
 import SeedMap from '@/components/SeedMap';
 import EmptyState from '@/components/EmptyState';
+import StructureBadge from '@/components/StructureBadge';
 import { useLanguage } from '@/context/LanguageContext';
 import {
   Copy,
@@ -16,6 +17,7 @@ import {
   LayoutGrid,
   Columns,
   Share2,
+  Compass,
 } from 'lucide-react';
 
 interface AnalysisResultsProps {
@@ -45,7 +47,7 @@ export default function AnalysisResults({
   const [modalCluster, setModalCluster] = useState<Cluster | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('split');
 
-  const { seed, minecraft_version, summary, clusters, search } = data;
+  const { seed, minecraft_version, summary, clusters, search, discovery } = data;
 
   const copySeedToClipboard = () => {
     navigator.clipboard.writeText(String(seed));
@@ -341,6 +343,7 @@ export default function AnalysisResults({
               clusters={filteredAndSortedClusters}
               searchBounds={search}
               worldSpawn={data.world_spawn}
+              discovery={discovery}
               selectedClusterId={selectedClusterId}
               onSelectCluster={(id) => {
                 setSelectedClusterId(id);
@@ -370,6 +373,7 @@ export default function AnalysisResults({
             clusters={filteredAndSortedClusters}
             searchBounds={search}
             worldSpawn={data.world_spawn}
+            discovery={discovery}
             selectedClusterId={selectedClusterId}
             onSelectCluster={(id) => setSelectedClusterId(id)}
             className="h-[750px]"

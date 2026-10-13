@@ -77,6 +77,14 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         return t.structDesertPyramid;
       case 'Jungle Temple':
         return t.structJungleTemple;
+      case 'Pillager Outpost':
+        return t.structPillagerOutpost;
+      case 'Ocean Monument':
+        return t.structOceanMonument;
+      case 'Woodland Mansion':
+        return t.structWoodlandMansion;
+      case 'Trail Ruins':
+        return t.structTrailRuins;
       default:
         return struct;
     }

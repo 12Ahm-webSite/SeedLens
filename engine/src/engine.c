@@ -1,17 +1,5 @@
 #include "internal.h"
 
-static const struct {
-    int type;
-    const char *name;
-} target_meta[] = {
-    {Village, "Village"},
-    {Desert_Pyramid, "Desert Pyramid"},
-    {Jungle_Pyramid, "Jungle Temple"},
-    {Shipwreck, "Shipwreck"},
-    {Ancient_City, "Ancient City"}
-};
-#define TARGET_META_COUNT (sizeof(target_meta) / sizeof(target_meta[0]))
-
 int seedlens_analyze(
     int64_t seed,
     const char *minecraft_version,
@@ -25,17 +13,17 @@ int seedlens_analyze(
 
     memset(result, 0, sizeof(*result));
 
-    /* Version check: only 1.20.6 supported currently */
-    const char *ver = (minecraft_version && minecraft_version[0]) ? minecraft_version : "1.20.6";
-    if (strcmp(ver, "1.20.6") != 0)
+    /* Resolve version profile */
+    const VersionProfile *profile = get_version_profile(minecraft_version);
+    if (!profile)
     {
         return -2; /* Unsupported version */
     }
 
     result->schema_version = 1;
     result->seed = seed;
-    snprintf(result->minecraft_version, sizeof(result->minecraft_version), "%s", ver);
-    result->mc_version_enum = MC_1_20_6;
+    snprintf(result->minecraft_version, sizeof(result->minecraft_version), "%s", profile->canonical_name);
+    result->mc_version_enum = profile->mc_enum;
 
     result->search.min_x = -SEEDLENS_SEARCH_RADIUS;
     result->search.max_x = SEEDLENS_SEARCH_RADIUS;
@@ -45,7 +33,7 @@ int seedlens_analyze(
     /* Collect records */
     Pos spawn_pos = {0, 0};
     static StructureRecord records[SEEDLENS_MAX_STRUCTURES];
-    int record_count = collect_records_internal((uint64_t)seed, MC_1_20_6, records, &spawn_pos);
+    int record_count = collect_records_internal((uint64_t)seed, profile, records, &spawn_pos);
 
     result->world_spawn.x = spawn_pos.x;
     result->world_spawn.z = spawn_pos.z;
@@ -128,14 +116,14 @@ int seedlens_analyze(
                 cr->structures[s].viability_status = sr->viability_status;
             }
 
-            /* Inventory summary */
+            /* Inventory summary based on profile->targets */
             int inv_count = 0;
-            for (size_t t = 0; t < TARGET_META_COUNT; t++)
+            for (int t = 0; t < profile->target_count; t++)
             {
-                int cnt = count_type(c, records, target_meta[t].type);
+                int cnt = count_type(c, records, profile->targets[t].type);
                 if (cnt > 0 && inv_count < 5)
                 {
-                    cr->inventory[inv_count].type_name = target_meta[t].name;
+                    cr->inventory[inv_count].type_name = profile->targets[t].name;
                     cr->inventory[inv_count].count = cnt;
                     inv_count++;
                 }
@@ -152,5 +140,25 @@ int seedlens_analyze(
     }
 
     result->cluster_count = out_index;
+
+    /* Collect discovered structures outside Useful v3.1 scoring */
+    result->discovered_count = collect_discovered_structures_internal(
+        (uint64_t)seed,
+        profile,
+        spawn_pos,
+        result->discovered_structures,
+        SEEDLENS_MAX_DISCOVERED_STRUCTURES
+    );
+
+    result->discovery_summary.total_discovered = result->discovered_count;
+    for (int i = 0; i < result->discovered_count; i++)
+    {
+        int st = result->discovered_structures[i].type;
+        if (st == Outpost) result->discovery_summary.outpost_count++;
+        else if (st == Monument) result->discovery_summary.monument_count++;
+        else if (st == Mansion) result->discovery_summary.mansion_count++;
+        else if (st == Trail_Ruins) result->discovery_summary.trail_ruins_count++;
+    }
+
     return 0;
 }

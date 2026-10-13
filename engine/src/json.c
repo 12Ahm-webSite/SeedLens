@@ -210,7 +210,34 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
         jbuf_printf(&b, "    }%s\n", (i + 1 < result->cluster_count) ? "," : "");
     }
 
-    jbuf_append(&b, "  ]\n");
+    jbuf_append(&b, "  ],\n");
+
+    /* Discovered structures outside Useful v3.1 scoring */
+    jbuf_append(&b, "  \"discovery\": {\n");
+    jbuf_printf(&b, "    \"total_discovered\": %d,\n", result->discovery_summary.total_discovered);
+    jbuf_append(&b, "    \"by_type\": {\n");
+    jbuf_printf(&b, "      \"Pillager Outpost\": %d,\n", result->discovery_summary.outpost_count);
+    jbuf_printf(&b, "      \"Ocean Monument\": %d,\n", result->discovery_summary.monument_count);
+    jbuf_printf(&b, "      \"Woodland Mansion\": %d,\n", result->discovery_summary.mansion_count);
+    jbuf_printf(&b, "      \"Trail Ruins\": %d\n", result->discovery_summary.trail_ruins_count);
+    jbuf_append(&b, "    },\n");
+    jbuf_append(&b, "    \"structures\": [\n");
+
+    for (int i = 0; i < result->discovered_count; i++)
+    {
+        const SeedLensDiscoveredStructure *ds = &result->discovered_structures[i];
+        jbuf_append(&b, "      {\n");
+        jbuf_printf(&b, "        \"type\": \"%s\",\n", ds->name);
+        jbuf_printf(&b, "        \"x\": %d,\n", ds->x);
+        jbuf_printf(&b, "        \"z\": %d,\n", ds->z);
+        jbuf_printf(&b, "        \"distance_to_spawn\": %.1f,\n", ds->distance_to_spawn);
+        jbuf_printf(&b, "        \"distance_to_origin\": %.1f,\n", ds->distance_to_origin);
+        jbuf_printf(&b, "        \"viability_status\": \"%s\"\n", ds->viability_status ? ds->viability_status : "biome_viable");
+        jbuf_printf(&b, "      }%s\n", (i + 1 < result->discovered_count) ? "," : "");
+    }
+
+    jbuf_append(&b, "    ]\n");
+    jbuf_append(&b, "  }\n");
     jbuf_append(&b, "}\n");
 
     return b.data;

@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import type { Cluster, SearchBounds, WorldSpawn } from '@/types/seedlens';
+import type { Cluster, SearchBounds, WorldSpawn, DiscoverySummary } from '@/types/seedlens';
 import { getStructureMetadata } from '@/components/StructureBadge';
 import { Compass } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
@@ -14,6 +14,7 @@ interface SeedMapInnerProps {
   clusters: Cluster[];
   searchBounds?: SearchBounds;
   worldSpawn?: WorldSpawn;
+  discovery?: DiscoverySummary;
   selectedClusterId?: number | null;
   onSelectCluster?: (clusterId: number) => void;
   className?: string;
@@ -101,6 +102,74 @@ function getStructureIconHtml(type: string): string {
       </div>
     `;
   }
+  if (norm.includes('outpost')) {
+    return `
+      <div style="
+        width:22px; height:22px;
+        background:#450A0A; border:1.5px solid #EF4444;
+        box-shadow:1px 1px 0 #000;
+        display:flex; align-items:center; justify-content:center;
+        cursor:pointer;
+      ">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EF4444" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+    `;
+  }
+  if (norm.includes('monument')) {
+    return `
+      <div style="
+        width:22px; height:22px;
+        background:#082F49; border:1.5px solid #0EA5E9;
+        box-shadow:1px 1px 0 #000;
+        display:flex; align-items:center; justify-content:center;
+        cursor:pointer;
+      ">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#0EA5E9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/>
+        </svg>
+      </div>
+    `;
+  }
+  if (norm.includes('mansion')) {
+    return `
+      <div style="
+        width:22px; height:22px;
+        background:#271206; border:1.5px solid #F59E0B;
+        box-shadow:1px 1px 0 #000;
+        display:flex; align-items:center; justify-content:center;
+        cursor:pointer;
+      ">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect width="18" height="18" x="3" y="3" rx="2"/>
+          <path d="M3 9h18"/>
+          <path d="M9 21V9"/>
+        </svg>
+      </div>
+    `;
+  }
+  if (norm.includes('trail') || norm.includes('ruin')) {
+    return `
+      <div style="
+        width:22px; height:22px;
+        background:#3B1705; border:1.5px solid #F97316;
+        box-shadow:1px 1px 0 #000;
+        display:flex; align-items:center; justify-content:center;
+        cursor:pointer;
+      ">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#F97316" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="22" x2="21" y2="22"/>
+          <line x1="6" y1="18" x2="6" y2="11"/>
+          <line x1="10" y1="18" x2="10" y2="11"/>
+          <line x1="14" y1="18" x2="14" y2="11"/>
+          <line x1="18" y1="18" x2="18" y2="11"/>
+          <polygon points="12 2 20 7 4 7"/>
+        </svg>
+      </div>
+    `;
+  }
   const meta = getStructureMetadata(type);
   return `
     <div style="
@@ -119,6 +188,7 @@ export default function SeedMapInner({
   clusters,
   searchBounds = { min_x: -5000, max_x: 5000, min_z: -5000, max_z: 5000 },
   worldSpawn,
+  discovery,
   selectedClusterId,
   onSelectCluster,
   className = '',
@@ -484,7 +554,47 @@ export default function SeedMapInner({
         }
       });
     });
-  }, [clusters, selectedClusterId, onSelectCluster, t, translateCategory, translateStructure]);
+
+    // Discovered world structures outside Useful v3.1
+    if (discovery?.structures && structureLayersRef.current) {
+      discovery.structures.forEach((ds) => {
+        const dsLatLng = mcToLatLng(ds.x, ds.z);
+        const dsIcon = L.divIcon({
+          className: "discovered-structure-pin",
+          html: getStructureIconHtml(ds.type),
+          iconSize: [20, 20],
+          iconAnchor: [10, 10],
+        });
+        const dsMarker = L.marker(dsLatLng, { icon: dsIcon, zIndexOffset: 500 });
+        const nameTr = translateStructure(ds.type);
+        const statusNote = ds.viability_status === "terrain_validated" ? "Terrain Validated" : "Biome Viable";
+
+        dsMarker.bindPopup(`
+          <div style="background:#C6C6C6; color:#1E1E1E; padding:10px; font-family:monospace; font-size:11px; min-width:200px; border-top:2px solid #FFF; border-left:2px solid #FFF; border-right:2px solid #555; border-bottom:2px solid #555; box-shadow:2px 2px 0 #000;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+              <span style="font-weight:bold; font-size:12px; color:#1E1E1E;">${nameTr}</span>
+              <span style="font-size:9px; background:#4B5563; color:#FFFFFF; padding:1px 4px; font-weight:bold;">${statusNote}</span>
+            </div>
+            <div style="background:#8B8B8B; color:#FFFFFF; padding:4px 6px; border-top:1px solid #373737; border-left:1px solid #373737; border-right:1px solid #FFF; border-bottom:1px solid #FFF; margin-bottom:6px; font-weight:bold;" dir="ltr">
+              X: ${ds.x} &nbsp;|&nbsp; Z: ${ds.z}
+            </div>
+            <div style="color:#555555; font-size:10px; margin-bottom:6px; font-weight:bold;">
+              Spawn Dist: ${ds.distance_to_spawn.toFixed(0)}m
+            </div>
+            <button
+              onclick="navigator.clipboard.writeText('/tp ${ds.x} ~ ${ds.z}')"
+              style="width:100%; background:#2563EB; color:#FFFFFF; border-top:2px solid #60A5FA; border-left:2px solid #60A5FA; border-right:2px solid #1D4ED8; border-bottom:2px solid #1D4ED8; padding:4px 6px; font-size:11px; font-family:monospace; cursor:pointer; font-weight:bold; box-shadow:1px 1px 0 #000;"
+            >
+              Copy /tp ${ds.x} ~ ${ds.z}
+            </button>
+          </div>
+        `);
+        if (structureLayersRef.current) {
+          dsMarker.addTo(structureLayersRef.current);
+        }
+      });
+    }
+  }, [clusters, discovery, selectedClusterId, onSelectCluster, t, translateCategory, translateStructure]);
 
   // Center on selected cluster when it changes
   useEffect(() => {
