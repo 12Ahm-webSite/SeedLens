@@ -219,7 +219,8 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
     jbuf_printf(&b, "      \"Pillager Outpost\": %d,\n", result->discovery_summary.outpost_count);
     jbuf_printf(&b, "      \"Ocean Monument\": %d,\n", result->discovery_summary.monument_count);
     jbuf_printf(&b, "      \"Woodland Mansion\": %d,\n", result->discovery_summary.mansion_count);
-    jbuf_printf(&b, "      \"Trail Ruins\": %d\n", result->discovery_summary.trail_ruins_count);
+    jbuf_printf(&b, "      \"Trail Ruins\": %d,\n", result->discovery_summary.trail_ruins_count);
+    jbuf_printf(&b, "      \"Trial Chambers\": %d\n", result->discovery_summary.trial_chambers_count);
     jbuf_append(&b, "    },\n");
     jbuf_append(&b, "    \"structures\": [\n");
 

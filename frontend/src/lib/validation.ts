@@ -1,4 +1,11 @@
-export const SUPPORTED_VERSIONS = ['1.20.6', '1.21.1'] as const;
+export const SUPPORTED_VERSIONS = [
+  '1.18.2',
+  '1.19.4',
+  '1.20.6',
+  '1.21.1',
+  '1.21.3',
+  '1.21.4',
+] as const;
 export type SupportedVersion = (typeof SUPPORTED_VERSIONS)[number];
 export const DEFAULT_VERSION: SupportedVersion = '1.20.6';
 
@@ -103,11 +110,20 @@ export function validateVersion(version: unknown): {
   }
 
   // Support common aliases
+  if (trimmedVersion === '1.18') {
+    return { valid: true, version: '1.18.2' };
+  }
+  if (trimmedVersion === '1.19' || trimmedVersion === '1.19.2') {
+    return { valid: true, version: '1.19.4' };
+  }
   if (trimmedVersion === '1.20') {
     return { valid: true, version: '1.20.6' };
   }
   if (trimmedVersion === '1.21') {
     return { valid: true, version: '1.21.1' };
+  }
+  if (trimmedVersion === '1.21-wd' || trimmedVersion === 'winter-drop') {
+    return { valid: true, version: '1.21.4' };
   }
 
   return {

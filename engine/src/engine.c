@@ -158,6 +158,7 @@ int seedlens_analyze(
         else if (st == Monument) result->discovery_summary.monument_count++;
         else if (st == Mansion) result->discovery_summary.mansion_count++;
         else if (st == Trail_Ruins) result->discovery_summary.trail_ruins_count++;
+        else if (st == Trial_Chambers) result->discovery_summary.trial_chambers_count++;
     }
 
     return 0;

@@ -95,7 +95,7 @@ typedef struct {
     int clusters_truncated;  /* 1 if useful_clusters > SEEDLENS_MAX_CLUSTERS */
 } SeedLensSummary;
 
-#define SEEDLENS_MAX_DISCOVERED_STRUCTURES 1024
+#define SEEDLENS_MAX_DISCOVERED_STRUCTURES 2048
 
 /* Discovered structure outside Useful v3.1 scoring */
 typedef struct {
@@ -115,6 +115,7 @@ typedef struct {
     int monument_count;
     int mansion_count;
     int trail_ruins_count;
+    int trial_chambers_count;
 } SeedLensDiscoverySummary;
 
 /* Full analysis result */

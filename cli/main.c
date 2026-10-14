@@ -8,7 +8,7 @@ static void print_usage(const char *prog, FILE *stream)
 {
     fprintf(stream, "Usage: %s <seed> [--version <version>]\n", prog);
     fprintf(stream, "Options:\n");
-    fprintf(stream, "  --version <ver>   Minecraft version (supported: 1.20.6, 1.21.1; aliases: 1.20 -> 1.20.6, 1.21 -> 1.21.1)\n");
+    fprintf(stream, "  --version <ver>   Minecraft version (supported: 1.18.2, 1.19.4, 1.20.6, 1.21.1, 1.21.3, 1.21.4; aliases: 1.18, 1.19, 1.20, 1.21)\n");
     fprintf(stream, "  --help, -h        Show this help message\n");
 }
 
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
     {
         if (ret == -2)
         {
-            fprintf(stderr, "Error: unsupported Minecraft version '%s'. Supported versions: 1.20.6, 1.21.1.\n", version);
+            fprintf(stderr, "Error: unsupported Minecraft version '%s'. Supported versions: 1.18.2, 1.19.4, 1.20.6, 1.21.1, 1.21.3, 1.21.4.\n", version);
         }
         else
         {

@@ -196,6 +196,7 @@ export interface Translations {
   structOceanMonument: string;
   structWoodlandMansion: string;
   structTrailRuins: string;
+  structTrialChambers: string;
   discoveredPOIs: string;
   discoveredDesc: string;
 }
@@ -413,6 +414,7 @@ export const translations: Record<Locale, Translations> = {
     structOceanMonument: 'معبد محيط',
     structWoodlandMansion: 'قصر الغابة',
     structTrailRuins: 'آثار المسار',
+    structTrialChambers: 'غرف المحاكمة',
     discoveredPOIs: 'معالم العالم المكتشفة',
     discoveredDesc: 'هياكل موثقة بيوميًا في العالم خارج تقييم Useful v3.1.',
   },
@@ -630,6 +632,7 @@ export const translations: Record<Locale, Translations> = {
     structOceanMonument: 'Ocean Monument',
     structWoodlandMansion: 'Woodland Mansion',
     structTrailRuins: 'Trail Ruins',
+    structTrialChambers: 'Trial Chambers',
     discoveredPOIs: 'Discovered World POIs',
     discoveredDesc: 'Biome-verified world landmarks outside Useful v3.1 evaluation.',
   },

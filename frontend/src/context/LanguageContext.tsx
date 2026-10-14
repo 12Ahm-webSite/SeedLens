@@ -85,6 +85,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         return t.structWoodlandMansion;
       case 'Trail Ruins':
         return t.structTrailRuins;
+      case 'Trial Chambers':
+        return t.structTrialChambers;
       default:
         return struct;
     }

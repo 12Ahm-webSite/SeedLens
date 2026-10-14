@@ -12,6 +12,7 @@ import {
   Compass,
   Castle,
   Landmark,
+  Swords,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -110,6 +111,15 @@ export function getStructureMetadata(type: string): {
         bgClass: 'bg-[#C6C6C6]',
         borderClass: 'border-t border-l border-[#FFFFFF] border-b border-r border-[#555555]',
         textClass: 'text-[#92400E] font-bold',
+      };
+    case 'Trial Chambers':
+      return {
+        label: 'Trial Chambers',
+        icon: Swords,
+        color: '#EA580C',
+        bgClass: 'bg-[#C6C6C6]',
+        borderClass: 'border-t border-l border-[#FFFFFF] border-b border-r border-[#555555]',
+        textClass: 'text-[#C2410C] font-bold',
       };
     default:
       return {

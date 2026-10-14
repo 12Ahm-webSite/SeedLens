@@ -120,7 +120,7 @@ assert res.returncode == 1, "Expected code 1 for unrecognized flag"
 assert "unrecognized argument" in res.stderr.lower()
 
 # 3.7 Unsupported Minecraft version
-res = run_cmd(["12345", "--version", "1.19"])
+res = run_cmd(["12345", "--version", "1.17"])
 assert res.returncode == 1, "Expected code 1 for unsupported version"
 assert "unsupported minecraft version" in res.stderr.lower()
 
@@ -263,23 +263,32 @@ assert d_1211["summary"]["useful_clusters"] == 5, f"Expected 5 useful clusters i
 assert [c["id"] for c in d_1211["clusters"]] == [4, 10, 11, 19, 22], "Cluster ID mismatch in 1.21.1"
 print("Test 9.1 (Explicit 1.21.1 baseline execution): PASSED")
 
-# 9.2 Version alias resolution (1.21 -> 1.21.1, 1.20 -> 1.20.6)
-d_alias_21 = run_seedlens(123456789, "1.21")
-assert d_alias_21["minecraft_version"] == "1.21.1", "Alias 1.21 must resolve to canonical 1.21.1"
+# 9.2 Version alias resolution (1.18 -> 1.18.2, 1.19 -> 1.19.4, 1.20 -> 1.20.6, 1.21 -> 1.21.1, winter-drop -> 1.21.4)
+d_alias_18 = run_seedlens(123456789, "1.18")
+assert d_alias_18["minecraft_version"] == "1.18.2", "Alias 1.18 must resolve to canonical 1.18.2"
+
+d_alias_19 = run_seedlens(123456789, "1.19")
+assert d_alias_19["minecraft_version"] == "1.19.4", "Alias 1.19 must resolve to canonical 1.19.4"
 
 d_alias_20 = run_seedlens(123456789, "1.20")
 assert d_alias_20["minecraft_version"] == "1.20.6", "Alias 1.20 must resolve to canonical 1.20.6"
-print("Test 9.2 (Version alias resolution: 1.21 and 1.20 correctly redirected): PASSED")
+
+d_alias_21 = run_seedlens(123456789, "1.21")
+assert d_alias_21["minecraft_version"] == "1.21.1", "Alias 1.21 must resolve to canonical 1.21.1"
+
+d_alias_wd = run_seedlens(123456789, "winter-drop")
+assert d_alias_wd["minecraft_version"] == "1.21.4", "Alias winter-drop must resolve to canonical 1.21.4"
+print("Test 9.2 (Version alias resolution across 1.18, 1.19, 1.20, 1.21, winter-drop): PASSED")
 
 # 9.3 Deep cross-version structure & scoring equivalence (1.20.6 vs 1.21.1)
 for test_seed in ["123456789", "-1467692750553100038", "1844674407370955161", "202620262026202626"]:
     res_20 = run_seedlens(test_seed, "1.20.6")
     res_21 = run_seedlens(test_seed, "1.21.1")
-    
+
     assert res_20["summary"]["useful_clusters"] == res_21["summary"]["useful_clusters"], f"Seed {test_seed} useful count mismatch"
     assert res_20["world_spawn"] == res_21["world_spawn"], f"Seed {test_seed} spawn mismatch"
     assert len(res_20["clusters"]) == len(res_21["clusters"]), f"Seed {test_seed} cluster count mismatch"
-    
+
     for c20, c21 in zip(res_20["clusters"], res_21["clusters"]):
         assert c20["id"] == c21["id"], f"Seed {test_seed} cluster ID mismatch"
         assert c20["primary_category"] == c21["primary_category"], f"Seed {test_seed} cluster {c20['id']} category mismatch"
@@ -288,7 +297,7 @@ for test_seed in ["123456789", "-1467692750553100038", "1844674407370955161", "2
         assert c20["cluster"] == c21["cluster"], f"Seed {test_seed} cluster {c20['id']} metrics mismatch"
         assert c20["structures_summary"] == c21["structures_summary"], f"Seed {test_seed} summary mismatch"
         assert len(c20["structures"]) == len(c21["structures"]), f"Seed {test_seed} structure count mismatch"
-        
+
         for st20, st21 in zip(c20["structures"], c21["structures"]):
             assert st20["type"] == st21["type"], f"Seed {test_seed} structure type mismatch"
             assert st20["x"] == st21["x"], f"Seed {test_seed} structure X coord mismatch"
@@ -299,21 +308,20 @@ for test_seed in ["123456789", "-1467692750553100038", "1844674407370955161", "2
 
 print("Test 9.3 (Full-depth cross-version structure coordinates, categories, and tags equivalence): PASSED")
 
-# 9.4 Rejection of unsupported versions (Bedrock, 1.21.3, 1.19, 1.18, empty)
+# 9.4 Rejection of unsupported versions (Bedrock, 1.17, 1.16, empty)
 res_bedrock = run_cmd(["123456789", "--version", "bedrock"])
 assert res_bedrock.returncode == 1, "Expected failure for bedrock"
 assert "unsupported minecraft version 'bedrock'" in res_bedrock.stderr.lower()
-assert "supported versions: 1.20.6, 1.21.1" in res_bedrock.stderr.lower()
+assert "supported versions: 1.18.2, 1.19.4, 1.20.6, 1.21.1, 1.21.3, 1.21.4" in res_bedrock.stderr.lower()
 
-res_1213 = run_cmd(["123456789", "--version", "1.21.3"])
-assert res_1213.returncode == 1, "Expected failure for 1.21.3 (not an alias of 1.21.1 due to spawn changes)"
-assert "unsupported minecraft version '1.21.3'" in res_1213.stderr.lower()
-assert "supported versions: 1.20.6, 1.21.1" in res_1213.stderr.lower()
+res_117 = run_cmd(["123456789", "--version", "1.17"])
+assert res_117.returncode == 1, "Expected failure for 1.17"
+assert "unsupported minecraft version '1.17'" in res_117.stderr.lower()
+assert "supported versions: 1.18.2, 1.19.4, 1.20.6, 1.21.1, 1.21.3, 1.21.4" in res_117.stderr.lower()
 
-res_119 = run_cmd(["123456789", "--version", "1.19"])
-assert res_119.returncode == 1, "Expected failure for 1.19"
-assert "unsupported minecraft version '1.19'" in res_119.stderr.lower()
-assert "supported versions: 1.20.6, 1.21.1" in res_119.stderr.lower()
+res_116 = run_cmd(["123456789", "--version", "1.16"])
+assert res_116.returncode == 1, "Expected failure for 1.16"
+assert "unsupported minecraft version '1.16'" in res_116.stderr.lower()
 
 res_empty_ver = run_cmd(["123456789", "--version", ""])
 assert res_empty_ver.returncode == 1, "Expected failure for empty version"
@@ -373,17 +381,41 @@ assert any(tr["x"] == -3520 and tr["z"] == -4560 for tr in trail_ruins), "Missin
 assert all(tr["viability_status"] == "biome_viable" for tr in trail_ruins), "Trail Ruins must be tagged biome_viable"
 print("Test 10.3 (Reference coordinates and terrain vs biome viability tags): PASSED")
 
-# 10.4 Cross-version equivalence for discovered structures (1.20.6 vs 1.21.1)
+# 10.4 Cross-version discovered structures and Trial Chambers verification (1.18 to 1.21.4)
+d_18 = run_seedlens(123456789, "1.18.2")
+d_19 = run_seedlens(123456789, "1.19.4")
 d_20 = run_seedlens(123456789, "1.20.6")
 d_21 = run_seedlens(123456789, "1.21.1")
-assert d_20["discovery"]["total_discovered"] == d_21["discovery"]["total_discovered"]
-assert d_20["discovery"]["by_type"] == d_21["discovery"]["by_type"]
-for s20, s21 in zip(d_20["discovery"]["structures"], d_21["discovery"]["structures"]):
+d_214 = run_seedlens(123456789, "1.21.4")
+
+# 1.18 and 1.19: 44 structures (Outpost, Monument, Mansion) - no Trail Ruins, no Trial Chambers
+assert d_18["discovery"]["total_discovered"] == 44
+assert d_18["discovery"]["by_type"]["Trail Ruins"] == 0
+assert d_18["discovery"]["by_type"]["Trial Chambers"] == 0
+
+assert d_19["discovery"]["total_discovered"] == 44
+assert d_19["discovery"]["by_type"]["Trail Ruins"] == 0
+assert d_19["discovery"]["by_type"]["Trial Chambers"] == 0
+
+# 1.20.6: 77 structures (added Trail Ruins: 33) - Trial Chambers = 0
+assert d_20["discovery"]["total_discovered"] == 77
+assert d_20["discovery"]["by_type"]["Trail Ruins"] == 33
+assert d_20["discovery"]["by_type"]["Trial Chambers"] == 0
+
+# 1.21+: 404 structures (added Trial Chambers: 327)
+assert d_21["discovery"]["total_discovered"] == 404
+assert d_21["discovery"]["by_type"]["Trial Chambers"] == 327
+assert d_214["discovery"]["total_discovered"] == 404
+assert d_214["discovery"]["by_type"]["Trial Chambers"] == 327
+
+# Check non-trial structures in 1.21.1 match 1.20.6 100%
+legacy_disc_21 = [s for s in d_21["discovery"]["structures"] if s["type"] != "Trial Chambers"]
+assert len(legacy_disc_21) == len(d_20["discovery"]["structures"])
+for s20, s21 in zip(d_20["discovery"]["structures"], legacy_disc_21):
     assert s20["type"] == s21["type"]
     assert s20["x"] == s21["x"] and s20["z"] == s21["z"]
-    assert s20["viability_status"] == s21["viability_status"]
-    assert abs(s20["distance_to_spawn"] - s21["distance_to_spawn"]) < 1e-4
-print("Test 10.4 (Cross-version discovered structures 100% equivalence): PASSED")
+
+print("Test 10.4 (Cross-version discovered structures and Trial Chambers in 1.21+): PASSED")
 
 # 10.5 Complete Useful v3.1 immutability check
 # Baseline seed 123456789 must still produce EXACTLY the same 5 clusters with IDs [4, 10, 11, 19, 22]

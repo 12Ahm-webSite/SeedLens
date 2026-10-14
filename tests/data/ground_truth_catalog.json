@@ -1,0 +1,114 @@
+{
+  "schema_version": "1.0.0",
+  "description": "SeedLens v4 Ground Truth & Reference Catalog. Distinguishes between standalone algorithmic verification and in-game confirmation.",
+  "available_independent_sources": [
+    {
+      "id": "INDEPENDENT_CUBIOMES_STANDALONE",
+      "type": "ALGORITHMIC_CUBIOMES_MATH",
+      "description": "Low-level C generator calculations executed independently from SeedLens engine wrappers, verifying raw Minecraft Java generation formulas.",
+      "confidence": "HIGH_FOR_PRNG_AND_BIOME_VIABILITY",
+      "limitation": "Does not simulate full 3D in-game Jigsaw template placement or cave carving."
+    },
+    {
+      "id": "VANILLA_MINECRAFT_LOCATE",
+      "type": "IN_GAME_GROUND_TRUTH",
+      "description": "Official Minecraft Java Dedicated Server world generation checked via /locate structure or region MCA NBT parser.",
+      "confidence": "ABSOLUTE_GROUND_TRUTH",
+      "current_status": "REQUIRES_EXTERNAL_SERVER_RUN"
+    }
+  ],
+  "benchmarks": [
+    {
+      "seed": "123456789",
+      "minecraft_version": "1.20.6",
+      "world_spawn": {
+        "x": 64,
+        "z": -48
+      },
+      "structures": [
+        {
+          "type": "Woodland Mansion",
+          "expected_coords": {
+            "x": 1888,
+            "z": -368
+          },
+          "reference_source": "INDEPENDENT_CUBIOMES_STANDALONE",
+          "verification_method": "isViableStructurePos + isViableStructureTerrain checked directly against raw libcubiomes",
+          "confidence_level": "LEVEL_2_TERRAIN_SAMPLED",
+          "confirmation_status": "CONFIRMED",
+          "notes": "Only 1 mansion in 5000 block radius; terrain depth noise sampled at 4 corners."
+        },
+        {
+          "type": "Ocean Monument",
+          "expected_coords": {
+            "x": 576,
+            "z": -3872
+          },
+          "reference_source": "INDEPENDENT_CUBIOMES_STANDALONE",
+          "verification_method": "getStructurePos + isViableStructurePos in deep_ocean biome",
+          "confidence_level": "LEVEL_3_BIOME_VIABLE",
+          "confirmation_status": "CONFIRMED",
+          "notes": "Biome viable; in-game presence depends on water body depth."
+        },
+        {
+          "type": "Ocean Monument",
+          "expected_coords": {
+            "x": -992,
+            "z": -2912
+          },
+          "reference_source": "INDEPENDENT_CUBIOMES_STANDALONE",
+          "verification_method": "getStructurePos + isViableStructurePos in deep_ocean biome",
+          "confidence_level": "LEVEL_3_BIOME_VIABLE",
+          "confirmation_status": "CONFIRMED",
+          "notes": "Biome viable monument location."
+        },
+        {
+          "type": "Pillager Outpost",
+          "expected_coords": {
+            "x": -3856,
+            "z": -4880
+          },
+          "reference_source": "INDEPENDENT_CUBIOMES_STANDALONE",
+          "verification_method": "getStructurePos + isViableStructurePos",
+          "confidence_level": "LEVEL_3_BIOME_VIABLE",
+          "confirmation_status": "CONFIRMED",
+          "notes": "Near boundary limit -4880."
+        },
+        {
+          "type": "Trail Ruins",
+          "expected_coords": {
+            "x": -3520,
+            "z": -4560
+          },
+          "reference_source": "INDEPENDENT_CUBIOMES_STANDALONE",
+          "verification_method": "getStructurePos + isViableStructurePos in taiga biome",
+          "confidence_level": "LEVEL_3_BIOME_VIABLE",
+          "confirmation_status": "CONFIRMED",
+          "notes": "1.20+ archeology structure."
+        }
+      ]
+    },
+    {
+      "seed": "123456789",
+      "minecraft_version": "1.21.1",
+      "world_spawn": {
+        "x": 64,
+        "z": -48
+      },
+      "structures": [
+        {
+          "type": "Woodland Mansion",
+          "expected_coords": {
+            "x": 1888,
+            "z": -368
+          },
+          "reference_source": "INDEPENDENT_CUBIOMES_STANDALONE",
+          "verification_method": "isViableStructurePos + isViableStructureTerrain in 1.21.1 generator",
+          "confidence_level": "LEVEL_2_TERRAIN_SAMPLED",
+          "confirmation_status": "CONFIRMED",
+          "notes": "Identical position between 1.20.6 and 1.21.1."
+        }
+      ]
+    }
+  ]
+}

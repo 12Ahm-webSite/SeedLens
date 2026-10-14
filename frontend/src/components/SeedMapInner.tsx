@@ -170,6 +170,24 @@ function getStructureIconHtml(type: string): string {
       </div>
     `;
   }
+  if (norm.includes('trial') || norm.includes('chamber')) {
+    return `
+      <div style="
+        width:22px; height:22px;
+        background:#431407; border:1.5px solid #EA580C;
+        box-shadow:1px 1px 0 #000;
+        display:flex; align-items:center; justify-content:center;
+        cursor:pointer;
+      ">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"/>
+          <line x1="13" y1="19" x2="19" y2="13"/>
+          <line x1="16" y1="16" x2="20" y2="20"/>
+          <line x1="19" y1="21" x2="21" y2="19"/>
+        </svg>
+      </div>
+    `;
+  }
   const meta = getStructureMetadata(type);
   return `
     <div style="

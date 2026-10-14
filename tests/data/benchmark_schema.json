@@ -1,0 +1,128 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SeedLens Benchmark Ground Truth Schema",
+  "version": "1.0.0",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "minecraft_version",
+    "seed",
+    "structures"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "minecraft_version": {
+      "type": "string",
+      "enum": [
+        "1.20.6",
+        "1.21.1"
+      ]
+    },
+    "seed": {
+      "type": "string"
+    },
+    "world_spawn": {
+      "type": "object",
+      "required": [
+        "x",
+        "z"
+      ],
+      "properties": {
+        "x": {
+          "type": "integer"
+        },
+        "z": {
+          "type": "integer"
+        }
+      }
+    },
+    "structures": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "expected_coords",
+          "reference_source",
+          "verification_method",
+          "confidence_level",
+          "confirmation_status"
+        ],
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "expected_coords": {
+            "type": "object",
+            "required": [
+              "x",
+              "z"
+            ],
+            "properties": {
+              "x": {
+                "type": "integer"
+              },
+              "z": {
+                "type": "integer"
+              },
+              "y_approx": {
+                "type": "integer"
+              }
+            }
+          },
+          "bounding_box": {
+            "type": "object",
+            "properties": {
+              "min_x": {
+                "type": "integer"
+              },
+              "max_x": {
+                "type": "integer"
+              },
+              "min_z": {
+                "type": "integer"
+              },
+              "max_z": {
+                "type": "integer"
+              }
+            }
+          },
+          "reference_source": {
+            "type": "string",
+            "enum": [
+              "VANILLA_MINECRAFT_LOCATE",
+              "CHUNK_NBT_ANVIL",
+              "INDEPENDENT_CUBIOMES_STANDALONE",
+              "COMMUNITY_IN_GAME_VERIFIED"
+            ]
+          },
+          "verification_method": {
+            "type": "string"
+          },
+          "confidence_level": {
+            "type": "string",
+            "enum": [
+              "LEVEL_1_IN_GAME_CONFIRMED",
+              "LEVEL_2_TERRAIN_SAMPLED",
+              "LEVEL_3_BIOME_VIABLE",
+              "LEVEL_4_CANDIDATE_ONLY"
+            ]
+          },
+          "confirmation_status": {
+            "type": "string",
+            "enum": [
+              "CONFIRMED",
+              "NEEDS_REVIEW",
+              "DISPUTED"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

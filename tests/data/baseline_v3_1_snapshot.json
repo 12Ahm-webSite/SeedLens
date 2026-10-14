@@ -1,0 +1,3300 @@
+{
+  "123456789": {
+    "1.20.6": {
+      "seed": "123456789",
+      "version": "1.20.6",
+      "world_spawn": {
+        "x": 64,
+        "z": -48
+      },
+      "total_candidates": 81,
+      "total_clusters": 41,
+      "useful_clusters": 5,
+      "clusters": [
+        {
+          "id": 4,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": -681.1,
+            "z": -3241.1
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 2,
+            "diameter": 688.2,
+            "closest_pair": 208.6,
+            "nearest_spawn": 2905.7,
+            "nearest_origin": 2940.9,
+            "density": 1.882e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 5
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 10,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -4454.4,
+            "z": -80.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 747.0,
+            "closest_pair": 176.0,
+            "nearest_spawn": 4259.0,
+            "nearest_origin": 4197.2,
+            "density": 1.141e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Shipwreck",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 11,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2196.0,
+            "z": 376.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 597.4,
+            "closest_pair": 158.4,
+            "nearest_spawn": 1905.6,
+            "nearest_origin": 1958.0,
+            "density": 1.427e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 19,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": -3476.0,
+            "z": -1588.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 648.3,
+            "closest_pair": 217.6,
+            "nearest_spawn": 3513.8,
+            "nearest_origin": 3477.6,
+            "density": 1.212e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 22,
+          "primary_category": "Spawn Outpost",
+          "categories": [
+            "Spawn Outpost"
+          ],
+          "center": {
+            "x": -570.7,
+            "z": 256.0
+          },
+          "cluster": {
+            "count": 3,
+            "type_count": 2,
+            "diameter": 497.0,
+            "closest_pair": 263.9,
+            "nearest_spawn": 395.2,
+            "nearest_origin": 315.6,
+            "density": 1.546e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 3
+        }
+      ],
+      "discovery_total": 77,
+      "discovery_by_type": {
+        "Pillager Outpost": 19,
+        "Ocean Monument": 24,
+        "Woodland Mansion": 1,
+        "Trail Ruins": 33
+      }
+    },
+    "1.21.1": {
+      "seed": "123456789",
+      "version": "1.21.1",
+      "world_spawn": {
+        "x": 64,
+        "z": -48
+      },
+      "total_candidates": 81,
+      "total_clusters": 41,
+      "useful_clusters": 5,
+      "clusters": [
+        {
+          "id": 4,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": -681.1,
+            "z": -3241.1
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 2,
+            "diameter": 688.2,
+            "closest_pair": 208.6,
+            "nearest_spawn": 2905.7,
+            "nearest_origin": 2940.9,
+            "density": 1.882e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 5
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 10,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -4454.4,
+            "z": -80.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 747.0,
+            "closest_pair": 176.0,
+            "nearest_spawn": 4259.0,
+            "nearest_origin": 4197.2,
+            "density": 1.141e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Shipwreck",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 11,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2196.0,
+            "z": 376.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 597.4,
+            "closest_pair": 158.4,
+            "nearest_spawn": 1905.6,
+            "nearest_origin": 1958.0,
+            "density": 1.427e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 19,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": -3476.0,
+            "z": -1588.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 648.3,
+            "closest_pair": 217.6,
+            "nearest_spawn": 3513.8,
+            "nearest_origin": 3477.6,
+            "density": 1.212e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 22,
+          "primary_category": "Spawn Outpost",
+          "categories": [
+            "Spawn Outpost"
+          ],
+          "center": {
+            "x": -570.7,
+            "z": 256.0
+          },
+          "cluster": {
+            "count": 3,
+            "type_count": 2,
+            "diameter": 497.0,
+            "closest_pair": 263.9,
+            "nearest_spawn": 395.2,
+            "nearest_origin": 315.6,
+            "density": 1.546e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 3
+        }
+      ],
+      "discovery_total": 77,
+      "discovery_by_type": {
+        "Pillager Outpost": 19,
+        "Ocean Monument": 24,
+        "Woodland Mansion": 1,
+        "Trail Ruins": 33
+      }
+    }
+  },
+  "-1467692750553100038": {
+    "1.20.6": {
+      "seed": "-1467692750553100038",
+      "version": "1.20.6",
+      "world_spawn": {
+        "x": 64,
+        "z": 0
+      },
+      "total_candidates": 113,
+      "total_clusters": 43,
+      "useful_clusters": 11,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 602.7,
+            "z": 3634.7
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 4,
+            "diameter": 748.1,
+            "closest_pair": 93.3,
+            "nearest_spawn": 3386.0,
+            "nearest_origin": 3398.4,
+            "density": 1.365e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 2
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 2,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": 2864.0,
+            "z": -2531.2
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 4,
+            "diameter": 784.2,
+            "closest_pair": 136.7,
+            "nearest_spawn": 3520.0,
+            "nearest_origin": 3571.4,
+            "density": 1.035e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 3,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 1053.7,
+            "z": 3426.3
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 3,
+            "diameter": 755.2,
+            "closest_pair": 93.3,
+            "nearest_spawn": 3386.0,
+            "nearest_origin": 3398.4,
+            "density": 1.563e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 5,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": 4640.0,
+            "z": -2754.7
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 794.5,
+            "closest_pair": 96.0,
+            "nearest_spawn": 5098.5,
+            "nearest_origin": 5153.2,
+            "density": 1.21e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 6,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2809.6,
+            "z": 2550.4
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 562.1,
+            "closest_pair": 229.1,
+            "nearest_spawn": 3473.5,
+            "nearest_origin": 3519.5,
+            "density": 2.015e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 7,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1302.4,
+            "z": -4444.8
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 752.7,
+            "closest_pair": 192.7,
+            "nearest_spawn": 4255.2,
+            "nearest_origin": 4235.2,
+            "density": 1.124e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 10,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 1188.0,
+            "z": -2588.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 3,
+            "diameter": 612.4,
+            "closest_pair": 112.0,
+            "nearest_spawn": 2552.6,
+            "nearest_origin": 2578.2,
+            "density": 1.358e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 17,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 963.2,
+            "z": -1724.8
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 498.3,
+            "closest_pair": 137.6,
+            "nearest_spawn": 1775.1,
+            "nearest_origin": 1811.6,
+            "density": 2.564e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 23,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Spawn Outpost",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -188.0,
+            "z": -640.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 623.2,
+            "closest_pair": 253.0,
+            "nearest_spawn": 537.6,
+            "nearest_origin": 487.7,
+            "density": 1.311e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 27,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1044.0,
+            "z": 3164.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 659.1,
+            "closest_pair": 160.8,
+            "nearest_spawn": 3084.3,
+            "nearest_origin": 3060.3,
+            "density": 1.172e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 2380.0,
+            "z": 4320.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 541.4,
+            "closest_pair": 157.6,
+            "nearest_spawn": 4556.6,
+            "nearest_origin": 4588.4,
+            "density": 1.737e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        }
+      ],
+      "discovery_total": 73,
+      "discovery_by_type": {
+        "Pillager Outpost": 15,
+        "Ocean Monument": 20,
+        "Woodland Mansion": 0,
+        "Trail Ruins": 38
+      }
+    },
+    "1.21.1": {
+      "seed": "-1467692750553100038",
+      "version": "1.21.1",
+      "world_spawn": {
+        "x": 64,
+        "z": 0
+      },
+      "total_candidates": 113,
+      "total_clusters": 43,
+      "useful_clusters": 11,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 602.7,
+            "z": 3634.7
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 4,
+            "diameter": 748.1,
+            "closest_pair": 93.3,
+            "nearest_spawn": 3386.0,
+            "nearest_origin": 3398.4,
+            "density": 1.365e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 2
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 2,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": 2864.0,
+            "z": -2531.2
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 4,
+            "diameter": 784.2,
+            "closest_pair": 136.7,
+            "nearest_spawn": 3520.0,
+            "nearest_origin": 3571.4,
+            "density": 1.035e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 3,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 1053.7,
+            "z": 3426.3
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 3,
+            "diameter": 755.2,
+            "closest_pair": 93.3,
+            "nearest_spawn": 3386.0,
+            "nearest_origin": 3398.4,
+            "density": 1.563e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 5,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": 4640.0,
+            "z": -2754.7
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 794.5,
+            "closest_pair": 96.0,
+            "nearest_spawn": 5098.5,
+            "nearest_origin": 5153.2,
+            "density": 1.21e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 6,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2809.6,
+            "z": 2550.4
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 562.1,
+            "closest_pair": 229.1,
+            "nearest_spawn": 3473.5,
+            "nearest_origin": 3519.5,
+            "density": 2.015e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 7,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1302.4,
+            "z": -4444.8
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 752.7,
+            "closest_pair": 192.7,
+            "nearest_spawn": 4255.2,
+            "nearest_origin": 4235.2,
+            "density": 1.124e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 10,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 1188.0,
+            "z": -2588.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 3,
+            "diameter": 612.4,
+            "closest_pair": 112.0,
+            "nearest_spawn": 2552.6,
+            "nearest_origin": 2578.2,
+            "density": 1.358e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 17,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 963.2,
+            "z": -1724.8
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 498.3,
+            "closest_pair": 137.6,
+            "nearest_spawn": 1775.1,
+            "nearest_origin": 1811.6,
+            "density": 2.564e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 23,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Spawn Outpost",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -188.0,
+            "z": -640.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 623.2,
+            "closest_pair": 253.0,
+            "nearest_spawn": 537.6,
+            "nearest_origin": 487.7,
+            "density": 1.311e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 27,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1044.0,
+            "z": 3164.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 659.1,
+            "closest_pair": 160.8,
+            "nearest_spawn": 3084.3,
+            "nearest_origin": 3060.3,
+            "density": 1.172e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 2380.0,
+            "z": 4320.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 541.4,
+            "closest_pair": 157.6,
+            "nearest_spawn": 4556.6,
+            "nearest_origin": 4588.4,
+            "density": 1.737e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        }
+      ],
+      "discovery_total": 73,
+      "discovery_by_type": {
+        "Pillager Outpost": 15,
+        "Ocean Monument": 20,
+        "Woodland Mansion": 0,
+        "Trail Ruins": 38
+      }
+    }
+  },
+  "1844674407370955161": {
+    "1.20.6": {
+      "seed": "1844674407370955161",
+      "version": "1.20.6",
+      "world_spawn": {
+        "x": 0,
+        "z": 0
+      },
+      "total_candidates": 87,
+      "total_clusters": 39,
+      "useful_clusters": 10,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis",
+            "Dense Multi"
+          ],
+          "center": {
+            "x": 4197.3,
+            "z": 2400.0
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 678.1,
+            "closest_pair": 22.6,
+            "nearest_spawn": 4581.7,
+            "nearest_origin": 4581.7,
+            "density": 1.662e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 3,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis",
+            "Dense Multi"
+          ],
+          "center": {
+            "x": 3040.0,
+            "z": 1500.8
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 568.2,
+            "closest_pair": 96.0,
+            "nearest_spawn": 3155.6,
+            "nearest_origin": 3155.6,
+            "density": 1.972e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 8,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3882.7,
+            "z": -2629.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 772.8,
+            "closest_pair": 222.3,
+            "nearest_spawn": 4340.5,
+            "nearest_origin": 4340.5,
+            "density": 1.279e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 4
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 9,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2394.7,
+            "z": -3960.0
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 725.7,
+            "closest_pair": 35.8,
+            "nearest_spawn": 4486.5,
+            "nearest_origin": 4486.5,
+            "density": 1.451e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 10,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2810.7,
+            "z": -3813.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 695.4,
+            "closest_pair": 208.0,
+            "nearest_spawn": 4521.2,
+            "nearest_origin": 4521.2,
+            "density": 1.58e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 4
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 17,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 1846.4,
+            "z": -3846.4
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 725.7,
+            "closest_pair": 35.8,
+            "nearest_spawn": 4043.6,
+            "nearest_origin": 4043.6,
+            "density": 1.209e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 22,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3572.0,
+            "z": -2288.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 657.8,
+            "closest_pair": 157.6,
+            "nearest_spawn": 3957.3,
+            "nearest_origin": 3957.3,
+            "density": 1.177e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 24,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3008.0,
+            "z": -3292.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 508.2,
+            "closest_pair": 151.8,
+            "nearest_spawn": 4301.4,
+            "nearest_origin": 4301.4,
+            "density": 1.972e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 25,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 784.0,
+            "z": 4528.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 621.3,
+            "closest_pair": 310.7,
+            "nearest_spawn": 4453.5,
+            "nearest_origin": 4453.5,
+            "density": 1.319e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Spawn Outpost",
+          "categories": [
+            "Spawn Outpost"
+          ],
+          "center": {
+            "x": -80.0,
+            "z": -816.0
+          },
+          "cluster": {
+            "count": 3,
+            "type_count": 2,
+            "diameter": 466.5,
+            "closest_pair": 229.1,
+            "nearest_spawn": 694.7,
+            "nearest_origin": 694.7,
+            "density": 1.755e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 3
+        }
+      ],
+      "discovery_total": 80,
+      "discovery_by_type": {
+        "Pillager Outpost": 14,
+        "Ocean Monument": 32,
+        "Woodland Mansion": 0,
+        "Trail Ruins": 34
+      }
+    },
+    "1.21.1": {
+      "seed": "1844674407370955161",
+      "version": "1.21.1",
+      "world_spawn": {
+        "x": 0,
+        "z": 0
+      },
+      "total_candidates": 87,
+      "total_clusters": 39,
+      "useful_clusters": 10,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis",
+            "Dense Multi"
+          ],
+          "center": {
+            "x": 4197.3,
+            "z": 2400.0
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 678.1,
+            "closest_pair": 22.6,
+            "nearest_spawn": 4581.7,
+            "nearest_origin": 4581.7,
+            "density": 1.662e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 3,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Trading Metropolis",
+            "Dense Multi"
+          ],
+          "center": {
+            "x": 3040.0,
+            "z": 1500.8
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 568.2,
+            "closest_pair": 96.0,
+            "nearest_spawn": 3155.6,
+            "nearest_origin": 3155.6,
+            "density": 1.972e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 8,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3882.7,
+            "z": -2629.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 772.8,
+            "closest_pair": 222.3,
+            "nearest_spawn": 4340.5,
+            "nearest_origin": 4340.5,
+            "density": 1.279e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 4
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 9,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2394.7,
+            "z": -3960.0
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 725.7,
+            "closest_pair": 35.8,
+            "nearest_spawn": 4486.5,
+            "nearest_origin": 4486.5,
+            "density": 1.451e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 10,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2810.7,
+            "z": -3813.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 695.4,
+            "closest_pair": 208.0,
+            "nearest_spawn": 4521.2,
+            "nearest_origin": 4521.2,
+            "density": 1.58e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 4
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 17,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 1846.4,
+            "z": -3846.4
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 725.7,
+            "closest_pair": 35.8,
+            "nearest_spawn": 4043.6,
+            "nearest_origin": 4043.6,
+            "density": 1.209e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 22,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3572.0,
+            "z": -2288.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 657.8,
+            "closest_pair": 157.6,
+            "nearest_spawn": 3957.3,
+            "nearest_origin": 3957.3,
+            "density": 1.177e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 24,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3008.0,
+            "z": -3292.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 508.2,
+            "closest_pair": 151.8,
+            "nearest_spawn": 4301.4,
+            "nearest_origin": 4301.4,
+            "density": 1.972e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 25,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 784.0,
+            "z": 4528.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 621.3,
+            "closest_pair": 310.7,
+            "nearest_spawn": 4453.5,
+            "nearest_origin": 4453.5,
+            "density": 1.319e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Spawn Outpost",
+          "categories": [
+            "Spawn Outpost"
+          ],
+          "center": {
+            "x": -80.0,
+            "z": -816.0
+          },
+          "cluster": {
+            "count": 3,
+            "type_count": 2,
+            "diameter": 466.5,
+            "closest_pair": 229.1,
+            "nearest_spawn": 694.7,
+            "nearest_origin": 694.7,
+            "density": 1.755e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 3
+        }
+      ],
+      "discovery_total": 80,
+      "discovery_by_type": {
+        "Pillager Outpost": 14,
+        "Ocean Monument": 32,
+        "Woodland Mansion": 0,
+        "Trail Ruins": 34
+      }
+    }
+  },
+  "739208174635920481": {
+    "1.20.6": {
+      "seed": "739208174635920481",
+      "version": "1.20.6",
+      "world_spawn": {
+        "x": 208,
+        "z": -272
+      },
+      "total_candidates": 99,
+      "total_clusters": 42,
+      "useful_clusters": 6,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": -2902.9,
+            "z": -2781.7
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 3,
+            "diameter": 728.7,
+            "closest_pair": 167.0,
+            "nearest_spawn": 3635.2,
+            "nearest_origin": 3647.5,
+            "density": 1.679e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 2,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": -3606.9,
+            "z": -2569.1
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 3,
+            "diameter": 752.7,
+            "closest_pair": 129.0,
+            "nearest_spawn": 4235.2,
+            "nearest_origin": 4236.5,
+            "density": 1.573e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 4,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Dense Multi"
+          ],
+          "center": {
+            "x": 1920.0,
+            "z": -19.2
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 461.8,
+            "closest_pair": 66.0,
+            "nearest_spawn": 1627.4,
+            "nearest_origin": 1824.1,
+            "density": 2.985e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 19,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3846.4,
+            "z": 4368.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 675.0,
+            "closest_pair": 67.9,
+            "nearest_spawn": 5779.5,
+            "nearest_origin": 5693.1,
+            "density": 1.397e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 23,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1756.0,
+            "z": -236.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 593.9,
+            "closest_pair": 226.3,
+            "nearest_spawn": 1680.7,
+            "nearest_origin": 1488.9,
+            "density": 1.444e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Spawn Outpost",
+          "categories": [
+            "Spawn Outpost"
+          ],
+          "center": {
+            "x": 613.3,
+            "z": -1189.3
+          },
+          "cluster": {
+            "count": 3,
+            "type_count": 2,
+            "diameter": 560.0,
+            "closest_pair": 210.4,
+            "nearest_spawn": 725.7,
+            "nearest_origin": 1048.8,
+            "density": 1.218e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 3
+        }
+      ],
+      "discovery_total": 90,
+      "discovery_by_type": {
+        "Pillager Outpost": 12,
+        "Ocean Monument": 46,
+        "Woodland Mansion": 0,
+        "Trail Ruins": 32
+      }
+    },
+    "1.21.1": {
+      "seed": "739208174635920481",
+      "version": "1.21.1",
+      "world_spawn": {
+        "x": 208,
+        "z": -272
+      },
+      "total_candidates": 99,
+      "total_clusters": 42,
+      "useful_clusters": 6,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": -2902.9,
+            "z": -2781.7
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 3,
+            "diameter": 728.7,
+            "closest_pair": 167.0,
+            "nearest_spawn": 3635.2,
+            "nearest_origin": 3647.5,
+            "density": 1.679e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 2,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub"
+          ],
+          "center": {
+            "x": -3606.9,
+            "z": -2569.1
+          },
+          "cluster": {
+            "count": 7,
+            "type_count": 3,
+            "diameter": 752.7,
+            "closest_pair": 129.0,
+            "nearest_spawn": 4235.2,
+            "nearest_origin": 4236.5,
+            "density": 1.573e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Desert Pyramid",
+              "count": 3
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            }
+          ],
+          "structure_count": 7
+        },
+        {
+          "id": 4,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Dense Multi"
+          ],
+          "center": {
+            "x": 1920.0,
+            "z": -19.2
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 3,
+            "diameter": 461.8,
+            "closest_pair": 66.0,
+            "nearest_spawn": 1627.4,
+            "nearest_origin": 1824.1,
+            "density": 2.985e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 3
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 19,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3846.4,
+            "z": 4368.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 675.0,
+            "closest_pair": 67.9,
+            "nearest_spawn": 5779.5,
+            "nearest_origin": 5693.1,
+            "density": 1.397e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 23,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1756.0,
+            "z": -236.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 593.9,
+            "closest_pair": 226.3,
+            "nearest_spawn": 1680.7,
+            "nearest_origin": 1488.9,
+            "density": 1.444e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Spawn Outpost",
+          "categories": [
+            "Spawn Outpost"
+          ],
+          "center": {
+            "x": 613.3,
+            "z": -1189.3
+          },
+          "cluster": {
+            "count": 3,
+            "type_count": 2,
+            "diameter": 560.0,
+            "closest_pair": 210.4,
+            "nearest_spawn": 725.7,
+            "nearest_origin": 1048.8,
+            "density": 1.218e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 1
+            }
+          ],
+          "structure_count": 3
+        }
+      ],
+      "discovery_total": 90,
+      "discovery_by_type": {
+        "Pillager Outpost": 12,
+        "Ocean Monument": 46,
+        "Woodland Mansion": 0,
+        "Trail Ruins": 32
+      }
+    }
+  },
+  "202620262026202626": {
+    "1.20.6": {
+      "seed": "202620262026202626",
+      "version": "1.20.6",
+      "world_spawn": {
+        "x": 16,
+        "z": 16
+      },
+      "total_candidates": 92,
+      "total_clusters": 43,
+      "useful_clusters": 15,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2856.0,
+            "z": -248.0
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 776.1,
+            "closest_pair": 151.8,
+            "nearest_spawn": 2517.3,
+            "nearest_origin": 2530.4,
+            "density": 1.268e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 2,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -2832.0,
+            "z": -2861.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 751.3,
+            "closest_pair": 215.3,
+            "nearest_spawn": 3790.1,
+            "nearest_origin": 3767.5,
+            "density": 1.353e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 4
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 3,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2456.0,
+            "z": -1348.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 3,
+            "diameter": 766.8,
+            "closest_pair": 339.4,
+            "nearest_spawn": 2425.7,
+            "nearest_origin": 2433.1,
+            "density": 8.66e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 4,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2668.0,
+            "z": -1148.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 3,
+            "diameter": 760.6,
+            "closest_pair": 362.7,
+            "nearest_spawn": 2558.2,
+            "nearest_origin": 2567.4,
+            "density": 8.8e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 10,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 933.3,
+            "z": -1682.7
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 705.6,
+            "closest_pair": 116.5,
+            "nearest_spawn": 1605.1,
+            "nearest_origin": 1597.0,
+            "density": 1.534e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 4
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 12,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3221.3,
+            "z": -221.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 768.2,
+            "closest_pair": 151.8,
+            "nearest_spawn": 2837.5,
+            "nearest_origin": 2852.5,
+            "density": 1.295e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 15,
+          "primary_category": "Dense Multi",
+          "categories": [
+            "Dense Multi"
+          ],
+          "center": {
+            "x": -1961.6,
+            "z": 841.6
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 612.4,
+            "closest_pair": 90.5,
+            "nearest_spawn": 1857.7,
+            "nearest_origin": 1848.3,
+            "density": 1.697e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 18,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1964.8,
+            "z": -3600.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 645.0,
+            "closest_pair": 137.6,
+            "nearest_spawn": 3785.3,
+            "nearest_origin": 3763.8,
+            "density": 1.53e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 4
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 19,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3129.6,
+            "z": -2528.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 722.8,
+            "closest_pair": 178.9,
+            "nearest_spawn": 3802.4,
+            "nearest_origin": 3804.3,
+            "density": 1.218e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 21,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 468.0,
+            "z": 56.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 690.8,
+            "closest_pair": 244.8,
+            "nearest_spawn": 243.7,
+            "nearest_origin": 264.8,
+            "density": 1.067e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Shipwreck",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 22,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 884.0,
+            "z": 1840.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 760.3,
+            "closest_pair": 244.8,
+            "nearest_spawn": 1842.2,
+            "nearest_origin": 1862.2,
+            "density": 8.81e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 28,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -2020.0,
+            "z": -2812.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 464.3,
+            "closest_pair": 151.8,
+            "nearest_spawn": 3370.0,
+            "nearest_origin": 3347.9,
+            "density": 2.363e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3840.0,
+            "z": -212.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 729.7,
+            "closest_pair": 273.9,
+            "nearest_spawn": 3603.6,
+            "nearest_origin": 3618.9,
+            "density": 9.56e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 31,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 4156.0,
+            "z": 296.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 600.6,
+            "closest_pair": 329.8,
+            "nearest_spawn": 3913.7,
+            "nearest_origin": 3931.5,
+            "density": 1.412e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 33,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": -4456.0,
+            "z": -240.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 611.4,
+            "closest_pair": 215.3,
+            "nearest_spawn": 4320.0,
+            "nearest_origin": 4304.0,
+            "density": 1.363e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        }
+      ],
+      "discovery_total": 108,
+      "discovery_by_type": {
+        "Pillager Outpost": 18,
+        "Ocean Monument": 45,
+        "Woodland Mansion": 3,
+        "Trail Ruins": 42
+      }
+    },
+    "1.21.1": {
+      "seed": "202620262026202626",
+      "version": "1.21.1",
+      "world_spawn": {
+        "x": 16,
+        "z": 16
+      },
+      "total_candidates": 92,
+      "total_clusters": 43,
+      "useful_clusters": 15,
+      "clusters": [
+        {
+          "id": 1,
+          "primary_category": "Strategic Mega-Hub",
+          "categories": [
+            "Strategic Mega-Hub",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2856.0,
+            "z": -248.0
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 776.1,
+            "closest_pair": 151.8,
+            "nearest_spawn": 2517.3,
+            "nearest_origin": 2530.4,
+            "density": 1.268e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 2,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -2832.0,
+            "z": -2861.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 3,
+            "diameter": 751.3,
+            "closest_pair": 215.3,
+            "nearest_spawn": 3790.1,
+            "nearest_origin": 3767.5,
+            "density": 1.353e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Jungle Temple",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 4
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 3,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2456.0,
+            "z": -1348.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 3,
+            "diameter": 766.8,
+            "closest_pair": 339.4,
+            "nearest_spawn": 2425.7,
+            "nearest_origin": 2433.1,
+            "density": 8.66e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 4,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 2668.0,
+            "z": -1148.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 3,
+            "diameter": 760.6,
+            "closest_pair": 362.7,
+            "nearest_spawn": 2558.2,
+            "nearest_origin": 2567.4,
+            "density": 8.8e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 10,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": 933.3,
+            "z": -1682.7
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 705.6,
+            "closest_pair": 116.5,
+            "nearest_spawn": 1605.1,
+            "nearest_origin": 1597.0,
+            "density": 1.534e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 4
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 12,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3221.3,
+            "z": -221.3
+          },
+          "cluster": {
+            "count": 6,
+            "type_count": 2,
+            "diameter": 768.2,
+            "closest_pair": 151.8,
+            "nearest_spawn": 2837.5,
+            "nearest_origin": 2852.5,
+            "density": 1.295e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 6
+        },
+        {
+          "id": 15,
+          "primary_category": "Dense Multi",
+          "categories": [
+            "Dense Multi"
+          ],
+          "center": {
+            "x": -1961.6,
+            "z": 841.6
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 612.4,
+            "closest_pair": 90.5,
+            "nearest_spawn": 1857.7,
+            "nearest_origin": 1848.3,
+            "density": 1.697e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 18,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -1964.8,
+            "z": -3600.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 645.0,
+            "closest_pair": 137.6,
+            "nearest_spawn": 3785.3,
+            "nearest_origin": 3763.8,
+            "density": 1.53e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 4
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 19,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis",
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3129.6,
+            "z": -2528.0
+          },
+          "cluster": {
+            "count": 5,
+            "type_count": 2,
+            "diameter": 722.8,
+            "closest_pair": 178.9,
+            "nearest_spawn": 3802.4,
+            "nearest_origin": 3804.3,
+            "density": 1.218e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 3
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 5
+        },
+        {
+          "id": 21,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 468.0,
+            "z": 56.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 690.8,
+            "closest_pair": 244.8,
+            "nearest_spawn": 243.7,
+            "nearest_origin": 264.8,
+            "density": 1.067e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Shipwreck",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 22,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 884.0,
+            "z": 1840.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 760.3,
+            "closest_pair": 244.8,
+            "nearest_spawn": 1842.2,
+            "nearest_origin": 1862.2,
+            "density": 8.81e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Ancient City",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 28,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": -2020.0,
+            "z": -2812.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 464.3,
+            "closest_pair": 151.8,
+            "nearest_spawn": 3370.0,
+            "nearest_origin": 3347.9,
+            "density": 2.363e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Shipwreck",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 30,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 3840.0,
+            "z": -212.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 729.7,
+            "closest_pair": 273.9,
+            "nearest_spawn": 3603.6,
+            "nearest_origin": 3618.9,
+            "density": 9.56e-06
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 31,
+          "primary_category": "Abyssal Hub",
+          "categories": [
+            "Abyssal Hub"
+          ],
+          "center": {
+            "x": 4156.0,
+            "z": 296.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 600.6,
+            "closest_pair": 329.8,
+            "nearest_spawn": 3913.7,
+            "nearest_origin": 3931.5,
+            "density": 1.412e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 1
+            },
+            {
+              "type": "Ancient City",
+              "count": 3
+            }
+          ],
+          "structure_count": 4
+        },
+        {
+          "id": 33,
+          "primary_category": "Trading Metropolis",
+          "categories": [
+            "Trading Metropolis"
+          ],
+          "center": {
+            "x": -4456.0,
+            "z": -240.0
+          },
+          "cluster": {
+            "count": 4,
+            "type_count": 2,
+            "diameter": 611.4,
+            "closest_pair": 215.3,
+            "nearest_spawn": 4320.0,
+            "nearest_origin": 4304.0,
+            "density": 1.363e-05
+          },
+          "structures_summary": [
+            {
+              "type": "Village",
+              "count": 2
+            },
+            {
+              "type": "Shipwreck",
+              "count": 2
+            }
+          ],
+          "structure_count": 4
+        }
+      ],
+      "discovery_total": 108,
+      "discovery_by_type": {
+        "Pillager Outpost": 18,
+        "Ocean Monument": 45,
+        "Woodland Mansion": 3,
+        "Trail Ruins": 42
+      }
+    }
+  }
+}
