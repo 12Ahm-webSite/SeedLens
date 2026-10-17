@@ -3,7 +3,14 @@
 import React, { useEffect, useRef, useState, useMemo } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import type { Cluster, SearchBounds, WorldSpawn, DiscoverySummary } from '@/types/seedlens';
+import type {
+  Cluster,
+  SearchBounds,
+  WorldSpawn,
+  DiscoverySummary,
+  LandmarksSummary,
+  LandmarkSpot,
+} from '@/types/seedlens';
 import { getStructureMetadata } from '@/components/StructureBadge';
 import { Compass } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
@@ -15,8 +22,11 @@ interface SeedMapInnerProps {
   searchBounds?: SearchBounds;
   worldSpawn?: WorldSpawn;
   discovery?: DiscoverySummary;
+  landmarks?: LandmarksSummary;
   selectedClusterId?: number | null;
   onSelectCluster?: (clusterId: number) => void;
+  selectedLandmarkId?: number | null;
+  onSelectLandmark?: (landmarkId: number) => void;
   className?: string;
 }
 
@@ -30,6 +40,47 @@ function latLngToMc(lat: number, lng: number): { x: number; z: number } {
     x: Math.round(lng),
     z: Math.round(-lat),
   };
+}
+
+function getLandmarkIconHtml(category: string): string {
+  let bg = '#10B981';
+  let border = '#34D399';
+  let symbol = '🏔️';
+
+  if (category === 'cherry_caldera' || category === 'cherry_grove') {
+    bg = '#BE185D';
+    border = '#F472B6';
+    symbol = '🌸';
+  } else if (category === 'epic_clifftop') {
+    bg = '#6B21A8';
+    border = '#C084FC';
+    symbol = '📷';
+  } else if (category === 'prime_building_basin') {
+    bg = '#B45309';
+    border = '#FBBF24';
+    symbol = '🏰';
+  } else if (category === 'isolated_island') {
+    bg = '#0369A1';
+    border = '#38BDF8';
+    symbol = '🏝️';
+  } else if (category === 'pale_garden') {
+    bg = '#334155';
+    border = '#94A3B8';
+    symbol = '🌲';
+  }
+
+  return `
+    <div style="
+      width:24px; height:24px;
+      background:${bg}; border:2px solid ${border};
+      border-radius:4px;
+      box-shadow:0 0 6px ${border}, 1px 1px 0 #000;
+      display:flex; align-items:center; justify-content:center;
+      cursor:pointer; font-size:12px;
+    ">
+      <span>${symbol}</span>
+    </div>
+  `;
 }
 
 function getStructureIconHtml(type: string): string {
@@ -207,8 +258,11 @@ export default function SeedMapInner({
   searchBounds = { min_x: -5000, max_x: 5000, min_z: -5000, max_z: 5000 },
   worldSpawn,
   discovery,
+  landmarks,
   selectedClusterId,
   onSelectCluster,
+  selectedLandmarkId,
+  onSelectLandmark,
   className = '',
 }: SeedMapInnerProps) {
   const { t, locale, translateCategory, translateStructure } = useLanguage();
@@ -612,7 +666,57 @@ export default function SeedMapInner({
         }
       });
     }
-  }, [clusters, discovery, selectedClusterId, onSelectCluster, t, translateCategory, translateStructure]);
+
+    // Landmarks (Scenic & Building Spots)
+    if (landmarks?.spots && structureLayersRef.current) {
+      landmarks.spots.forEach((lm) => {
+        const lmLatLng = mcToLatLng(lm.x, lm.z);
+        const lmIcon = L.divIcon({
+          className: "landmark-pin",
+          html: getLandmarkIconHtml(lm.category),
+          iconSize: [24, 24],
+          iconAnchor: [12, 12],
+        });
+        const lmMarker = L.marker(lmLatLng, { icon: lmIcon, zIndexOffset: 650 });
+        const nameText = locale === 'ar' ? lm.name_ar : lm.name_en;
+        const descText = locale === 'ar' ? lm.description_ar : lm.description_en;
+
+        lmMarker.on('click', () => {
+          if (onSelectLandmark) {
+            onSelectLandmark(lm.id);
+          }
+        });
+
+        lmMarker.bindPopup(`
+          <div style="background:#C6C6C6; color:#1E1E1E; padding:10px; font-family:monospace; font-size:11px; min-width:220px; border-top:2px solid #FFF; border-left:2px solid #FFF; border-right:2px solid #555; border-bottom:2px solid #555; box-shadow:2px 2px 0 #000;">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
+              <span style="font-weight:bold; font-size:12px; color:#1E1E1E;">${nameText}</span>
+              <span style="font-size:9px; background:#10B981; color:#FFFFFF; padding:1px 4px; font-weight:bold;">#${lm.id}</span>
+            </div>
+            <div style="font-size:10px; color:#333; margin-bottom:6px; line-height:1.3;">
+              ${descText}
+            </div>
+            <div style="background:#8B8B8B; color:#FFFFFF; padding:4px 6px; border-top:1px solid #373737; border-left:1px solid #373737; border-right:1px solid #FFF; border-bottom:1px solid #FFF; margin-bottom:6px; font-weight:bold;" dir="ltr">
+              X: ${lm.x} &nbsp;|&nbsp; Y: ${lm.y} &nbsp;|&nbsp; Z: ${lm.z}
+            </div>
+            <div style="display:flex; justify-content:space-between; color:#444; font-size:10px; margin-bottom:6px; font-weight:bold;">
+              <span>🌟 Scenic: ${lm.scenic_score}%</span>
+              <span>🏰 Build: ${lm.building_score}%</span>
+            </div>
+            <button
+              onclick="navigator.clipboard.writeText('${lm.teleport_command}')"
+              style="width:100%; background:#059669; color:#FFFFFF; border-top:2px solid #34D399; border-left:2px solid #34D399; border-right:2px solid #047857; border-bottom:2px solid #047857; padding:4px 6px; font-size:11px; font-family:monospace; cursor:pointer; font-weight:bold; box-shadow:1px 1px 0 #000;"
+            >
+              Copy ${lm.teleport_command}
+            </button>
+          </div>
+        `);
+        if (structureLayersRef.current) {
+          lmMarker.addTo(structureLayersRef.current);
+        }
+      });
+    }
+  }, [clusters, discovery, landmarks, selectedClusterId, onSelectCluster, onSelectLandmark, locale, t, translateCategory, translateStructure]);
 
   // Center on selected cluster when it changes
   useEffect(() => {
@@ -623,6 +727,16 @@ export default function SeedMapInner({
       mapRef.current.flyTo(target, 0, { duration: 0.8 });
     }
   }, [selectedClusterId, clusters]);
+
+  // Center on selected landmark when it changes
+  useEffect(() => {
+    if (!selectedLandmarkId || !mapRef.current || !landmarks?.spots) return;
+    const lm = landmarks.spots.find((l) => l.id === selectedLandmarkId);
+    if (lm) {
+      const target = mcToLatLng(lm.x, lm.z);
+      mapRef.current.flyTo(target, 0, { duration: 0.8 });
+    }
+  }, [selectedLandmarkId, landmarks]);
 
   const handleResetView = () => {
     if (!mapRef.current) return;
@@ -738,6 +852,34 @@ export default function SeedMapInner({
                 <div className="flex items-center gap-1.5">
                   <span className="w-2.5 h-2.5 bg-[#261B05] border border-[#FBBF24] shrink-0" />
                   <span>{t.legendPyramid}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-1.5 border-t border-[#A8A8A8]">
+              <div className="text-[#1E1E1E] font-bold mb-1">
+                {t.legendLandmarks || 'Landmarks & Spots'}
+              </div>
+              <div className="grid grid-cols-2 gap-1.5 text-[#222222]">
+                <div className="flex items-center gap-1.5">
+                  <span>🌸</span>
+                  <span>Cherry / Caldera</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span>🏔️</span>
+                  <span>Mountain Ring</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span>📷</span>
+                  <span>Epic Clifftop</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span>🏰</span>
+                  <span>Building Basin</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <span>🏝️</span>
+                  <span>Survival Island</span>
                 </div>
               </div>
             </div>

@@ -26,7 +26,7 @@ export default function ClusterDetailsModal({
   onClose,
   onLocateOnMap,
 }: ClusterDetailsModalProps) {
-  const { t, translateCategory } = useLanguage();
+  const { t, locale, translateCategory } = useLanguage();
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   if (!cluster) return null;
@@ -39,6 +39,29 @@ export default function ClusterDetailsModal({
 
   const primaryCatName = translateCategory(cluster.primary_category);
 
+  const getLocalizedExplanation = (cl: Cluster): string => {
+    if (locale !== 'ar') {
+      return cl.explanation;
+    }
+    const primary = cl.primary_category;
+    if (primary === 'Strategic Mega-Hub') {
+      return `يضم هذا التجمع ${cl.cluster.count} هياكل استراتيجية عبر ${cl.cluster.type_count} أنواع مختلفة، مع أقرب زوج بمسافة ${cl.cluster.closest_pair.toFixed(0)} بلوكاً وقطر إجمالي ${cl.cluster.diameter.toFixed(0)} بلوكاً؛ مما يجعله مركزاً مثالياً لسرعة التقدم في اللعبة.`;
+    }
+    if (primary === 'Trading Metropolis') {
+      return `يحتوي هذا العنقود على قرى متعددة بانتشار أقصى ${cl.cluster.diameter.toFixed(0)} بلوكاً، مما يجعله مثالياً لتأسيس عاصمة تجارية ضخمة ومزارع حديد ومقايضة القرويين.`;
+    }
+    if (primary === 'Abyssal Hub') {
+      return `يربط هذا العنقود بين معالم السطح ومدينة قديمة (Ancient City) في الأعماق السحيقة على بعد أقل من 450 بلوكاً، مما يوفر وصولاً سريعاً ومباشراً لأثمن غنائم ماينكرافت السفلية.`;
+    }
+    if (primary === 'Spawn Outpost') {
+      return `يقع هذا التجمع بالقرب من نقطة الـ Spawn على مسافة ${cl.cluster.nearest_spawn.toFixed(0)} بلوكاً وبقطر ${cl.cluster.diameter.toFixed(0)} بلوكاً؛ مما يجعله بؤرة انطلاق استراتيجية مثالية للبدء الفوري دون عناء السفر.`;
+    }
+    if (primary === 'Dense Multi') {
+      return `تجمع فائق الكثافة يضم ${cl.cluster.count} هياكل تفصل بين أقربها مسافة ${cl.cluster.closest_pair.toFixed(0)} بلوكاً فقط وبقطر ${cl.cluster.diameter.toFixed(0)} بلوكاً، موفراً عدة نقاط اهتمام متلاصقة في مساحة سير ضيقة جداً.`;
+    }
+    return `عنقود هيكلي متكامل يضم ${cl.cluster.count} هياكل بنطاق جغرافي قدره ${cl.cluster.diameter.toFixed(0)} بلوكاً.`;
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/80 backdrop-blur-xs animate-fade-in">
       <div
@@ -50,7 +73,7 @@ export default function ClusterDetailsModal({
           <div>
             <div className="flex items-center gap-2 mb-1.5">
               <span className="px-2 py-0.5 bg-[#866043] text-[#FADB44] font-mc-mono text-[10px] font-bold border border-[#4E3523]">
-                CLUSTER #{cluster.id < 10 ? `0${cluster.id}` : cluster.id}
+                {locale === 'ar' ? `المجموعة #${cluster.id < 10 ? `0${cluster.id}` : cluster.id}` : `CLUSTER #${cluster.id < 10 ? `0${cluster.id}` : cluster.id}`}
               </span>
               <CategoryBadge category={cluster.primary_category} isPrimary size="sm" />
             </div>
@@ -58,7 +81,7 @@ export default function ClusterDetailsModal({
               {primaryCatName} — {t.clusterDetailsTitle}
             </h3>
             <p className="font-mc-mono text-xs text-[#555555] dark:text-[#94A3B8] font-bold mt-0.5" dir="ltr">
-              Anchor: X: {cluster.center.x.toFixed(0)}, Z: {cluster.center.z.toFixed(0)}
+              {locale === 'ar' ? 'الإحداثيات:' : 'Anchor:'} X: {cluster.center.x.toFixed(0)}, Z: {cluster.center.z.toFixed(0)}
             </p>
           </div>
 
@@ -79,8 +102,8 @@ export default function ClusterDetailsModal({
               <Compass className="w-4 h-4" />
               <span>{t.engineAnalysis}</span>
             </h4>
-            <p className="text-xs text-[#333333] dark:text-[#E2E8F0] leading-relaxed italic" dir="ltr">
-              &ldquo;{cluster.explanation}&rdquo;
+            <p className="text-xs text-[#333333] dark:text-[#E2E8F0] leading-relaxed">
+              &ldquo;{getLocalizedExplanation(cluster)}&rdquo;
             </p>
           </div>
 
@@ -149,7 +172,7 @@ export default function ClusterDetailsModal({
                       [X: {s.x}, Z: {s.z}]
                     </span>
                     <span className="text-[#A8A8A8] text-[10px] hidden sm:inline">
-                      ({s.distance_to_spawn.toFixed(0)}m from spawn)
+                      ({s.distance_to_spawn.toFixed(0)}{locale === 'ar' ? 'م عن البداية' : 'm from spawn'})
                     </span>
                   </div>
 

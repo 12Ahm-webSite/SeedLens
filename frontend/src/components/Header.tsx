@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { Compass, Globe } from 'lucide-react';
+import Link from 'next/link';
+import { Compass, Globe, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import MinecraftClockToggle from '@/components/MinecraftClockToggle';
 
@@ -33,7 +34,8 @@ export default function Header({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center justify-between">
         {/* Brand & Logo */}
         <div className="flex items-center gap-3">
-          <button
+          <Link
+            href="/"
             onClick={() => scrollTo('hero')}
             className="flex items-center gap-2.5 text-start focus:outline-none cursor-pointer group"
           >
@@ -45,32 +47,42 @@ export default function Header({
                 SeedLens
               </span>
               <span className="font-mc-mono text-[10px] bg-[#5B8731] text-[#FFFFFF] px-2 py-0.5 border-t border-l border-[#89BD44] border-b border-r border-[#2A4413] font-bold shadow-[1px_1px_0_rgba(0,0,0,0.25)] hidden xs:inline-block">
-                JAVA INTELLIGENCE
+                {locale === 'ar' ? 'ذكاء ماينكرافت جافا' : 'JAVA INTELLIGENCE'}
               </span>
             </div>
-          </button>
+          </Link>
         </div>
 
         {/* Center Nav Links for desktop */}
         <nav className="hidden md:flex items-center gap-2">
-          <button
+          <Link
+            href="/#analyzer"
             onClick={() => scrollTo('analyzer')}
             className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navAnalyzer}
-          </button>
-          <button
+          </Link>
+          <Link
+            href="/#how-it-works"
             onClick={() => scrollTo('how-it-works')}
             className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navHowItWorks}
-          </button>
-          <button
+          </Link>
+          <Link
+            href="/#categories-info"
             onClick={() => scrollTo('categories-info')}
             className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navCategories}
-          </button>
+          </Link>
+          <Link
+            href="/documentation"
+            className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer flex items-center gap-1.5"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-[#5B8731]" />
+            <span>{t.navDocumentation || (locale === 'ar' ? 'التوثيق وسجل التحديثات' : 'Docs & Changelog')}</span>
+          </Link>
         </nav>
 
         {/* Right Telemetry & Controls */}
@@ -81,12 +93,12 @@ export default function Header({
           {/* Engine Status Inset Slot */}
           <div className="hidden lg:flex items-center mc-slot px-2.5 py-1 text-[#FFFFFF] font-mc-mono text-[11px] font-bold">
             <span className="w-2 h-2 bg-[#17B85E] mr-1.5 shadow-[0_0_6px_#17B85E]"></span>
-            <span>ENGINE: <span className="text-[#FADB44]">{selectedVersion}</span></span>
+            <span>{locale === 'ar' ? 'المحرك:' : 'ENGINE:'} <span className="text-[#FADB44]">{selectedVersion}</span></span>
           </div>
 
           {/* POS Inset */}
           <div className="hidden sm:flex items-center bg-[#B8B8B8] dark:bg-[#181B22] px-2.5 py-1 border-t border-l border-[#FFFFFF] dark:border-[#303642] border-b border-r border-[#555555] dark:border-[#0E1014] font-mc-mono text-[11px] font-bold">
-            <span className="text-[#4E4E4E] dark:text-[#94A3B8] mr-1">POS</span>
+            <span className="text-[#4E4E4E] dark:text-[#94A3B8] mr-1">{locale === 'ar' ? 'الموقع' : 'POS'}</span>
             <span className="text-[#2CBAA8]">X:0 Z:0</span>
           </div>
 

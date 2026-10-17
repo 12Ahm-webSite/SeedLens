@@ -118,6 +118,37 @@ typedef struct {
     int trial_chambers_count;
 } SeedLensDiscoverySummary;
 
+#define SEEDLENS_MAX_LANDMARKS 32
+
+/* Landmark item (Scenic view, building basin, mountain caldera, survival island) */
+typedef struct {
+    int id;
+    char category[32];
+    char name_ar[128];
+    char name_en[128];
+    int x;
+    int y;
+    int z;
+    double distance_to_spawn;
+    char primary_biome[64];
+    char surrounding_biomes[4][64];
+    int surrounding_biome_count;
+    int scenic_score;
+    int building_score;
+    char tags[4][32];
+    int tag_count;
+    char teleport_command[64];
+    char description_ar[512];
+    char description_en[512];
+} SeedLensLandmark;
+
+/* Landmarks collection result */
+typedef struct {
+    int total_found;
+    int spot_count;
+    SeedLensLandmark spots[SEEDLENS_MAX_LANDMARKS];
+} SeedLensLandmarksResult;
+
 /* Full analysis result */
 typedef struct {
     int schema_version;
@@ -135,6 +166,9 @@ typedef struct {
     SeedLensDiscoverySummary discovery_summary;
     int discovered_count;
     SeedLensDiscoveredStructure discovered_structures[SEEDLENS_MAX_DISCOVERED_STRUCTURES];
+
+    /* Landmarks & Scenic/Building Spots */
+    SeedLensLandmarksResult landmarks;
 } SeedLensAnalysisResult;
 
 /* API functions */

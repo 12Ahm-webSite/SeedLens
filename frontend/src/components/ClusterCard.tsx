@@ -26,7 +26,7 @@ export default function ClusterCard({
   onSelect,
   onViewDetails,
 }: ClusterCardProps) {
-  const { t, dir, translateCategory } = useLanguage();
+  const { t, dir, locale, translateCategory } = useLanguage();
   const [copiedTp, setCopiedTp] = useState(false);
   const ChevronIcon = dir === 'rtl' ? ChevronLeft : ChevronRight;
   const primaryCatName = translateCategory(cluster.primary_category);
@@ -38,6 +38,29 @@ export default function ClusterCard({
     navigator.clipboard.writeText(tpCommand);
     setCopiedTp(true);
     setTimeout(() => setCopiedTp(false), 1500);
+  };
+
+  const getLocalizedExplanation = (cl: Cluster): string => {
+    if (locale !== 'ar') {
+      return cl.explanation;
+    }
+    const primary = cl.primary_category;
+    if (primary === 'Strategic Mega-Hub') {
+      return `يضم هذا التجمع ${cl.cluster.count} هياكل استراتيجية عبر ${cl.cluster.type_count} أنواع مختلفة، مع أقرب زوج بمسافة ${cl.cluster.closest_pair.toFixed(0)} بلوكاً وقطر إجمالي ${cl.cluster.diameter.toFixed(0)} بلوكاً؛ مما يجعله مركزاً مثالياً لسرعة التقدم في اللعبة.`;
+    }
+    if (primary === 'Trading Metropolis') {
+      return `يحتوي هذا العنقود على قرى متعددة بانتشار أقصى ${cl.cluster.diameter.toFixed(0)} بلوكاً، مما يجعله مثالياً لتأسيس عاصمة تجارية ضخمة ومزارع حديد ومقايضة القرويين.`;
+    }
+    if (primary === 'Abyssal Hub') {
+      return `يربط هذا العنقود بين معالم السطح ومدينة قديمة (Ancient City) في الأعماق السحيقة على بعد أقل من 450 بلوكاً، مما يوفر وصولاً سريعاً ومباشراً لأثمن غنائم ماينكرافت السفلية.`;
+    }
+    if (primary === 'Spawn Outpost') {
+      return `يقع هذا التجمع بالقرب من نقطة الـ Spawn على مسافة ${cl.cluster.nearest_spawn.toFixed(0)} بلوكاً وبقطر ${cl.cluster.diameter.toFixed(0)} بلوكاً؛ مما يجعله بؤرة انطلاق استراتيجية مثالية للبدء الفوري دون عناء السفر.`;
+    }
+    if (primary === 'Dense Multi') {
+      return `تجمع فائق الكثافة يضم ${cl.cluster.count} هياكل تفصل بين أقربها مسافة ${cl.cluster.closest_pair.toFixed(0)} بلوكاً فقط وبقطر ${cl.cluster.diameter.toFixed(0)} بلوكاً، موفراً عدة نقاط اهتمام متلاصقة في مساحة سير ضيقة جداً.`;
+    }
+    return `عنقود هيكلي متكامل يضم ${cl.cluster.count} هياكل بنطاق جغرافي قدره ${cl.cluster.diameter.toFixed(0)} بلوكاً.`;
   };
 
   return (
@@ -53,7 +76,7 @@ export default function ClusterCard({
       {/* Active Selection Badge */}
       {isSelected && (
         <div className="absolute -top-2.5 end-3 bg-[#5B8731] text-[#FFFFFF] font-mc-mono text-[10px] px-2 py-0.5 uppercase tracking-wider font-bold border-t border-l border-[#89BD44] border-b border-r border-[#2A4413] shadow-[1px_1px_0_#000]">
-          Active Selection
+          {locale === 'ar' ? 'الموقع المحدد' : 'Active Selection'}
         </div>
       )}
 
@@ -62,7 +85,7 @@ export default function ClusterCard({
         <div className="flex items-start justify-between gap-2 mb-2">
           <div className="flex flex-wrap items-center gap-1.5">
             <span className="px-2 py-0.5 bg-[#866043] text-[#FADB44] font-mc-mono text-[10px] font-bold border border-[#4E3523] shadow-[1px_1px_0_rgba(0,0,0,0.3)]">
-              CLUSTER #{cluster.id < 10 ? `0${cluster.id}` : cluster.id}
+              {locale === 'ar' ? `المجموعة #${cluster.id < 10 ? `0${cluster.id}` : cluster.id}` : `CLUSTER #${cluster.id < 10 ? `0${cluster.id}` : cluster.id}`}
             </span>
             <CategoryBadge category={cluster.primary_category} isPrimary size="sm" />
             {cluster.categories
@@ -90,7 +113,9 @@ export default function ClusterCard({
               {primaryCatName}
             </h3>
             <span className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono font-bold">
-              ({cluster.cluster.count} POIs · {cluster.cluster.type_count} Types)
+              {locale === 'ar'
+                ? `(${cluster.cluster.count} معالم · ${cluster.cluster.type_count} أنواع)`
+                : `(${cluster.cluster.count} POIs · ${cluster.cluster.type_count} Types)`}
             </span>
           </div>
 
@@ -134,7 +159,7 @@ export default function ClusterCard({
           </div>
           <div>
             <span className="text-[10px] text-[#D8D8D8] block font-bold uppercase">
-              Density
+              {t.densityLabel || (locale === 'ar' ? 'الكثافة' : 'Density')}
             </span>
             <span className="text-xs text-[#FADB44] font-bold">
               {cluster.cluster.density.toFixed(6)}
@@ -143,8 +168,8 @@ export default function ClusterCard({
         </div>
 
         {/* Engine Natural Language Explanation */}
-        <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2 text-[#222222] dark:text-[#CBD5E1] font-medium text-xs border-t border-l border-[#FFFFFF] dark:border-[#2D3340] border-b border-r border-[#999999] dark:border-[#0E1014] leading-relaxed italic mb-3">
-          &ldquo;{cluster.explanation}&rdquo;
+        <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 text-[#222222] dark:text-[#CBD5E1] font-medium text-xs border-t border-l border-[#FFFFFF] dark:border-[#2D3340] border-b border-r border-[#999999] dark:border-[#0E1014] leading-relaxed mb-3">
+          &ldquo;{getLocalizedExplanation(cluster)}&rdquo;
         </div>
       </div>
 
@@ -155,12 +180,12 @@ export default function ClusterCard({
           type="button"
           onClick={copyTpCommand}
           className="mc-button px-2.5 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold flex items-center gap-1 hover:text-[#5B8731] cursor-pointer"
-          title="Copy Teleport Command"
+          title={locale === 'ar' ? 'نسخ أمر الانتقال /tp' : 'Copy Teleport Command'}
         >
           {copiedTp ? (
             <>
               <Check className="w-3.5 h-3.5 text-[#17B85E]" />
-              <span className="font-mc-mono">Copied!</span>
+              <span className="font-mc-mono">{locale === 'ar' ? 'تم النسخ!' : 'Copied!'}</span>
             </>
           ) : (
             <>

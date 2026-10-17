@@ -114,4 +114,11 @@ void generate_explanation_internal(
     size_t out_buf_size
 );
 
+int collect_landmarks_internal(
+    uint64_t seed,
+    const VersionProfile *profile,
+    Pos spawn_pos,
+    SeedLensLandmarksResult *out_landmarks
+);
+
 #endif /* SEEDLENS_INTERNAL_H */

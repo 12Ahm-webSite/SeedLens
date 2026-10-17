@@ -20,6 +20,7 @@ SRCS = src/version.c \
        src/cluster.c \
        src/analysis.c \
        src/explanation.c \
+       src/landmarks.c \
        src/engine.c \
        src/json.c
 

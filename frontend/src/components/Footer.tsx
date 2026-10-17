@@ -5,7 +5,7 @@ import { Compass, ArrowUp } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
 export default function Footer() {
-  const { t } = useLanguage();
+  const { t, locale } = useLanguage();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -23,25 +23,25 @@ export default function Footer() {
             <div>
               <span className="font-mc-heading font-bold text-sm text-[#1E1E1E] dark:text-[#F1F5F9]">SeedLens</span>
               <span className="text-[11px] text-[#555555] dark:text-[#94A3B8] mx-2 font-bold uppercase">
-                {`// MINECRAFT SEED INTELLIGENCE`}
+                {locale === 'ar' ? '// ذكاء واستكشاف بذور ماينكرافت' : '// MINECRAFT SEED INTELLIGENCE'}
               </span>
             </div>
           </div>
 
           <div className="hidden md:flex items-center gap-4 text-[11px] text-[#4E4E4E] dark:text-[#94A3B8] font-bold">
             <div className="flex items-center gap-1">
-              <span className="text-[#555555] dark:text-[#7A8598]">CHUNKS:</span>
-              <span className="text-[#1E1E1E] dark:text-[#CBD5E1]">16×16 CELLS</span>
+              <span className="text-[#555555] dark:text-[#7A8598]">{locale === 'ar' ? 'التشَنكات:' : 'CHUNKS:'}</span>
+              <span className="text-[#1E1E1E] dark:text-[#CBD5E1]">{locale === 'ar' ? '16×16 خلية' : '16×16 CELLS'}</span>
             </div>
             <span>|</span>
             <div className="flex items-center gap-1">
-              <span className="text-[#555555] dark:text-[#7A8598]">COORDS:</span>
-              <span className="text-[#5B8731]">Y: 64 (SEA_LEVEL)</span>
+              <span className="text-[#555555] dark:text-[#7A8598]">{locale === 'ar' ? 'الإحداثيات:' : 'COORDS:'}</span>
+              <span className="text-[#5B8731]">{locale === 'ar' ? 'Y: 64 (مستوى البحر)' : 'Y: 64 (SEA_LEVEL)'}</span>
             </div>
             <span>|</span>
             <div className="flex items-center gap-1">
-              <span className="text-[#555555] dark:text-[#7A8598]">ENGINE:</span>
-              <span className="text-[#9E7448] dark:text-[#FADB44]">CUBIOMES C FAST FORGE</span>
+              <span className="text-[#555555] dark:text-[#7A8598]">{locale === 'ar' ? 'المحرك:' : 'ENGINE:'}</span>
+              <span className="text-[#9E7448] dark:text-[#FADB44]">{locale === 'ar' ? 'محاكي Cubiomes C السريع' : 'CUBIOMES C FAST FORGE'}</span>
             </div>
           </div>
 

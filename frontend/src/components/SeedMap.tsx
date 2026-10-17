@@ -2,7 +2,13 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import type { Cluster, SearchBounds, WorldSpawn, DiscoverySummary } from '@/types/seedlens';
+import type {
+  Cluster,
+  SearchBounds,
+  WorldSpawn,
+  DiscoverySummary,
+  LandmarksSummary,
+} from '@/types/seedlens';
 import { Compass } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -12,8 +18,11 @@ interface SeedMapProps {
   searchBounds?: SearchBounds;
   worldSpawn?: WorldSpawn;
   discovery?: DiscoverySummary;
+  landmarks?: LandmarksSummary;
   selectedClusterId?: number | null;
   onSelectCluster?: (clusterId: number) => void;
+  selectedLandmarkId?: number | null;
+  onSelectLandmark?: (landmarkId: number) => void;
   className?: string;
 }
 

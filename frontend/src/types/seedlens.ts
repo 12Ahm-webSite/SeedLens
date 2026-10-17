@@ -74,6 +74,39 @@ export interface DiscoverySummary {
   structures: DiscoveredStructure[];
 }
 
+export interface LandmarkSpot {
+  id: number;
+  category:
+    | 'cherry_caldera'
+    | 'cherry_grove'
+    | 'mountain_crater'
+    | 'epic_clifftop'
+    | 'prime_building_basin'
+    | 'isolated_island'
+    | 'pale_garden'
+    | string;
+  name_ar: string;
+  name_en: string;
+  x: number;
+  y: number;
+  z: number;
+  distance_to_spawn: number;
+  primary_biome: string;
+  surrounding_biomes: string[];
+  scenic_score: number;
+  building_score: number;
+  tags: string[];
+  teleport_command: string;
+  description_ar: string;
+  description_en: string;
+}
+
+export interface LandmarksSummary {
+  total_found: number;
+  spot_count: number;
+  spots: LandmarkSpot[];
+}
+
 export interface SeedLensResult {
   schema_version?: number;
   seed: number | string;
@@ -84,6 +117,7 @@ export interface SeedLensResult {
   summary: Summary;
   clusters: Cluster[];
   discovery?: DiscoverySummary;
+  landmarks?: LandmarksSummary;
   interpreted_seed?: string;
 }
 

@@ -32,7 +32,7 @@ export default function SeedInput({
   initialSeed = '',
   errorMessage,
 }: SeedInputProps) {
-  const { t, dir } = useLanguage();
+  const { t, dir, locale } = useLanguage();
   const [seed, setSeed] = useState(initialSeed);
   const [prevInitialSeed, setPrevInitialSeed] = useState(initialSeed);
   const [clientError, setClientError] = useState<string | null>(null);
@@ -156,8 +156,10 @@ export default function SeedInput({
           {/* Input Well: Seed Value */}
           <div className="lg:col-span-6 flex flex-col gap-1">
             <label className="font-mc-mono text-[11px] text-[#333333] dark:text-[#CBD5E1] font-bold uppercase flex items-center justify-between">
-              <span>{t.seedLabel} / Keyphrase</span>
-              <span className="text-[#5B8731] font-bold">JAVA 64-BIT HASH READY</span>
+              <span>{t.seedLabel} / {locale === 'ar' ? 'كلمة مفتاحية' : 'Keyphrase'}</span>
+              <span className="text-[#5B8731] font-bold">
+                {locale === 'ar' ? 'جاهز لمعالجة 64-بت جافا' : 'JAVA 64-BIT HASH READY'}
+              </span>
             </label>
             <div className="relative flex items-center mc-slot px-3 py-2">
               <span className="font-mc-mono text-[#FADB44] font-bold me-2 select-none text-base">
@@ -192,7 +194,7 @@ export default function SeedInput({
                   onClick={handleRandomize}
                   disabled={isLoading}
                   className="p-1 text-[#E0E0E0] hover:text-[#FADB44] transition-colors cursor-pointer"
-                  title="Random Seed"
+                  title={locale === 'ar' ? 'بذرة عشوائية' : 'Random Seed'}
                 >
                   <Dices className="w-4 h-4" />
                 </button>
@@ -200,7 +202,7 @@ export default function SeedInput({
                   type="button"
                   onClick={handleCopy}
                   className="p-1 text-[#E0E0E0] hover:text-[#17B85E] transition-colors cursor-pointer"
-                  title="Copy Seed"
+                  title={locale === 'ar' ? 'نسخ البذرة' : 'Copy Seed'}
                 >
                   {copied ? <Check className="w-4 h-4 text-[#17B85E]" /> : <Copy className="w-4 h-4" />}
                 </button>
@@ -212,7 +214,7 @@ export default function SeedInput({
           <div className="lg:col-span-3 flex flex-col gap-1">
             <label className="font-mc-mono text-[11px] text-[#333333] dark:text-[#CBD5E1] font-bold uppercase flex items-center gap-1.5">
               <span className="w-2 h-2 bg-[#5B8731]"></span>
-              <span>{t.versionLabel} Generator</span>
+              <span>{t.versionLabel} {locale === 'ar' ? 'المولّد' : 'Generator'}</span>
             </label>
             <div className="relative mc-slot px-3 py-2">
               <select

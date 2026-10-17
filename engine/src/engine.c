@@ -161,5 +161,13 @@ int seedlens_analyze(
         else if (st == Trial_Chambers) result->discovery_summary.trial_chambers_count++;
     }
 
+    /* Collect scenic and building landmarks */
+    collect_landmarks_internal(
+        (uint64_t)seed,
+        profile,
+        spawn_pos,
+        &result->landmarks
+    );
+
     return 0;
 }

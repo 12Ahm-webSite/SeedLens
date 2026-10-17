@@ -238,6 +238,63 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
     }
 
     jbuf_append(&b, "    ]\n");
+    jbuf_append(&b, "  },\n");
+
+    /* Landmarks: Scenic views, building basins, and aesthetic biomes */
+    jbuf_append(&b, "  \"landmarks\": {\n");
+    jbuf_printf(&b, "    \"total_found\": %d,\n", result->landmarks.total_found);
+    jbuf_printf(&b, "    \"spot_count\": %d,\n", result->landmarks.spot_count);
+    jbuf_append(&b, "    \"spots\": [\n");
+
+    for (int i = 0; i < result->landmarks.spot_count; i++)
+    {
+        const SeedLensLandmark *lm = &result->landmarks.spots[i];
+        jbuf_append(&b, "      {\n");
+        jbuf_printf(&b, "        \"id\": %d,\n", lm->id);
+        jbuf_printf(&b, "        \"category\": \"%s\",\n", lm->category);
+        jbuf_append(&b, "        \"name_ar\": \"");
+        jbuf_append_escaped(&b, lm->name_ar);
+        jbuf_append(&b, "\",\n");
+        jbuf_append(&b, "        \"name_en\": \"");
+        jbuf_append_escaped(&b, lm->name_en);
+        jbuf_append(&b, "\",\n");
+        jbuf_printf(&b, "        \"x\": %d,\n", lm->x);
+        jbuf_printf(&b, "        \"y\": %d,\n", lm->y);
+        jbuf_printf(&b, "        \"z\": %d,\n", lm->z);
+        jbuf_printf(&b, "        \"distance_to_spawn\": %.1f,\n", lm->distance_to_spawn);
+        jbuf_printf(&b, "        \"primary_biome\": \"%s\",\n", lm->primary_biome);
+
+        /* Surrounding biomes */
+        jbuf_append(&b, "        \"surrounding_biomes\": [");
+        for (int sb = 0; sb < lm->surrounding_biome_count; sb++)
+        {
+            jbuf_printf(&b, "\"%s\"%s", lm->surrounding_biomes[sb], (sb + 1 < lm->surrounding_biome_count) ? ", " : "");
+        }
+        jbuf_append(&b, "],\n");
+
+        jbuf_printf(&b, "        \"scenic_score\": %d,\n", lm->scenic_score);
+        jbuf_printf(&b, "        \"building_score\": %d,\n", lm->building_score);
+
+        /* Tags */
+        jbuf_append(&b, "        \"tags\": [");
+        for (int tg = 0; tg < lm->tag_count; tg++)
+        {
+            jbuf_printf(&b, "\"%s\"%s", lm->tags[tg], (tg + 1 < lm->tag_count) ? ", " : "");
+        }
+        jbuf_append(&b, "],\n");
+
+        jbuf_printf(&b, "        \"teleport_command\": \"%s\",\n", lm->teleport_command);
+        jbuf_append(&b, "        \"description_ar\": \"");
+        jbuf_append_escaped(&b, lm->description_ar);
+        jbuf_append(&b, "\",\n");
+        jbuf_append(&b, "        \"description_en\": \"");
+        jbuf_append_escaped(&b, lm->description_en);
+        jbuf_append(&b, "\"\n");
+
+        jbuf_printf(&b, "      }%s\n", (i + 1 < result->landmarks.spot_count) ? "," : "");
+    }
+
+    jbuf_append(&b, "    ]\n");
     jbuf_append(&b, "  }\n");
     jbuf_append(&b, "}\n");
 

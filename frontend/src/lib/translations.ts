@@ -199,6 +199,37 @@ export interface Translations {
   structTrialChambers: string;
   discoveredPOIs: string;
   discoveredDesc: string;
+
+  // Landmarks & Scenic/Building Spots
+  tabUsefulClusters: string;
+  tabLandmarks: string;
+  tabAllResults: string;
+  allResultsBanner: string;
+  allResultsBannerAction: string;
+  landmarksSectionTitle: string;
+  landmarksSectionDesc: string;
+  landmarksCountLabel: string;
+  scenicScoreLabel: string;
+  buildingScoreLabel: string;
+  surroundingBiomesLabel: string;
+  primaryBiomeLabel: string;
+  copyTpCommand: string;
+  copiedTpCommand: string;
+  legendLandmarks: string;
+  filterAllLandmarks: string;
+  navDocumentation: string;
+
+  // Criteria translations
+  criteriaStrategicMegaHub: string;
+  criteriaTradingMetropolis: string;
+  criteriaAbyssalHub: string;
+  criteriaSpawnOutpost: string;
+  criteriaDenseMulti: string;
+
+  // Documentation page
+  docsTitle: string;
+  docsSubtitle: string;
+  docsBackHome: string;
 }
 
 export const translations: Record<Locale, Translations> = {
@@ -417,6 +448,37 @@ export const translations: Record<Locale, Translations> = {
     structTrialChambers: 'غرف المحاكمة',
     discoveredPOIs: 'معالم العالم المكتشفة',
     discoveredDesc: 'هياكل موثقة بيوميًا في العالم خارج تقييم Useful v3.1.',
+
+    // Landmarks & Scenic/Building Spots
+    tabUsefulClusters: 'العناقيد الهيكلية',
+    tabLandmarks: 'أماكن البناء والمناظر الخلابة',
+    landmarksSectionTitle: 'المواقع الطبيعية وأماكن البناء المميزة',
+    landmarksSectionDesc: 'فوهات جبلية محاطة بزهور الكرز، أراضٍ مستوية واسعة للبناء، جروف بانورامية، وجزر نجاة معزولة.',
+    landmarksCountLabel: 'موقع مميز مكتشف',
+    scenicScoreLabel: 'الجمالية والمنظر',
+    buildingScoreLabel: 'ملاءمة البناء',
+    surroundingBiomesLabel: 'البيومات المحيطة',
+    primaryBiomeLabel: 'البيوم الأساسي',
+    copyTpCommand: 'نسخ أمر الانتقال',
+    copiedTpCommand: 'تم نسخ أمر الانتقال!',
+    legendLandmarks: 'المعالم الطبيعية والبنائية',
+    filterAllLandmarks: 'كافة المواقع',
+    tabAllResults: 'عرض كافة المواقع والعناقيد',
+    allResultsBanner: 'تم اكتشاف مواقع بناء ومناظر طبيعية خلابة في هذه البذرة!',
+    allResultsBannerAction: 'استعراض أماكن البناء الآن',
+    navDocumentation: 'التوثيق وسجل التحديثات',
+
+    // Criteria translations
+    criteriaStrategicMegaHub: 'الهياكل ≥ 5، الأنواع ≥ 3، أقرب مسافة بينية ≤ 180م، القطر الأقصى ≤ 780م',
+    criteriaTradingMetropolis: 'الهياكل ≥ 4، القرى ≥ 2، انتشار القرى ≤ 600م، القطر الأقصى ≤ 760م',
+    criteriaAbyssalHub: 'الهياكل ≥ 4، المدن القديمة ≥ 1، اقتران بقرية/سفينة ضمن 450م/250م',
+    criteriaSpawnOutpost: 'المسافة إلى الـ Spawn ≤ 1000م، الهياكل ≥ 3، اقتران وظيفي، القطر ≤ 720م',
+    criteriaDenseMulti: 'الهياكل ≥ 4، أقرب مسافة بينية ≤ 100م، القطر ≤ 700م، كثافة مكانية عالية',
+
+    // Documentation page
+    docsTitle: 'دليل التوثيق وسجل التحديثات الرسمية',
+    docsSubtitle: 'سجل شامل لكافة الميزات، محرك Cubiomes، والتحسينات المعمارية في منصة SeedLens',
+    docsBackHome: 'العودة إلى المحلل الرئيسي',
   },
 
   en: {
@@ -635,5 +697,36 @@ export const translations: Record<Locale, Translations> = {
     structTrialChambers: 'Trial Chambers',
     discoveredPOIs: 'Discovered World POIs',
     discoveredDesc: 'Biome-verified world landmarks outside Useful v3.1 evaluation.',
+
+    // Landmarks & Scenic/Building Spots
+    tabUsefulClusters: 'Useful Clusters',
+    tabLandmarks: 'Scenic & Building Spots',
+    landmarksSectionTitle: 'Scenic Landscapes & Prime Building Locations',
+    landmarksSectionDesc: 'Cherry blossom calderas, vast flat building basins, epic panoramic cliffs, and secluded survival islands.',
+    landmarksCountLabel: 'Curated Spots Discovered',
+    scenicScoreLabel: 'Scenic Score',
+    buildingScoreLabel: 'Building Score',
+    surroundingBiomesLabel: 'Surrounding Biomes',
+    primaryBiomeLabel: 'Primary Biome',
+    copyTpCommand: 'Copy Teleport Command',
+    copiedTpCommand: 'Teleport Command Copied!',
+    legendLandmarks: 'Natural & Building Landmarks',
+    filterAllLandmarks: 'All Landmarks',
+    tabAllResults: 'All Locations (Clusters & Landmarks)',
+    allResultsBanner: 'Prime building locations and scenic landscapes discovered in this seed!',
+    allResultsBannerAction: 'Explore Building Spots Now',
+    navDocumentation: 'Documentation & Changelog',
+
+    // Criteria translations
+    criteriaStrategicMegaHub: 'Count ≥ 5, Types ≥ 3, Closest pair ≤ 180m, Diameter ≤ 780m',
+    criteriaTradingMetropolis: 'Count ≥ 4, Villages ≥ 2, Village spread ≤ 600m, Diameter ≤ 760m',
+    criteriaAbyssalHub: 'Count ≥ 4, Ancient Cities ≥ 1, Village/Shipwreck within 450m/250m',
+    criteriaSpawnOutpost: 'Distance to spawn ≤ 1000m, Count ≥ 3, Functional pairing, Diameter ≤ 720m',
+    criteriaDenseMulti: 'Count ≥ 4, Closest pair ≤ 100m, Diameter ≤ 700m, High density',
+
+    // Documentation page
+    docsTitle: 'Documentation & Official Changelog',
+    docsSubtitle: 'Complete architectural reference, Cubiomes engine guide, and release history for SeedLens',
+    docsBackHome: 'Back to SeedLens Analyzer',
   },
 };

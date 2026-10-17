@@ -32,7 +32,7 @@ export default function Hero({
           <div>
             <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#866043] text-[#FADB44] font-mc-mono text-[11px] font-bold mb-2 border-t-2 border-l-2 border-[#A87954] border-b-2 border-r-2 border-[#4E3523] shadow-[1px_1px_0_rgba(0,0,0,0.3)]">
               <span className="w-2 h-2 bg-[#FADB44] shadow-[0_0_6px_#FADB44]"></span>
-              <span>CHUNK SCANNER v3.1 // MINECRAFT WORLD FORGE</span>
+              <span>{t.heroBadge}</span>
             </div>
 
             <h1 className="font-mc-heading text-3xl sm:text-4xl md:text-5xl text-[#1E1E1E] dark:text-[#F1F5F9] uppercase font-bold tracking-tight drop-shadow-[1px_1px_0_#FFF] dark:drop-shadow-[1px_1px_0_#000]">
