@@ -144,3 +144,45 @@ export type CategoryName =
   | 'Spawn Outpost'
   | 'Dense Multi'
   | string;
+
+export type PlaystylePresetId =
+  | 'mega_builder'
+  | 'dungeon_raider'
+  | 'aesthetic_creator'
+  | 'castaway_survivor'
+  | 'economy_mogul';
+
+export interface WishlistQuery {
+  playstylePreset?: PlaystylePresetId;
+  landmarkType?: string;
+  minScenicScore?: number;
+  minBuildingScore?: number;
+  clusterCategory?: string;
+  maxSpawnDistance?: number;
+  version: string;
+}
+
+export interface WishlistMatchHighlight {
+  name: string;
+  category: string;
+  x: number;
+  y?: number;
+  z: number;
+  distance: number;
+  scenicScore?: number;
+  buildingScore?: number;
+  tpCommand: string;
+  description: string;
+  primaryBiome?: string;
+}
+
+export interface WishlistMatchResult {
+  seed: string;
+  version: string;
+  matchedPreset?: PlaystylePresetId;
+  highlightTitle: string;
+  highlightType: 'landmark' | 'cluster' | 'discovery';
+  highlight: WishlistMatchHighlight;
+  seedsEvaluatedCount: number;
+  searchTimeMs: number;
+}

@@ -186,6 +186,51 @@ void seedlens_free_json(
     char *json_str
 );
 
+/* Find Query for Reverse Seed Finder */
+typedef struct {
+    const char *version;
+    const char *preset;             /* "mega_builder", "dungeon_raider", "aesthetic_creator", "castaway_survivor", "economy_mogul" */
+    const char *landmark_type;      /* "cherry_caldera", "mountain_crater", "epic_clifftop", "prime_building_basin", "isolated_island", "any" */
+    const char *cluster_category;   /* "trading_metropolis", "abyssal_hub", "trial_chambers", "spawn_outpost", "strategic_mega_hub", "any" */
+    int min_scenic_score;
+    int min_building_score;
+    int max_spawn_distance;
+    int64_t start_seed;
+    int max_seeds_to_scan;
+} SeedLensFindQuery;
+
+/* Result of Reverse Seed Finder */
+typedef struct {
+    int found;
+    int64_t seed;
+    char version[32];
+    char matched_preset[32];
+    char highlight_title[128];
+    char highlight_type[32];        /* "landmark", "cluster", "discovery" */
+    char highlight_name[128];
+    char highlight_category[64];
+    int highlight_x;
+    int highlight_y;
+    int highlight_z;
+    double highlight_distance;
+    int highlight_scenic_score;
+    int highlight_building_score;
+    char highlight_tp_command[64];
+    char highlight_description[512];
+    char highlight_primary_biome[64];
+    int seeds_evaluated;
+    double search_time_ms;
+} SeedLensFindResult;
+
+int seedlens_find(
+    const SeedLensFindQuery *query,
+    SeedLensFindResult *result
+);
+
+char *seedlens_find_result_to_json(
+    const SeedLensFindResult *result
+);
+
 #ifdef __cplusplus
 }
 #endif

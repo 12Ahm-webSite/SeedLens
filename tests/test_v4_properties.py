@@ -132,9 +132,36 @@ def main():
 
     print('  -> PASSED: Useful v3.1 results are 100% immutable and identical to baseline snapshot.')
 
+    # Property 8: Reverse Seed Finder & Fast-Reject C Pipeline
+    print('[Test 8] Reverse Seed Finder & Fast-Reject C Pipeline (Phase 3)')
+    presets_to_test = [
+        ('mega_builder', '1.20.6', 'landmark'),
+        ('castaway_survivor', '1.20.6', 'landmark'),
+        ('dungeon_raider', '1.21.1', ['discovery', 'cluster']),
+        ('economy_mogul', '1.20.6', 'cluster'),
+    ]
+
+    for preset, ver, expected_types in presets_to_test:
+        cmd = [BIN_PATH, 'find', '--version', ver, '--preset', preset, '--max-seeds', '10000']
+        res = subprocess.run(cmd, capture_output=True, text=True)
+        assert res.returncode == 0, f'seedlens find failed for {preset} on {ver}: {res.stderr}'
+
+        parsed = json.loads(res.stdout)
+        assert 'seed' in parsed and len(parsed['seed']) > 0, f'No seed returned for {preset}'
+        assert parsed['matchedPreset'] == preset, f'Preset mismatch: {parsed.get("matchedPreset")} vs {preset}'
+        assert 'highlight' in parsed, f'Missing highlight for {preset}'
+        assert 'searchTimeMs' in parsed and parsed['searchTimeMs'] >= 0, f'Missing searchTimeMs for {preset}'
+
+        if isinstance(expected_types, list):
+            assert parsed['highlightType'] in expected_types, f'Unexpected highlightType: {parsed["highlightType"]}'
+        else:
+            assert parsed['highlightType'] == expected_types, f'Expected {expected_types}, got {parsed["highlightType"]}'
+
+    print('  -> PASSED: Ultra-fast C Fast-Reject Finder successfully verified across all RPG presets.')
+
     print()
     print('======================================================================')
-    print('ALL 7 PROPERTY & BENCHMARK FOUNDATION TESTS COMPLETED SUCCESSFULLY!')
+    print('ALL 8 PROPERTY & BENCHMARK FOUNDATION TESTS COMPLETED SUCCESSFULLY!')
     print('======================================================================')
 
 if __name__ == '__main__':

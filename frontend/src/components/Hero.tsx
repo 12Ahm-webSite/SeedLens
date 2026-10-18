@@ -1,8 +1,9 @@
 'use client';
 
-import React from 'react';
-import { Compass, Sparkles, Map, ShieldCheck } from 'lucide-react';
+import React, { useState } from 'react';
+import { Compass, Sparkles, Map, ShieldCheck, Search } from 'lucide-react';
 import SeedInput from '@/components/SeedInput';
+import WishlistFinder from '@/components/WishlistFinder';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface HeroProps {
@@ -23,6 +24,7 @@ export default function Hero({
   errorMessage,
 }: HeroProps) {
   const { t } = useLanguage();
+  const [activeMode, setActiveMode] = useState<'analyzer' | 'wishlist'>('analyzer');
 
   return (
     <section id="hero" className="relative pt-8 pb-10 md:pt-12 md:pb-14">
@@ -48,16 +50,55 @@ export default function Hero({
           </div>
         </div>
 
-        {/* Seed Input Console (Cartography GUI) */}
+        {/* Mode Switcher Tabs */}
+        <div className="flex items-center gap-2.5 mb-4">
+          <button
+            type="button"
+            onClick={() => setActiveMode('analyzer')}
+            className={`px-4 py-2.5 text-xs font-mc-heading uppercase tracking-wider rounded border-2 transition-all cursor-pointer flex items-center gap-2 ${
+              activeMode === 'analyzer'
+                ? 'bg-[#866043] text-white border-b-4 border-[#4E3523] shadow-md'
+                : 'bg-black/10 dark:bg-white/10 text-[#444] dark:text-[#94A3B8] border-transparent hover:bg-black/15 dark:hover:bg-white/15'
+            }`}
+          >
+            <Search className="w-3.5 h-3.5 text-[#FADB44]" />
+            <span>{t.tabAnalyzeSeed}</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveMode('wishlist')}
+            className={`px-4 py-2.5 text-xs font-mc-heading uppercase tracking-wider rounded border-2 transition-all cursor-pointer flex items-center gap-2 ${
+              activeMode === 'wishlist'
+                ? 'bg-[#5B8731] text-white border-b-4 border-[#3D5A20] shadow-md'
+                : 'bg-black/10 dark:bg-white/10 text-[#444] dark:text-[#94A3B8] border-transparent hover:bg-black/15 dark:hover:bg-white/15'
+            }`}
+          >
+            <Sparkles className="w-3.5 h-3.5 text-[#FADB44] animate-pulse" />
+            <span>{t.tabWishlistFinder}</span>
+          </button>
+        </div>
+
+        {/* Console Container (Cartography Analyzer vs Wishlist Finder) */}
         <div id="analyzer" className="scroll-mt-24">
-          <SeedInput
-            onAnalyze={onAnalyze}
-            isLoading={isLoading}
-            selectedVersion={selectedVersion}
-            onVersionChange={onVersionChange}
-            initialSeed={initialSeed}
-            errorMessage={errorMessage}
-          />
+          {activeMode === 'analyzer' ? (
+            <SeedInput
+              onAnalyze={onAnalyze}
+              isLoading={isLoading}
+              selectedVersion={selectedVersion}
+              onVersionChange={onVersionChange}
+              initialSeed={initialSeed}
+              errorMessage={errorMessage}
+            />
+          ) : (
+            <WishlistFinder
+              selectedVersion={selectedVersion}
+              onVersionChange={onVersionChange}
+              onSelectSeed={(seed, ver) => {
+                onVersionChange(ver);
+                onAnalyze(seed, ver);
+              }}
+            />
+          )}
         </div>
 
         {/* Feature Highlights underneath */}

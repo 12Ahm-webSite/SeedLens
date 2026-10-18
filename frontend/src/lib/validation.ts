@@ -132,3 +132,27 @@ export function validateVersion(version: unknown): {
     error: `Unsupported Minecraft version '${trimmedVersion}'. Currently supported: ${SUPPORTED_VERSIONS.join(', ')}`,
   };
 }
+
+export interface VersionFeatures {
+  hasAncientCity: boolean;
+  hasCherryGroves: boolean;
+  hasTrailRuins: boolean;
+  hasTrialChambers: boolean;
+  hasPaleGarden: boolean;
+}
+
+export function getVersionFeatures(version: string): VersionFeatures {
+  const v = validateVersion(version).version;
+  const is118 = v.startsWith('1.18');
+  const is119 = v.startsWith('1.19');
+  const is120 = v.startsWith('1.20');
+  const is121 = v.startsWith('1.21');
+
+  return {
+    hasAncientCity: !is118,
+    hasCherryGroves: !is118 && !is119,
+    hasTrailRuins: !is118 && !is119,
+    hasTrialChambers: is121,
+    hasPaleGarden: v === '1.21.4',
+  };
+}

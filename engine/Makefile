@@ -21,6 +21,7 @@ SRCS = src/version.c \
        src/analysis.c \
        src/explanation.c \
        src/landmarks.c \
+       src/finder.c \
        src/engine.c \
        src/json.c
 

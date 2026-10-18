@@ -25,7 +25,10 @@ import {
   Castle,
   Camera,
   Waves,
+  MapPin,
 } from 'lucide-react';
+import WaypointsModal from '@/components/WaypointsModal';
+import PostcardModal from '@/components/PostcardModal';
 
 interface AnalysisResultsProps {
   data: AnalyzeSuccessResponse;
@@ -62,6 +65,8 @@ export default function AnalysisResults({
   const [sortBy, setSortBy] = useState<SortOption>('default');
   const [modalCluster, setModalCluster] = useState<Cluster | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>('split');
+  const [showWaypointsModal, setShowWaypointsModal] = useState(false);
+  const [showPostcardModal, setShowPostcardModal] = useState(false);
 
   const copySeedToClipboard = () => {
     navigator.clipboard.writeText(String(seed));
@@ -283,6 +288,24 @@ export default function AnalysisResults({
                   <span>{locale === 'ar' ? 'مشاركة' : 'Share'}</span>
                 </>
               )}
+            </button>
+
+            <button
+              onClick={() => setShowWaypointsModal(true)}
+              className="flex items-center gap-1 px-2.5 py-1 mc-button hover:bg-[#E0E0E0] dark:hover:bg-[#313745] text-[#222222] dark:text-[#E2E8F0] font-bold cursor-pointer"
+              title={t.exportWaypointsBtn}
+            >
+              <MapPin className="w-3.5 h-3.5 text-[#5B8731]" />
+              <span>{t.exportWaypointsBtn}</span>
+            </button>
+
+            <button
+              onClick={() => setShowPostcardModal(true)}
+              className="flex items-center gap-1 px-2.5 py-1 mc-button hover:bg-[#E0E0E0] dark:hover:bg-[#313745] text-[#222222] dark:text-[#E2E8F0] font-bold cursor-pointer"
+              title={t.exportPostcardBtn}
+            >
+              <Sparkles className="w-3.5 h-3.5 text-[#FADB44]" />
+              <span>{t.exportPostcardBtn}</span>
             </button>
           </div>
         </div>
@@ -756,6 +779,20 @@ export default function AnalysisResults({
           setSelectedClusterId(cluster.id);
           if (viewMode === 'cards') setViewMode('split');
         }}
+      />
+
+      {/* Phase 4: Waypoints Exporter Modal */}
+      <WaypointsModal
+        isOpen={showWaypointsModal}
+        onClose={() => setShowWaypointsModal(false)}
+        data={data}
+      />
+
+      {/* Phase 4: Postcard & Social Share Modal */}
+      <PostcardModal
+        isOpen={showPostcardModal}
+        onClose={() => setShowPostcardModal(false)}
+        data={data}
       />
     </section>
   );

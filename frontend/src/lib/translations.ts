@@ -230,6 +230,81 @@ export interface Translations {
   docsTitle: string;
   docsSubtitle: string;
   docsBackHome: string;
+
+  // Wishlist & Reverse Seed Finder
+  tabAnalyzeSeed: string;
+  tabWishlistFinder: string;
+  wishlistHeroBadge: string;
+  wishlistTitle: string;
+  wishlistSubtitle: string;
+  playstylePresetsTitle: string;
+  playstylePresetsSubtitle: string;
+  presetMegaBuilderTitle: string;
+  presetMegaBuilderRole: string;
+  presetMegaBuilderDesc: string;
+  presetDungeonRaiderTitle: string;
+  presetDungeonRaiderRole: string;
+  presetDungeonRaiderDesc: string;
+  presetAestheticCreatorTitle: string;
+  presetAestheticCreatorRole: string;
+  presetAestheticCreatorDesc: string;
+  presetCastawaySurvivorTitle: string;
+  presetCastawaySurvivorRole: string;
+  presetCastawaySurvivorDesc: string;
+  presetEconomyMogulTitle: string;
+  presetEconomyMogulRole: string;
+  presetEconomyMogulDesc: string;
+  customWishlistTitle: string;
+  minScenicScore: string;
+  minBuildingScore: string;
+  desiredLandmark: string;
+  desiredCluster: string;
+  maxSpawnDistance: string;
+  anyOption: string;
+  distImmediate: string;
+  distClose: string;
+  distMedium: string;
+  distFar: string;
+  findDreamSeedBtn: string;
+  searchingSeedsTitle: string;
+  searchingSeedsDesc: string;
+  matchFoundTitle: string;
+  matchFoundDesc: string;
+  matchedFeatureLabel: string;
+  openFullAnalysisBtn: string;
+  findAnotherSeedBtn: string;
+  evaluationStats: string;
+
+  // Version Adaptive Strings
+  selectedVersionLabel: string;
+  presetAestheticCreatorDescLegacy: string;
+  presetDungeonRaiderDesc119_120: string;
+  presetDungeonRaiderDesc118: string;
+  requiresVersion120: string;
+  requiresVersion121: string;
+  requiresVersion119: string;
+  versionNotice118: string;
+  versionNotice119: string;
+  versionNotice120: string;
+
+  // Phase 4: Waypoints & Postcard Exporters
+  exportWaypointsBtn: string;
+  exportPostcardBtn: string;
+  waypointsModalTitle: string;
+  waypointsModalDesc: string;
+  tabXaero: string;
+  tabJourneyMap: string;
+  downloadWaypointsFile: string;
+  copyWaypointsText: string;
+  copiedWaypointsText: string;
+  xaeroInstallGuide: string;
+  journeyMapInstallGuide: string;
+  postcardModalTitle: string;
+  postcardModalDesc: string;
+  downloadPostcardImage: string;
+  copyDiscordMarkdown: string;
+  copiedDiscordMarkdown: string;
+  shareOnX: string;
 }
 
 export const translations: Record<Locale, Translations> = {
@@ -251,7 +326,7 @@ export const translations: Record<Locale, Translations> = {
       'أدخل أي Minecraft Java Seed لاكتشاف التجمعات الهيكلية النادرة، العواصم التجارية، الروابط السحيقة بين السطح والمدن القديمة، والبؤر الاستيطانية عبر نطاق 10,000×10,000 بلوك.',
     statRadiusTitle: 'نطاق 10 آلاف بلوك',
     statRadiusDesc: 'يغطي [-5000، 5000] حول مركز العالم',
-    statTaxonomyTitle: 'تصنيف v3.1 الاستراتيجي',
+    statTaxonomyTitle: 'تصنيف v4.1 الاستراتيجي',
     statTaxonomyDesc: '5 فلاتر لتصنيف أهم المواقع المفيدة عملياً',
     statCubiomesTitle: 'موثق عبر Cubiomes',
     statCubiomesDesc: 'فحص إمكانية التوليد الواقعي للتضاريس',
@@ -479,6 +554,87 @@ export const translations: Record<Locale, Translations> = {
     docsTitle: 'دليل التوثيق وسجل التحديثات الرسمية',
     docsSubtitle: 'سجل شامل لكافة الميزات، محرك Cubiomes، والتحسينات المعمارية في منصة SeedLens',
     docsBackHome: 'العودة إلى المحلل الرئيسي',
+
+    // Wishlist & Reverse Seed Finder
+    tabAnalyzeSeed: 'فحص بذرة معينة',
+    tabWishlistFinder: '✨ مكتشف البذور العكسي',
+    wishlistHeroBadge: 'توليد وبحث عكسي ذكي // الجيل الرابع',
+    wishlistTitle: 'ابحث عن عالم أحلامك بمواصفاتك الخاصة',
+    wishlistSubtitle: 'حدد رغباتك وتفضيلاتك التضاريسية والهيكلية، وسيقوم المحرك بفحص البذور والعثور على العالم المثالي لك فوراً!',
+    playstylePresetsTitle: 'شخصيات وأساليب اللعب الجاهزة',
+    playstylePresetsSubtitle: 'اختر هدفك من العالم بنقرة واحدة، أو اضبط الفلاتر يدوياً بالأسفل',
+    presetMegaBuilderTitle: 'الملك البنّاء',
+    presetMegaBuilderRole: 'بناء المدن والقواعد',
+    presetMegaBuilderDesc: 'سهول فسيحة مستوية بجوار مياه وأخشاب، بأعلى درجات سهولة البناء لتشييد القواعد الضخمة.',
+    presetDungeonRaiderTitle: 'صائد الأقبية',
+    presetDungeonRaiderRole: 'قتال ومغامرات سريعة',
+    presetDungeonRaiderDesc: 'غرف محاكمة (Trial Chambers) ومدينة قديمة قرب نقطة البداية لمغامرات قتالية ملحمية فورية.',
+    presetAestheticCreatorTitle: 'صانع السينما',
+    presetAestheticCreatorRole: 'لقطات وإطلالات ساحرة',
+    presetAestheticCreatorDesc: 'فوهات كرز جبلية وقمم مسننة بإطلالات تفوق 90% لالتقاط أروع المشاهد وبناء القواعد السحابية.',
+    presetCastawaySurvivorTitle: 'المحاصر المنعزل',
+    presetCastawaySurvivorRole: 'تحدي نجاة شاق',
+    presetCastawaySurvivorDesc: 'جزيرة نجاة معزولة محاطة بمحيط عميق لتحديات النجاة الحقيقية وبناء القلاع البحرية.',
+    presetEconomyMogulTitle: 'التاجر الإمبراطوري',
+    presetEconomyMogulRole: 'مقايضة ومزارع حديد',
+    presetEconomyMogulDesc: 'عاصمة تجارية تضم قرى متعددة متقاربة لتأسيس مزارع الحديد وقاعات المقايضة فوراً.',
+    customWishlistTitle: 'أو خصص مواصفات العالم بدقة',
+    minScenicScore: 'الحد الأدنى لجمالية المشهد',
+    minBuildingScore: 'الحد الأدنى لملاءمة البناء',
+    desiredLandmark: 'المعلم الطبيعي المفضل',
+    desiredCluster: 'العنقود الهيكلي المفضل',
+    maxSpawnDistance: 'أقصى مسافة عن نقطة البداية (Spawn)',
+    anyOption: 'أي نوع (بدون تفضيل)',
+    distImmediate: 'فوري (≤ 500م)',
+    distClose: 'قريب (≤ 1000م)',
+    distMedium: 'متوسط (≤ 2000م)',
+    distFar: 'عالم مفتوح (≤ 5000م)',
+    findDreamSeedBtn: '🔍 ابحث عن البذرة المثالية الآن',
+    searchingSeedsTitle: 'جاري فحص عوالم ماينكرافت...',
+    searchingSeedsDesc: 'المحرك يفحص التضاريس والبيومات وعناقيد الهياكل في الخلفية...',
+    matchFoundTitle: '🎉 تم العثور على البذرة المثالية لعالمك!',
+    matchFoundDesc: 'حقق هذا العالم كافة المواصفات والمعايير المطلوبة بنجاح باهر.',
+    matchedFeatureLabel: 'المعلم المطابق المميز',
+    openFullAnalysisBtn: 'عرض التحليل الشامل والخريطة التفاعلية لهذا العالم',
+    findAnotherSeedBtn: 'البحث عن بذرة أخرى بمواصفات جديدة',
+    evaluationStats: 'تم فحص {count} بذرة في {ms} ملي ثانية',
+
+    // Version Adaptive Strings
+    selectedVersionLabel: 'إصدار ماينكرافت:',
+    presetAestheticCreatorDescLegacy:
+      'قمم جبلية مسننة وجروف بانورامية شاهقة بإطلالات ساحرة تفوق 90% (محدثة لتلائم تضاريس Caves & Cliffs في هذا الإصدار).',
+    presetDungeonRaiderDesc119_120:
+      'مدينة قديمة (Ancient City) وأعماق سحيقة Deep Dark قرب نقطة البداية للمغامرات والاستكشاف.',
+    presetDungeonRaiderDesc118:
+      'مخافر قتالية وحصون وأوكار بيلاجر لتحديات القتال الملحمية في 1.18.',
+    requiresVersion120: '(يتطلب 1.20+)',
+    requiresVersion121: '(يتطلب 1.21+)',
+    requiresVersion119: '(يتطلب 1.19+)',
+    versionNotice118:
+      'ملاحظة: في إصدار 1.18.2، تم حجب أشجار الكرز (1.20+) وغرف المحاكمة (1.21+) والمدينة القديمة (1.19+) لعدم وجودها في هذا الإصدار.',
+    versionNotice119:
+      'ملاحظة: في إصدار 1.19.4، تتوفر المدينة القديمة، بينما تم حجب أشجار الكرز (1.20+) وغرف المحاكمة (1.21+) لعدم وجودها في هذا الإصدار.',
+    versionNotice120:
+      'ملاحظة: في إصدار 1.20.6، تتوفر بساتين الكرز والمدينة القديمة، بينما تتطلب غرف المحاكمة النحاسية التبديل إلى 1.21+.',
+
+    // Phase 4: Waypoints & Postcard Exporters
+    exportWaypointsBtn: 'تصدير نقاط الخريطة (Waypoints)',
+    exportPostcardBtn: 'بطاقة بريدية سينمائية (Postcard)',
+    waypointsModalTitle: 'تصدير نقاط العلام إلى اللعبة (Waypoints Exporter)',
+    waypointsModalDesc: 'قم بتنزيل ملف النقاط وضعه في مجلد الخريطة لتظهر المعالم والعناقيد كدبابيس مشعة داخل اللعبة مباشرة!',
+    tabXaero: "مود Xaero's Minimap (.txt)",
+    tabJourneyMap: 'مود JourneyMap (.json)',
+    downloadWaypointsFile: 'تنزيل ملف النقاط',
+    copyWaypointsText: 'نسخ الكود للحافظة',
+    copiedWaypointsText: 'تم النسخ بنجاح!',
+    xaeroInstallGuide: 'ضع الملف المُنزل داخل المجلد: .minecraft/xaerominimap/',
+    journeyMapInstallGuide: 'ضع الملف المُنزل داخل المجلد: .minecraft/journeymap/data/sp/<اسم_العالم>/waypoints/',
+    postcardModalTitle: 'بطاقة ماينكرافت السينمائية (SeedLens Postcard)',
+    postcardModalDesc: 'بطاقة بيكسلية أنيقة جاهزة للتحميل كصورة والمشاركة على ديسكورد وريديت وتويتر!',
+    downloadPostcardImage: 'تحميل البطاقة كصورة (PNG)',
+    copyDiscordMarkdown: 'نسخ نص ديسكورد / ريديت',
+    copiedDiscordMarkdown: 'تم نسخ النص بنجاح!',
+    shareOnX: 'مشاركة على X (تويتر)',
   },
 
   en: {
@@ -499,7 +655,7 @@ export const translations: Record<Locale, Translations> = {
       'Input any Minecraft Java seed to discover rare multi-structure clusters, trading hubs, abyssal surface-to-deep connections, and strategic outposts across a 10,000×10,000 block world perimeter.',
     statRadiusTitle: '10K Block Radius',
     statRadiusDesc: 'Covers [-5000, 5000] around world spawn',
-    statTaxonomyTitle: 'v3.1 Calibrated',
+    statTaxonomyTitle: 'v4.1 Calibrated',
     statTaxonomyDesc: '5 strategic category classification filters',
     statCubiomesTitle: 'Cubiomes Verified',
     statCubiomesDesc: 'Viability checked against real terrain logic',
@@ -728,5 +884,86 @@ export const translations: Record<Locale, Translations> = {
     docsTitle: 'Documentation & Official Changelog',
     docsSubtitle: 'Complete architectural reference, Cubiomes engine guide, and release history for SeedLens',
     docsBackHome: 'Back to SeedLens Analyzer',
+
+    // Wishlist & Reverse Seed Finder
+    tabAnalyzeSeed: 'Analyze Seed',
+    tabWishlistFinder: '✨ Wishlist Seed Finder',
+    wishlistHeroBadge: 'ACTIVE REVERSE SEARCH // V4 INTELLIGENCE',
+    wishlistTitle: 'Find Your Dream World by Custom Specs',
+    wishlistSubtitle: 'Specify your structural and scenic desires, and the engine will discover your perfect Minecraft seed instantly!',
+    playstylePresetsTitle: 'Quick Playstyle Presets',
+    playstylePresetsSubtitle: 'Select your world goal in one click, or fine-tune custom filters below',
+    presetMegaBuilderTitle: 'The Mega-Builder',
+    presetMegaBuilderRole: 'Base & City Builder',
+    presetMegaBuilderDesc: 'Vast flat plains near water and timber with top building scores for grand bases and cities.',
+    presetDungeonRaiderTitle: 'The Dungeon Raider',
+    presetDungeonRaiderRole: 'Fast Action & Raids',
+    presetDungeonRaiderDesc: 'Trial Chambers and Ancient Cities near spawn for instant dungeon delving and combat loot.',
+    presetAestheticCreatorTitle: 'The Aesthetic Creator',
+    presetAestheticCreatorRole: 'Cinematic & Screenshots',
+    presetAestheticCreatorDesc: 'Cherry blossom calderas and jagged peaks with 90%+ scenic scores for breathtaking vistas.',
+    presetCastawaySurvivorTitle: 'The Castaway Survivor',
+    presetCastawaySurvivorRole: 'Hardcore Survival',
+    presetCastawaySurvivorDesc: 'Isolated survival island surrounded by deep ocean for pure hardcore survival.',
+    presetEconomyMogulTitle: 'The Economy Mogul',
+    presetEconomyMogulRole: 'Trading & Iron Farms',
+    presetEconomyMogulDesc: 'Trading metropolis with multiple close villages for rapid iron farming and villager trading.',
+    customWishlistTitle: 'Or Fine-Tune Your Wishlist Manually',
+    minScenicScore: 'Minimum Scenic Score',
+    minBuildingScore: 'Minimum Building Score',
+    desiredLandmark: 'Desired Landscape Feature',
+    desiredCluster: 'Desired Structural Cluster',
+    maxSpawnDistance: 'Maximum Distance to World Spawn',
+    anyOption: 'Any Type (No Preference)',
+    distImmediate: 'Immediate (≤ 500m)',
+    distClose: 'Close (≤ 1000m)',
+    distMedium: 'Medium (≤ 2000m)',
+    distFar: 'Open World (≤ 5000m)',
+    findDreamSeedBtn: '🔍 Discover Dream Seed Now',
+    searchingSeedsTitle: 'Scanning Minecraft Worlds...',
+    searchingSeedsDesc: 'Engine evaluating terrain, biomes, and structure viability in the background...',
+    matchFoundTitle: '🎉 Dream Seed Discovered!',
+    matchFoundDesc: 'This seed successfully meets all your requested world criteria.',
+    matchedFeatureLabel: 'Highlighted Match',
+    openFullAnalysisBtn: 'Open Full Analysis & Interactive Map',
+    findAnotherSeedBtn: 'Find Another Seed',
+    evaluationStats: 'Evaluated {count} seeds in {ms}ms',
+
+    // Version Adaptive Strings
+    selectedVersionLabel: 'Minecraft Version:',
+    presetAestheticCreatorDescLegacy:
+      'Jagged mountain peaks and epic panoramic cliffs with 90%+ scenic scores (calibrated for Caves & Cliffs terrain in this release).',
+    presetDungeonRaiderDesc119_120:
+      'Ancient City and Deep Dark abyss near spawn for underground raids and exploration.',
+    presetDungeonRaiderDesc118:
+      'Pillager outposts and battle strongholds for combat challenges in 1.18.',
+    requiresVersion120: '(Requires 1.20+)',
+    requiresVersion121: '(Requires 1.21+)',
+    requiresVersion119: '(Requires 1.19+)',
+    versionNotice118:
+      'Note: In version 1.18.2, Cherry Groves (1.20+), Trial Chambers (1.21+), and Ancient Cities (1.19+) are omitted as they do not exist in this release.',
+    versionNotice119:
+      'Note: In version 1.19.4, Ancient Cities are available, while Cherry Groves (1.20+) and Trial Chambers (1.21+) are omitted as they do not exist in this release.',
+    versionNotice120:
+      'Note: In version 1.20.6, Cherry Groves and Ancient Cities are available, while Trial Chambers require switching to 1.21+.',
+
+    // Phase 4: Waypoints & Postcard Exporters
+    exportWaypointsBtn: 'Export Waypoints',
+    exportPostcardBtn: 'Share Postcard',
+    waypointsModalTitle: 'Export Waypoints to Minecraft Mods',
+    waypointsModalDesc: 'Download the waypoints file and place it in your map mod directory to see clusters and landmarks inside Minecraft!',
+    tabXaero: "Xaero's Minimap (.txt)",
+    tabJourneyMap: 'JourneyMap (.json)',
+    downloadWaypointsFile: 'Download File',
+    copyWaypointsText: 'Copy to Clipboard',
+    copiedWaypointsText: 'Copied to Clipboard!',
+    xaeroInstallGuide: 'Place the downloaded file in: .minecraft/xaerominimap/',
+    journeyMapInstallGuide: 'Place the downloaded file in: .minecraft/journeymap/data/sp/<world_name>/waypoints/',
+    postcardModalTitle: 'SeedLens Postcard',
+    postcardModalDesc: 'A pixel-art postcard ready for image download and sharing on Discord, Reddit, and X!',
+    downloadPostcardImage: 'Download Postcard (PNG)',
+    copyDiscordMarkdown: 'Copy Discord / Reddit Text',
+    copiedDiscordMarkdown: 'Copied Markdown!',
+    shareOnX: 'Share on X',
   },
 };
