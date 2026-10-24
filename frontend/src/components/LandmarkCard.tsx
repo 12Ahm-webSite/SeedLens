@@ -20,12 +20,14 @@ interface LandmarkCardProps {
   landmark: LandmarkSpot;
   isSelected?: boolean;
   onSelect?: (id: number) => void;
+  edition?: 'java' | 'bedrock';
 }
 
 export default function LandmarkCard({
   landmark,
   isSelected = false,
   onSelect,
+  edition = 'java',
 }: LandmarkCardProps) {
   const { locale, t } = useLanguage();
   const [copiedTp, setCopiedTp] = useState(false);
@@ -140,12 +142,21 @@ export default function LandmarkCard({
           </div>
         </div>
 
-        {/* Category Pill */}
-        <span
-          className={`font-mc-mono text-[10px] uppercase font-bold px-2 py-0.5 border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder} shrink-0`}
-        >
-          {landmark.category.replace('_', ' ')}
-        </span>
+        {/* Category & Parity Badges */}
+        <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
+          <span
+            className="font-mc-mono text-[9px] uppercase font-bold px-1.5 py-0.5 bg-[#4A4A4A]/10 dark:bg-[#1E293B] text-[#0284C7] dark:text-[#38BDF8] border border-[#38BDF8]/40 shadow-[1px_1px_0_rgba(0,0,0,0.15)] flex items-center gap-1"
+            title={isAr ? 'التضاريس والبيومات متطابقة 100% مع إصدار Bedrock' : 'Terrain & Biomes are 100% identical on Bedrock Edition'}
+          >
+            <span>🪨</span>
+            <span>{isAr ? 'توافق Bedrock 100%' : '100% Bedrock Parity'}</span>
+          </span>
+          <span
+            className={`font-mc-mono text-[10px] uppercase font-bold px-2 py-0.5 border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder} shrink-0`}
+          >
+            {landmark.category.replace('_', ' ')}
+          </span>
+        </div>
       </div>
 
       {/* Description */}

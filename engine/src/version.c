@@ -105,7 +105,7 @@ static const VersionProfile supported_profiles[] = {
     {
         .canonical_name = "1.21.4",
         .display_name = "Minecraft Java 1.21.4",
-        .aliases = {"1.21.4", "1.21-wd", "winter-drop", NULL},
+        .aliases = {"1.21.4", "1.21-wd", "winter-drop", "26.3", "26.x", "26.0", "latest", NULL},
         .mc_enum = MC_1_21_WD,
         .targets = targets_standard,
         .target_count = (int)TARGETS_STANDARD_COUNT,

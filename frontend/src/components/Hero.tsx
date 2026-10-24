@@ -11,6 +11,8 @@ interface HeroProps {
   isLoading: boolean;
   selectedVersion: string;
   onVersionChange: (version: string) => void;
+  edition?: 'java' | 'bedrock';
+  onEditionChange?: (edition: 'java' | 'bedrock') => void;
   initialSeed?: string;
   errorMessage?: string | null;
 }
@@ -20,6 +22,8 @@ export default function Hero({
   isLoading,
   selectedVersion,
   onVersionChange,
+  edition = 'java',
+  onEditionChange,
   initialSeed,
   errorMessage,
 }: HeroProps) {
@@ -86,6 +90,8 @@ export default function Hero({
               isLoading={isLoading}
               selectedVersion={selectedVersion}
               onVersionChange={onVersionChange}
+              edition={edition}
+              onEditionChange={onEditionChange}
               initialSeed={initialSeed}
               errorMessage={errorMessage}
             />

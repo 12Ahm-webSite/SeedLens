@@ -33,6 +33,7 @@ import PostcardModal from '@/components/PostcardModal';
 interface AnalysisResultsProps {
   data: AnalyzeSuccessResponse;
   onTryAnotherSeed?: () => void;
+  edition?: 'java' | 'bedrock';
 }
 
 type SortOption =
@@ -47,6 +48,7 @@ type ViewMode = 'split' | 'cards' | 'map';
 export default function AnalysisResults({
   data,
   onTryAnotherSeed,
+  edition = 'java',
 }: AnalysisResultsProps) {
   const { t, locale, translateCategory } = useLanguage();
   const [copiedSeed, setCopiedSeed] = useState(false);
@@ -250,7 +252,7 @@ export default function AnalysisResults({
                 {t.versionLabel}:
               </span>
               <span className="text-[#2CBAA8] font-bold">
-                Java {minecraft_version}
+                {edition === 'bedrock' ? 'Bedrock / Java' : 'Java'} {minecraft_version}
               </span>
             </div>
           </div>
@@ -599,6 +601,7 @@ export default function AnalysisResults({
                     landmark={landmark}
                     isSelected={selectedLandmarkId === landmark.id}
                     onSelect={handleSelectLandmark}
+                    edition={edition}
                   />
                 </div>
               ))
@@ -619,6 +622,7 @@ export default function AnalysisResults({
                             landmark={landmark}
                             isSelected={selectedLandmarkId === landmark.id}
                             onSelect={handleSelectLandmark}
+                            edition={edition}
                           />
                         </div>
                       ))}
@@ -656,6 +660,8 @@ export default function AnalysisResults({
           <div className="lg:col-span-6 xl:col-span-6 lg:sticky lg:top-20">
             <SeedMap
               seed={seed}
+              version={minecraft_version}
+              edition={edition}
               clusters={filteredAndSortedClusters}
               searchBounds={search}
               worldSpawn={data.world_spawn}
@@ -700,6 +706,7 @@ export default function AnalysisResults({
                   landmark={landmark}
                   isSelected={selectedLandmarkId === landmark.id}
                   onSelect={handleSelectLandmark}
+                  edition={edition}
                 />
               </div>
             ))
@@ -719,6 +726,7 @@ export default function AnalysisResults({
                         landmark={landmark}
                         isSelected={selectedLandmarkId === landmark.id}
                         onSelect={handleSelectLandmark}
+                        edition={edition}
                       />
                     </div>
                   ))}
@@ -752,6 +760,8 @@ export default function AnalysisResults({
         <div>
           <SeedMap
             seed={seed}
+            version={minecraft_version}
+            edition={edition}
             clusters={filteredAndSortedClusters}
             searchBounds={search}
             worldSpawn={data.world_spawn}

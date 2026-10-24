@@ -34,6 +34,8 @@ export interface Translations {
   textSeedNoteSuffix: string;
   errorEmptySeed: string;
   errorInvalidSeed: string;
+  errorOutOfRange: string;
+  generateRandomSeedBtn: string;
 
   // Presets
   presetTrading: string;
@@ -305,6 +307,13 @@ export interface Translations {
   copyDiscordMarkdown: string;
   copiedDiscordMarkdown: string;
   shareOnX: string;
+
+  // Bedrock & Edition
+  editionJava: string;
+  editionBedrock: string;
+  bedrockParity: string;
+  bedrockParityBadge: string;
+  bedrockParityNotice: string;
 }
 
 export const translations: Record<Locale, Translations> = {
@@ -343,6 +352,8 @@ export const translations: Record<Locale, Translations> = {
     textSeedNoteSuffix: '" إلى رقم جافا المكافئ: ',
     errorEmptySeed: 'يرجى إدخال رقم البذرة (Seed) أو اسم العالم.',
     errorInvalidSeed: 'بذرة غير صالحة.',
+    errorOutOfRange: 'قيمة البذرة تتجاوز الحد الأقصى لماينكرافت (64-بت: من -9.2 إلى +9.2 كوينتيليون). اضغط زر النرد لتوليد بذرة صالحة فوراً!',
+    generateRandomSeedBtn: 'توليد بذرة عشوائية صالحة (🎲)',
 
     // Presets
     presetTrading: 'عاصمة تجارية',
@@ -635,6 +646,13 @@ export const translations: Record<Locale, Translations> = {
     copyDiscordMarkdown: 'نسخ نص ديسكورد / ريديت',
     copiedDiscordMarkdown: 'تم نسخ النص بنجاح!',
     shareOnX: 'مشاركة على X (تويتر)',
+
+    // Bedrock & Edition
+    editionJava: 'جافا (Java)',
+    editionBedrock: 'بيدروك (Bedrock)',
+    bedrockParity: 'تطابق تضاريسي 100% مع Bedrock',
+    bedrockParityBadge: 'توافق Bedrock 100%',
+    bedrockParityNotice: 'تنطبق مطابقة بذور Bedrock على كافة التضاريس والبيومات (1.18+).',
   },
 
   en: {
@@ -672,6 +690,8 @@ export const translations: Record<Locale, Translations> = {
     textSeedNoteSuffix: '" will be converted to Java seed numeric: ',
     errorEmptySeed: 'Please enter a Minecraft seed number or world name.',
     errorInvalidSeed: 'Invalid seed.',
+    errorOutOfRange: 'Seed value is out of 64-bit range (-9.22 to +9.22 quintillion). Click the dice to generate a valid seed!',
+    generateRandomSeedBtn: 'Generate Valid Seed (🎲)',
 
     // Presets
     presetTrading: 'Trading Metropolis',
@@ -965,5 +985,12 @@ export const translations: Record<Locale, Translations> = {
     copyDiscordMarkdown: 'Copy Discord / Reddit Text',
     copiedDiscordMarkdown: 'Copied Markdown!',
     shareOnX: 'Share on X',
+
+    // Bedrock & Edition
+    editionJava: 'Java Edition',
+    editionBedrock: 'Bedrock Edition',
+    bedrockParity: '100% Bedrock Terrain & Biome Parity',
+    bedrockParityBadge: '100% Bedrock Parity',
+    bedrockParityNotice: 'Bedrock 64-bit seed parity applies to all terrain and biomes (1.18+).',
   },
 };

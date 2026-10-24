@@ -14,6 +14,8 @@ import { useLanguage } from '@/context/LanguageContext';
 
 interface SeedMapProps {
   seed?: string | number;
+  version?: string;
+  edition?: 'java' | 'bedrock';
   clusters: Cluster[];
   searchBounds?: SearchBounds;
   worldSpawn?: WorldSpawn;

@@ -28,7 +28,7 @@ typedef struct {
 typedef struct {
     const char *canonical_name;      /* e.g. "1.20.6" */
     const char *display_name;        /* e.g. "Minecraft Java 1.20.6" */
-    const char *aliases[4];          /* {"1.20.6", "1.20", NULL} */
+    const char *aliases[10];         /* {"1.20.6", "1.20", NULL} */
     int mc_enum;                     /* Cubiomes MCVersion enum */
     const StructureTarget *targets;  /* Useful v3.1 scoring targets (5 core structures) */
     int target_count;                /* number of scoring targets */

@@ -17,7 +17,8 @@ type AnalysisStatus = 'idle' | 'loading' | 'success' | 'error';
 export default function Home() {
   const [status, setStatus] = useState<AnalysisStatus>('idle');
   const [currentSeed, setCurrentSeed] = useState<string>('');
-  const [selectedVersion, setSelectedVersion] = useState<string>('1.20.6');
+  const [selectedVersion, setSelectedVersion] = useState<string>('26.3');
+  const [selectedEdition, setSelectedEdition] = useState<'java' | 'bedrock'>('java');
   const [results, setResults] = useState<AnalyzeSuccessResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -60,6 +61,7 @@ export default function Home() {
       <Header
         selectedVersion={selectedVersion}
         onVersionChange={setSelectedVersion}
+        edition={selectedEdition}
       />
 
       <main className="flex-1">
@@ -69,6 +71,8 @@ export default function Home() {
           isLoading={status === 'loading'}
           selectedVersion={selectedVersion}
           onVersionChange={setSelectedVersion}
+          edition={selectedEdition}
+          onEditionChange={setSelectedEdition}
           initialSeed={currentSeed}
           errorMessage={status === 'error' ? errorMessage : null}
         />
@@ -87,6 +91,7 @@ export default function Home() {
           {status === 'success' && results && (
             <AnalysisResults
               data={results}
+              edition={selectedEdition}
               onTryAnotherSeed={handleTryAnother}
             />
           )}

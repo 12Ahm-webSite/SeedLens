@@ -12,7 +12,7 @@ static void print_usage(const char *prog, FILE *stream)
     fprintf(stream, "          [--cluster <cat>] [--min-scenic <n>] [--min-building <n>]\n");
     fprintf(stream, "          [--max-dist <n>] [--start-seed <n>] [--max-seeds <n>]\n");
     fprintf(stream, "\nOptions:\n");
-    fprintf(stream, "  --version <ver>   Minecraft version (1.18.2, 1.19.4, 1.20.6, 1.21.1, 1.21.3, 1.21.4)\n");
+    fprintf(stream, "  --version <ver>   Minecraft version (1.18.2, 1.19.4, 1.20.6, 1.21.1, 1.21.3, 1.21.4, 26.3)\n");
     fprintf(stream, "  --preset <preset> Playstyle (mega_builder, dungeon_raider, aesthetic_creator, castaway_survivor, economy_mogul)\n");
     fprintf(stream, "  --landmark <type> Landmark archetype (cherry_caldera, mountain_crater, epic_clifftop, prime_building_basin, isolated_island)\n");
     fprintf(stream, "  --cluster <cat>   Cluster category (trading_metropolis, abyssal_hub, trial_chambers, spawn_outpost, strategic_mega_hub)\n");

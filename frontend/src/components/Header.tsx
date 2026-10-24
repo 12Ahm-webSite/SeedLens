@@ -10,11 +10,13 @@ interface HeaderProps {
   onNavigate?: (sectionId: string) => void;
   selectedVersion?: string;
   onVersionChange?: (version: string) => void;
+  edition?: 'java' | 'bedrock';
 }
 
 export default function Header({
   onNavigate,
   selectedVersion = '1.20.6',
+  edition = 'java',
 }: HeaderProps) {
   const { t, locale, toggleLocale } = useLanguage();
 
@@ -47,7 +49,9 @@ export default function Header({
                 SeedLens
               </span>
               <span className="font-mc-mono text-[10px] bg-[#5B8731] text-[#FFFFFF] px-2 py-0.5 border-t border-l border-[#89BD44] border-b border-r border-[#2A4413] font-bold shadow-[1px_1px_0_rgba(0,0,0,0.25)] hidden xs:inline-block">
-                {locale === 'ar' ? 'ذكاء ماينكرافت جافا' : 'JAVA INTELLIGENCE'}
+                {edition === 'bedrock'
+                  ? (locale === 'ar' ? 'متوافق مع جافا وبيدروك' : 'JAVA & BEDROCK COMPATIBLE')
+                  : (locale === 'ar' ? 'ذكاء ماينكرافت جافا' : 'JAVA INTELLIGENCE')}
               </span>
             </div>
           </Link>
@@ -93,7 +97,11 @@ export default function Header({
           {/* Engine Status Inset Slot */}
           <div className="hidden lg:flex items-center mc-slot px-2.5 py-1 text-[#FFFFFF] font-mc-mono text-[11px] font-bold">
             <span className="w-2 h-2 bg-[#17B85E] mr-1.5 shadow-[0_0_6px_#17B85E]"></span>
-            <span>{locale === 'ar' ? 'المحرك:' : 'ENGINE:'} <span className="text-[#FADB44]">{selectedVersion}</span></span>
+            <span>
+              {locale === 'ar' ? 'المحرك:' : 'ENGINE:'}{' '}
+              <span className="text-[#FADB44]">{selectedVersion}</span>{' '}
+              <span className="text-[#38BDF8] text-[9px]">({edition === 'bedrock' ? 'BEDROCK' : 'JAVA'})</span>
+            </span>
           </div>
 
           {/* POS Inset */}

@@ -5,6 +5,7 @@ export const SUPPORTED_VERSIONS = [
   '1.21.1',
   '1.21.3',
   '1.21.4',
+  '26.3',
 ] as const;
 export type SupportedVersion = (typeof SUPPORTED_VERSIONS)[number];
 export const DEFAULT_VERSION: SupportedVersion = '1.20.6';
@@ -29,6 +30,7 @@ export interface SeedValidationResult {
   valid: boolean;
   seedString?: string;
   error?: string;
+  errorCode?: 'EMPTY' | 'OUT_OF_RANGE' | 'INVALID_PARSE' | 'INVALID_TYPE';
   isTextConverted?: boolean;
   originalInput?: string;
 }
@@ -57,6 +59,7 @@ export function validateAndResolveSeed(input: unknown): SeedValidationResult {
       if (big < MIN_INT64 || big > MAX_INT64) {
         return {
           valid: false,
+          errorCode: 'OUT_OF_RANGE',
           error:
             'Seed value is out of 64-bit integer range (-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807).',
         };
@@ -122,7 +125,13 @@ export function validateVersion(version: unknown): {
   if (trimmedVersion === '1.21') {
     return { valid: true, version: '1.21.1' };
   }
-  if (trimmedVersion === '1.21-wd' || trimmedVersion === 'winter-drop') {
+  if (
+    trimmedVersion === '1.21-wd' ||
+    trimmedVersion === 'winter-drop' ||
+    trimmedVersion === '26.3' ||
+    trimmedVersion === '26.x' ||
+    trimmedVersion === 'latest'
+  ) {
     return { valid: true, version: '1.21.4' };
   }
 
@@ -147,12 +156,13 @@ export function getVersionFeatures(version: string): VersionFeatures {
   const is119 = v.startsWith('1.19');
   const is120 = v.startsWith('1.20');
   const is121 = v.startsWith('1.21');
+  const is26 = v.startsWith('26') || v === '1.21.4';
 
   return {
     hasAncientCity: !is118,
     hasCherryGroves: !is118 && !is119,
     hasTrailRuins: !is118 && !is119,
-    hasTrialChambers: is121,
-    hasPaleGarden: v === '1.21.4',
+    hasTrialChambers: is121 || is26,
+    hasPaleGarden: is26,
   };
 }

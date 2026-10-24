@@ -20,6 +20,8 @@ interface SeedInputProps {
   isLoading: boolean;
   selectedVersion: string;
   onVersionChange: (version: string) => void;
+  edition?: 'java' | 'bedrock';
+  onEditionChange?: (edition: 'java' | 'bedrock') => void;
   initialSeed?: string;
   errorMessage?: string | null;
 }
@@ -29,6 +31,8 @@ export default function SeedInput({
   isLoading,
   selectedVersion,
   onVersionChange,
+  edition = 'java',
+  onEditionChange,
   initialSeed = '',
   errorMessage,
 }: SeedInputProps) {
@@ -79,11 +83,19 @@ export default function SeedInput({
   };
 
   const handleRandomize = () => {
-    // Generate a random 64-bit integer formatted as string
-    const high = Math.floor(Math.random() * 0xffffffff);
-    const low = Math.floor(Math.random() * 0xffffffff);
-    const sign = Math.random() > 0.5 ? '' : '-';
-    const randSeed = `${sign}${((BigInt(high) << BigInt(32)) | BigInt(low)).toString()}`;
+    // Generate a valid 64-bit signed integer strictly within Minecraft bounds [-2^63, 2^63 - 1]
+    let randSeed: string;
+    if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+      const buf = new BigInt64Array(1);
+      window.crypto.getRandomValues(buf);
+      randSeed = buf[0].toString();
+    } else {
+      const high = BigInt(Math.floor(Math.random() * 0x7fffffff));
+      const mid = BigInt(Math.floor(Math.random() * 0xffffffff));
+      let val = (high << BigInt(32)) | mid;
+      if (Math.random() > 0.5) val = -val;
+      randSeed = val.toString();
+    }
     setSeed(randSeed);
     setTextConversionNote(null);
     if (clientError) setClientError(null);
@@ -108,7 +120,11 @@ export default function SeedInput({
 
     const validation = validateAndResolveSeed(trimmed);
     if (!validation.valid) {
-      setClientError(validation.error || t.errorInvalidSeed);
+      if (validation.errorCode === 'OUT_OF_RANGE') {
+        setClientError(t.errorOutOfRange);
+      } else {
+        setClientError(validation.error || t.errorInvalidSeed);
+      }
       return;
     }
 
@@ -124,6 +140,12 @@ export default function SeedInput({
   };
 
   const displayError = clientError || errorMessage;
+  const isOutOfRange =
+    Boolean(displayError && (
+      displayError === t.errorOutOfRange ||
+      displayError.includes('64-bit') ||
+      displayError.includes('64-بت')
+    ));
   const ArrowIcon = dir === 'rtl' ? ArrowLeft : ArrowRight;
 
   return (
@@ -154,11 +176,13 @@ export default function SeedInput({
       <form onSubmit={handleSubmit} className="w-full mc-gui-panel p-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
           {/* Input Well: Seed Value */}
-          <div className="lg:col-span-6 flex flex-col gap-1">
+          <div className="lg:col-span-5 flex flex-col gap-1">
             <label className="font-mc-mono text-[11px] text-[#333333] dark:text-[#CBD5E1] font-bold uppercase flex items-center justify-between">
               <span>{t.seedLabel} / {locale === 'ar' ? 'كلمة مفتاحية' : 'Keyphrase'}</span>
               <span className="text-[#5B8731] font-bold">
-                {locale === 'ar' ? 'جاهز لمعالجة 64-بت جافا' : 'JAVA 64-BIT HASH READY'}
+                {edition === 'bedrock'
+                  ? (locale === 'ar' ? 'بذرة 64-بت مشتركة' : 'BEDROCK & JAVA PARITY')
+                  : (locale === 'ar' ? 'جاهز لمعالجة 64-بت جافا' : 'JAVA 64-BIT HASH READY')}
               </span>
             </label>
             <div className="relative flex items-center mc-slot px-3 py-2">
@@ -210,12 +234,42 @@ export default function SeedInput({
             </div>
           </div>
 
-          {/* Version Selector */}
-          <div className="lg:col-span-3 flex flex-col gap-1">
-            <label className="font-mc-mono text-[11px] text-[#333333] dark:text-[#CBD5E1] font-bold uppercase flex items-center gap-1.5">
-              <span className="w-2 h-2 bg-[#5B8731]"></span>
-              <span>{t.versionLabel} {locale === 'ar' ? 'المولّد' : 'Generator'}</span>
-            </label>
+          {/* Version & Edition Selector */}
+          <div className="lg:col-span-4 flex flex-col gap-1">
+            <div className="flex items-center justify-between">
+              <label className="font-mc-mono text-[11px] text-[#333333] dark:text-[#CBD5E1] font-bold uppercase flex items-center gap-1.5">
+                <span className="w-2 h-2 bg-[#5B8731]"></span>
+                <span>{t.versionLabel} {locale === 'ar' ? 'المولّد' : 'Generator'}</span>
+              </label>
+
+              {/* Edition Switcher Pill */}
+              <div className="flex items-center bg-[#252830] p-0.5 border border-[#444855] shadow-inner">
+                <button
+                  type="button"
+                  onClick={() => onEditionChange && onEditionChange('java')}
+                  className={`px-2 py-0.5 font-mc-mono text-[10px] font-bold transition-all cursor-pointer ${
+                    edition === 'java'
+                      ? 'bg-[#5B8731] text-white shadow-[1px_1px_0_#2A4413]'
+                      : 'text-[#94A3B8] hover:text-[#FFFFFF]'
+                  }`}
+                >
+                  ☕ Java
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onEditionChange && onEditionChange('bedrock')}
+                  className={`px-2 py-0.5 font-mc-mono text-[10px] font-bold transition-all cursor-pointer ${
+                    edition === 'bedrock'
+                      ? 'bg-[#0284C7] text-white shadow-[1px_1px_0_#075985]'
+                      : 'text-[#94A3B8] hover:text-[#FFFFFF]'
+                  }`}
+                  title={locale === 'ar' ? 'تطابق تضاريسي وبيومي 100% مع بذور جافا' : '100% terrain & biome parity with 64-bit Java seeds'}
+                >
+                  🪨 Bedrock
+                </button>
+              </div>
+            </div>
+
             <div className="relative mc-slot px-3 py-2">
               <select
                 value={selectedVersion}
@@ -225,7 +279,9 @@ export default function SeedInput({
               >
                 {SUPPORTED_VERSIONS.map((v) => (
                   <option key={v} value={v} className="bg-[#4A4A4A] dark:bg-[#1E2128] text-[#FFFFFF]">
-                    Minecraft Java {v}
+                    {v === '26.3'
+                      ? `Minecraft ${edition === 'bedrock' ? 'Bedrock / Java' : 'Java'} 26.3 (2026 Drops)`
+                      : `Minecraft ${edition === 'bedrock' ? 'Bedrock / Java' : 'Java'} ${v}`}
                   </option>
                 ))}
               </select>
@@ -263,11 +319,35 @@ export default function SeedInput({
           </div>
         )}
 
+        {/* Bedrock Parity Notice */}
+        {edition === 'bedrock' && (
+          <div className="mt-3 flex items-center gap-2 px-3 py-1.5 bg-[#0284C7]/20 border border-[#0284C7]/50 text-xs text-[#38BDF8] font-mc-mono">
+            <span className="shrink-0 text-sm">🪨</span>
+            <span>
+              {locale === 'ar'
+                ? 'إصدار Bedrock: التضاريس، الفوهات، الجبال، والبحيرات متطابقة 100% مع Java لنفس البذور 64-بت (منذ 1.18).'
+                : 'Bedrock Edition: Terrain, calderas, lakes, and biomes share 100% block-for-block parity with 64-bit Java seeds (1.18+).'}
+            </span>
+          </div>
+        )}
+
         {/* Error message */}
         {displayError && (
-          <div className="mt-3 flex items-center gap-2 px-3 py-2 bg-[#7A1E11] text-[#FFFFFF] font-mc-mono text-xs border-t-2 border-l-2 border-[#A83222] border-b-2 border-r-2 border-[#3D0A04]">
-            <AlertCircle className="w-4 h-4 shrink-0 text-[#FADB44]" />
-            <span className="font-bold">{displayError}</span>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3 px-3 py-2 bg-[#7A1E11] text-[#FFFFFF] font-mc-mono text-xs border-t-2 border-l-2 border-[#A83222] border-b-2 border-r-2 border-[#3D0A04]">
+            <div className="flex items-center gap-2">
+              <AlertCircle className="w-4 h-4 shrink-0 text-[#FADB44]" />
+              <span className="font-bold">{displayError}</span>
+            </div>
+            {isOutOfRange && (
+              <button
+                type="button"
+                onClick={handleRandomize}
+                className="mc-btn-green px-3 py-1.5 text-xs font-bold text-white flex items-center gap-1.5 shrink-0 cursor-pointer shadow-[1px_1px_0_#2A4413] animate-pulse"
+              >
+                <Dices className="w-3.5 h-3.5 text-[#FADB44]" />
+                <span>{t.generateRandomSeedBtn}</span>
+              </button>
+            )}
           </div>
         )}
       </form>

@@ -15,9 +15,12 @@ import { getStructureMetadata } from '@/components/StructureBadge';
 import { Compass } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { MinecraftTerrainEngine, TerrainPoint } from '@/lib/minecraftTerrain';
+import { getHoverCardBanner } from '@/lib/hoverCardBanners';
 
 interface SeedMapInnerProps {
   seed?: string | number;
+  version?: string;
+  edition?: 'java' | 'bedrock';
   clusters: Cluster[];
   searchBounds?: SearchBounds;
   worldSpawn?: WorldSpawn;
@@ -254,6 +257,8 @@ function getStructureIconHtml(type: string): string {
 
 export default function SeedMapInner({
   seed,
+  version = '1.20.6',
+  edition = 'java',
   clusters,
   searchBounds = { min_x: -5000, max_x: 5000, min_z: -5000, max_z: 5000 },
   worldSpawn,
@@ -270,9 +275,14 @@ export default function SeedMapInner({
   const mapRef = useRef<L.Map | null>(null);
   const biomeLayerRef = useRef<L.GridLayer | null>(null);
   const clusterLayersRef = useRef<Map<number, L.LayerGroup>>(new Map());
+  const clusterGroupLayersRef = useRef<L.LayerGroup | null>(null);
   const structureLayersRef = useRef<L.LayerGroup | null>(null);
+  const landmarksLayersRef = useRef<L.LayerGroup | null>(null);
 
   const [showBiomes, setShowBiomes] = useState(true);
+  const [showStructures, setShowStructures] = useState(true);
+  const [showLandmarks, setShowLandmarks] = useState(true);
+  const [showClusters, setShowClusters] = useState(true);
   const [showLegend, setShowLegend] = useState(false);
   const [cursorCoords, setCursorCoords] = useState<{ x: number; z: number } | null>(null);
   const [hoveredPoint, setHoveredPoint] = useState<TerrainPoint | null>(null);
@@ -472,8 +482,10 @@ export default function SeedMapInner({
       setHoveredPoint(null);
     });
 
-    // Structure layer group
+    // Initialize Layer Groups
+    clusterGroupLayersRef.current = L.layerGroup().addTo(map);
     structureLayersRef.current = L.layerGroup().addTo(map);
+    landmarksLayersRef.current = L.layerGroup().addTo(map);
 
     // Fit view to bounds
     map.fitBounds(bounds, { padding: [20, 20] });
@@ -482,6 +494,9 @@ export default function SeedMapInner({
       map.remove();
       mapRef.current = null;
       biomeLayerRef.current = null;
+      clusterGroupLayersRef.current = null;
+      structureLayersRef.current = null;
+      landmarksLayersRef.current = null;
     };
   }, [searchBounds, terrainEngine, t.mapSpawnMarker, t.mapOriginMarker, worldSpawn]);
 
@@ -502,6 +517,42 @@ export default function SeedMapInner({
     }
   }, [showBiomes]);
 
+  // Handle Structures Layer Toggle
+  useEffect(() => {
+    const map = mapRef.current;
+    const layer = structureLayersRef.current;
+    if (!map || !layer) return;
+    if (showStructures) {
+      if (!map.hasLayer(layer)) map.addLayer(layer);
+    } else {
+      if (map.hasLayer(layer)) map.removeLayer(layer);
+    }
+  }, [showStructures]);
+
+  // Handle Landmarks Layer Toggle
+  useEffect(() => {
+    const map = mapRef.current;
+    const layer = landmarksLayersRef.current;
+    if (!map || !layer) return;
+    if (showLandmarks) {
+      if (!map.hasLayer(layer)) map.addLayer(layer);
+    } else {
+      if (map.hasLayer(layer)) map.removeLayer(layer);
+    }
+  }, [showLandmarks]);
+
+  // Handle Clusters Layer Toggle
+  useEffect(() => {
+    const map = mapRef.current;
+    const layer = clusterGroupLayersRef.current;
+    if (!map || !layer) return;
+    if (showClusters) {
+      if (!map.hasLayer(layer)) map.addLayer(layer);
+    } else {
+      if (map.hasLayer(layer)) map.removeLayer(layer);
+    }
+  }, [showClusters]);
+
   // Render Clusters & Structures
   useEffect(() => {
     const map = mapRef.current;
@@ -511,8 +562,14 @@ export default function SeedMapInner({
     clusterLayersRef.current.forEach((layer) => layer.remove());
     clusterLayersRef.current.clear();
 
+    if (clusterGroupLayersRef.current) {
+      clusterGroupLayersRef.current.clearLayers();
+    }
     if (structureLayersRef.current) {
       structureLayersRef.current.clearLayers();
+    }
+    if (landmarksLayersRef.current) {
+      landmarksLayersRef.current.clearLayers();
     }
 
     clusters.forEach((cluster) => {
@@ -537,7 +594,11 @@ export default function SeedMapInner({
         if (onSelectCluster) onSelectCluster(cluster.id);
       });
 
-      circle.addTo(clusterGroup);
+      if (clusterGroupLayersRef.current) {
+        circle.addTo(clusterGroupLayersRef.current);
+      } else {
+        circle.addTo(clusterGroup);
+      }
 
       // Cluster Center Marker
       const centerIcon = L.divIcon({
@@ -560,6 +621,7 @@ export default function SeedMapInner({
         `,
         iconSize: [30, 22],
         iconAnchor: [15, 11],
+        tooltipAnchor: [0, -11],
       });
 
       const centerMarker = L.marker(centerLatLng, { icon: centerIcon, zIndexOffset: isSelected ? 800 : 500 });
@@ -568,6 +630,37 @@ export default function SeedMapInner({
       });
 
       const primaryCatTranslated = translateCategory(cluster.primary_category);
+
+      // Version-Contextual Hover Tooltip Card
+      const clusterBanner = getHoverCardBanner('cluster', version, edition === 'bedrock');
+      centerMarker.bindTooltip(`
+        <div style="width:200px; font-family:monospace; font-size:11px; overflow:hidden;">
+          <div style="width:100%; height:50px; position:relative; overflow:hidden; border-bottom:1.5px solid #555;">
+            ${clusterBanner}
+            <div style="position:absolute; top:3px; right:4px; background:rgba(0,0,0,0.75); color:#FADB44; padding:1px 4px; font-size:8px; font-weight:bold;">
+              v${version}
+            </div>
+            ${edition === 'bedrock' ? `<div style="position:absolute; top:3px; left:4px; background:#0284C7; color:#FFF; padding:1px 3px; font-size:8px; font-weight:bold;">🪨 BEDROCK</div>` : ''}
+          </div>
+          <div class="mc-hover-card-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+              <span style="font-weight:bold; color:#5B8731; font-size:11px;">CLUSTER #${cluster.id}</span>
+              <span style="font-size:9px; background:#866043; color:#FADB44; padding:1px 4px; font-weight:bold;">${primaryCatTranslated}</span>
+            </div>
+            <div style="background:#8B8B8B; color:#FFFFFF; padding:2px 4px; margin-bottom:3px; font-weight:bold; font-size:10px; text-align:center;" dir="ltr">
+              X: ${cluster.center.x.toFixed(0)} | Z: ${cluster.center.z.toFixed(0)}
+            </div>
+            <div style="font-size:9px; color:#444; font-weight:bold; text-align:center;">
+              ${cluster.cluster.count} Structures · Span: ${cluster.cluster.diameter.toFixed(0)}m
+            </div>
+          </div>
+        </div>
+      `, {
+        className: 'mc-hover-tooltip',
+        direction: 'top',
+        offset: [0, 0],
+        opacity: 1,
+      });
 
       centerMarker.bindPopup(`
         <div style="background:#C6C6C6; color:#1E1E1E; padding:8px 10px; font-family:monospace; font-size:11px; min-width:180px; border-top:2px solid #FFF; border-left:2px solid #FFF; border-right:2px solid #555; border-bottom:2px solid #555; box-shadow:1px 1px 0 #000;">
@@ -584,7 +677,11 @@ export default function SeedMapInner({
         </div>
       `);
 
-      centerMarker.addTo(clusterGroup);
+      if (clusterGroupLayersRef.current) {
+        centerMarker.addTo(clusterGroupLayersRef.current);
+      } else {
+        centerMarker.addTo(clusterGroup);
+      }
 
       // Structure Markers inside this cluster
       cluster.structures.forEach((structure) => {
@@ -595,10 +692,43 @@ export default function SeedMapInner({
           html: getStructureIconHtml(structure.type),
           iconSize: [22, 22],
           iconAnchor: [11, 11],
+          tooltipAnchor: [0, -11],
         });
 
         const structMarker = L.marker(structLatLng, { icon: structIcon, zIndexOffset: 600 });
         const structNameTranslated = translateStructure(structure.type);
+
+        // Version-Contextual Hover Tooltip Card
+        const structBanner = getHoverCardBanner(structure.type, version, edition === 'bedrock');
+        structMarker.bindTooltip(`
+          <div style="width:200px; font-family:monospace; font-size:11px; overflow:hidden;">
+            <div style="width:100%; height:50px; position:relative; overflow:hidden; border-bottom:1.5px solid #555;">
+              ${structBanner}
+              <div style="position:absolute; top:3px; right:4px; background:rgba(0,0,0,0.75); color:#FADB44; padding:1px 4px; font-size:8px; font-weight:bold;">
+                v${version}
+              </div>
+              ${edition === 'bedrock' ? `<div style="position:absolute; top:3px; left:4px; background:#0284C7; color:#FFF; padding:1px 3px; font-size:8px; font-weight:bold;">🪨 BEDROCK</div>` : ''}
+            </div>
+            <div class="mc-hover-card-content">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                <span style="font-weight:bold; font-size:11px; color:#1E1E1E;">${structNameTranslated}</span>
+                <span style="font-size:9px; background:#866043; color:#FADB44; padding:1px 3px; font-weight:bold;">#${cluster.id}</span>
+              </div>
+              <div style="background:#8B8B8B; color:#FFFFFF; padding:2px 4px; margin-bottom:3px; font-weight:bold; font-size:10px; text-align:center;" dir="ltr">
+                X: ${structure.x} | Z: ${structure.z}
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:9px; color:#444; font-weight:bold;">
+                <span>Spawn: ${structure.distance_to_spawn.toFixed(0)}m</span>
+                <span style="color:#5B8731;">/tp ${structure.x} ~ ${structure.z}</span>
+              </div>
+            </div>
+          </div>
+        `, {
+          className: 'mc-hover-tooltip',
+          direction: 'top',
+          offset: [0, 0],
+          opacity: 1,
+        });
 
         structMarker.bindPopup(`
           <div style="background:#C6C6C6; color:#1E1E1E; padding:10px; font-family:monospace; font-size:11px; min-width:200px; border-top:2px solid #FFF; border-left:2px solid #FFF; border-right:2px solid #555; border-bottom:2px solid #555; box-shadow:2px 2px 0 #000;">
@@ -634,12 +764,45 @@ export default function SeedMapInner({
         const dsIcon = L.divIcon({
           className: "discovered-structure-pin",
           html: getStructureIconHtml(ds.type),
-          iconSize: [20, 20],
-          iconAnchor: [10, 10],
+          iconSize: [22, 22],
+          iconAnchor: [11, 11],
+          tooltipAnchor: [0, -11],
         });
         const dsMarker = L.marker(dsLatLng, { icon: dsIcon, zIndexOffset: 500 });
         const nameTr = translateStructure(ds.type);
         const statusNote = ds.viability_status === "terrain_validated" ? "Terrain Validated" : "Biome Viable";
+
+        // Version-Contextual Hover Tooltip Card
+        const dsBanner = getHoverCardBanner(ds.type, version, edition === 'bedrock');
+        dsMarker.bindTooltip(`
+          <div style="width:200px; font-family:monospace; font-size:11px; overflow:hidden;">
+            <div style="width:100%; height:50px; position:relative; overflow:hidden; border-bottom:1.5px solid #555;">
+              ${dsBanner}
+              <div style="position:absolute; top:3px; right:4px; background:rgba(0,0,0,0.75); color:#FADB44; padding:1px 4px; font-size:8px; font-weight:bold;">
+                v${version}
+              </div>
+              ${edition === 'bedrock' ? `<div style="position:absolute; top:3px; left:4px; background:#0284C7; color:#FFF; padding:1px 3px; font-size:8px; font-weight:bold;">🪨 BEDROCK</div>` : ''}
+            </div>
+            <div class="mc-hover-card-content">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                <span style="font-weight:bold; font-size:11px; color:#1E1E1E;">${nameTr}</span>
+                <span style="font-size:8px; background:#4B5563; color:#FFFFFF; padding:1px 3px; font-weight:bold;">${statusNote}</span>
+              </div>
+              <div style="background:#8B8B8B; color:#FFFFFF; padding:2px 4px; margin-bottom:3px; font-weight:bold; font-size:10px; text-align:center;" dir="ltr">
+                X: ${ds.x} | Z: ${ds.z}
+              </div>
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:9px; color:#444; font-weight:bold;">
+                <span>Spawn: ${ds.distance_to_spawn.toFixed(0)}m</span>
+                <span style="color:#2563EB;">/tp ${ds.x} ~ ${ds.z}</span>
+              </div>
+            </div>
+          </div>
+        `, {
+          className: 'mc-hover-tooltip',
+          direction: 'top',
+          offset: [0, 0],
+          opacity: 1,
+        });
 
         dsMarker.bindPopup(`
           <div style="background:#C6C6C6; color:#1E1E1E; padding:10px; font-family:monospace; font-size:11px; min-width:200px; border-top:2px solid #FFF; border-left:2px solid #FFF; border-right:2px solid #555; border-bottom:2px solid #555; box-shadow:2px 2px 0 #000;">
@@ -667,8 +830,8 @@ export default function SeedMapInner({
       });
     }
 
-    // Landmarks (Scenic & Building Spots)
-    if (landmarks?.spots && structureLayersRef.current) {
+    // Landmarks (Scenic & Building Spots) - populated into landmarksLayersRef
+    if (landmarks?.spots && landmarksLayersRef.current) {
       landmarks.spots.forEach((lm) => {
         const lmLatLng = mcToLatLng(lm.x, lm.z);
         const lmIcon = L.divIcon({
@@ -676,6 +839,7 @@ export default function SeedMapInner({
           html: getLandmarkIconHtml(lm.category),
           iconSize: [24, 24],
           iconAnchor: [12, 12],
+          tooltipAnchor: [0, -12],
         });
         const lmMarker = L.marker(lmLatLng, { icon: lmIcon, zIndexOffset: 650 });
         const nameText = locale === 'ar' ? lm.name_ar : lm.name_en;
@@ -685,6 +849,41 @@ export default function SeedMapInner({
           if (onSelectLandmark) {
             onSelectLandmark(lm.id);
           }
+        });
+
+        // Version-Contextual Hover Tooltip Card
+        const lmBanner = getHoverCardBanner(lm.category, version, edition === 'bedrock');
+        lmMarker.bindTooltip(`
+          <div style="width:210px; font-family:monospace; font-size:11px; overflow:hidden;">
+            <div style="width:100%; height:52px; position:relative; overflow:hidden; border-bottom:1.5px solid #555;">
+              ${lmBanner}
+              <div style="position:absolute; top:3px; right:4px; background:rgba(0,0,0,0.75); color:#FADB44; padding:1px 4px; font-size:8px; font-weight:bold;">
+                v${version}
+              </div>
+              ${edition === 'bedrock' ? `<div style="position:absolute; top:3px; left:4px; background:#0284C7; color:#FFF; padding:1px 3px; font-size:8px; font-weight:bold;">🪨 100% PARITY</div>` : ''}
+            </div>
+            <div class="mc-hover-card-content">
+              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:3px;">
+                <span style="font-weight:bold; font-size:11px; color:#1E1E1E;">${nameText}</span>
+                <span style="font-size:9px; background:#10B981; color:#FFFFFF; padding:1px 3px; font-weight:bold;">#${lm.id}</span>
+              </div>
+              <div style="background:#8B8B8B; color:#FFFFFF; padding:2px 4px; margin-bottom:3px; font-weight:bold; font-size:10px; text-align:center;" dir="ltr">
+                X: ${lm.x} | Y: ${lm.y} | Z: ${lm.z}
+              </div>
+              <div style="display:flex; justify-content:space-between; font-size:9px; color:#333; margin-bottom:3px; font-weight:bold;">
+                <span>🏔️ Scenic: <b style="color:#BE185D;">${lm.scenic_score}%</b></span>
+                <span>🏰 Build: <b style="color:#B45309;">${lm.building_score}%</b></span>
+              </div>
+              <div style="color:#059669; font-size:9px; font-weight:bold; text-align:center;">
+                ${lm.teleport_command}
+              </div>
+            </div>
+          </div>
+        `, {
+          className: 'mc-hover-tooltip',
+          direction: 'top',
+          offset: [0, 0],
+          opacity: 1,
         });
 
         lmMarker.bindPopup(`
@@ -711,12 +910,12 @@ export default function SeedMapInner({
             </button>
           </div>
         `);
-        if (structureLayersRef.current) {
-          lmMarker.addTo(structureLayersRef.current);
+        if (landmarksLayersRef.current) {
+          lmMarker.addTo(landmarksLayersRef.current);
         }
       });
     }
-  }, [clusters, discovery, landmarks, selectedClusterId, onSelectCluster, onSelectLandmark, locale, t, translateCategory, translateStructure]);
+  }, [clusters, discovery, landmarks, selectedClusterId, onSelectCluster, onSelectLandmark, locale, t, translateCategory, translateStructure, version, edition]);
 
   // Center on selected cluster when it changes
   useEffect(() => {
@@ -776,28 +975,66 @@ export default function SeedMapInner({
         </div>
 
         {/* Layer Toggles & Action Buttons */}
-        <div className="flex items-center gap-1.5">
+        <div className="flex flex-wrap items-center gap-1.5">
           <button
-            onClick={() => setShowBiomes(!showBiomes)}
-            className={`px-2 py-0.5 font-mc-mono text-[11px] font-bold cursor-pointer ${
-              showBiomes ? 'mc-btn-green' : 'mc-button text-[#333333]'
+            type="button"
+            onClick={() => setShowStructures(!showStructures)}
+            className={`px-2 py-0.5 font-mc-mono text-[11px] font-bold cursor-pointer transition-all ${
+              showStructures ? 'mc-btn-green' : 'mc-button text-[#777777] line-through opacity-75'
             }`}
+            title="Toggle Structures Layer"
           >
-            {showBiomes ? t.mapLayerBiomes : t.mapLayerMinimal}
+            🏰 {locale === 'ar' ? 'الهياكل' : 'Structures'}
           </button>
           <button
+            type="button"
+            onClick={() => setShowLandmarks(!showLandmarks)}
+            className={`px-2 py-0.5 font-mc-mono text-[11px] font-bold cursor-pointer transition-all ${
+              showLandmarks ? 'mc-btn-green' : 'mc-button text-[#777777] line-through opacity-75'
+            }`}
+            title="Toggle Landmarks Layer"
+          >
+            🌸 {locale === 'ar' ? 'المعالم' : 'Landmarks'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowClusters(!showClusters)}
+            className={`px-2 py-0.5 font-mc-mono text-[11px] font-bold cursor-pointer transition-all ${
+              showClusters ? 'mc-btn-green' : 'mc-button text-[#777777] line-through opacity-75'
+            }`}
+            title="Toggle Clusters Layer"
+          >
+            💎 {locale === 'ar' ? 'العناقيد' : 'Clusters'}
+          </button>
+          <button
+            type="button"
+            onClick={() => setShowBiomes(!showBiomes)}
+            className={`px-2 py-0.5 font-mc-mono text-[11px] font-bold cursor-pointer transition-all ${
+              showBiomes ? 'mc-btn-green' : 'mc-button text-[#777777] line-through opacity-75'
+            }`}
+            title="Toggle Biomes Canvas Layer"
+          >
+            🗺️ {showBiomes ? (locale === 'ar' ? 'البيومات' : 'Biomes') : (locale === 'ar' ? 'البيومات (مغلق)' : 'Biomes (Off)')}
+          </button>
+
+          <span className="text-[#888888] hidden sm:inline">|</span>
+
+          <button
+            type="button"
             onClick={handleFocusSpawn}
             className="px-2 py-0.5 mc-button text-[#333333] hover:text-[#111111] font-mc-mono text-[11px] font-bold cursor-pointer"
           >
             {t.mapFocusSpawn || 'Spawn'}
           </button>
           <button
+            type="button"
             onClick={handleFocusOrigin}
             className="px-2 py-0.5 mc-button text-[#333333] hover:text-[#111111] font-mc-mono text-[11px] font-bold cursor-pointer"
           >
             {t.mapFocusOrigin || '(0, 0)'}
           </button>
           <button
+            type="button"
             onClick={() => setShowLegend(!showLegend)}
             className="px-2 py-0.5 mc-button text-[#333333] hover:text-[#111111] font-mc-mono text-[11px] font-bold cursor-pointer"
           >
@@ -934,6 +1171,16 @@ export default function SeedMapInner({
             <span className="text-[#555555] uppercase text-[10px] me-1">Height:</span>
             <span className="text-[#2CBAA8]">
               Y: {hoveredPoint?.height ?? 64} {hoveredPoint ? `(${locale === 'ar' ? hoveredPoint.biome.nameAr : hoveredPoint.biome.nameEn})` : '(Sea Level)'}
+            </span>
+          </div>
+          <div>
+            <span className="text-[#555555] uppercase text-[10px] me-1">{locale === 'ar' ? 'النسخة:' : 'Edition:'}</span>
+            <span className={`px-1.5 py-0.5 text-[10px] font-bold ${
+              edition === 'bedrock'
+                ? 'bg-[#0284C7] text-white shadow-[1px_1px_0_#000]'
+                : 'bg-[#5B8731] text-white shadow-[1px_1px_0_#000]'
+            }`}>
+              {edition === 'bedrock' ? '🪨 Bedrock Parity' : `☕ Java ${version}`}
             </span>
           </div>
         </div>

@@ -315,3 +315,54 @@ body {
 .dark .leaflet-container a.leaflet-popup-close-button:hover {
   color: #FF5A43 !important;
 }
+
+/* Leaflet Minecraft Hover Tooltip Card */
+.leaflet-tooltip.mc-hover-tooltip {
+  background: #C6C6C6 !important;
+  color: #1E1E1E !important;
+  border-top: 2px solid #FFFFFF !important;
+  border-left: 2px solid #FFFFFF !important;
+  border-right: 2px solid #555555 !important;
+  border-bottom: 2px solid #555555 !important;
+  border-radius: 0px !important;
+  box-shadow: 2px 2px 0px #000000 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: inherit;
+}
+
+.leaflet-tooltip.mc-hover-tooltip::before {
+  display: none !important;
+}
+
+.leaflet-tooltip-top.mc-hover-tooltip {
+  margin-top: 0px !important;
+}
+
+.leaflet-tooltip-bottom.mc-hover-tooltip {
+  margin-top: 0px !important;
+}
+
+.dark .leaflet-tooltip.mc-hover-tooltip {
+  background: #1C1F26 !important;
+  color: #E2E8F0 !important;
+  border-top: 2px solid #363B47 !important;
+  border-left: 2px solid #363B47 !important;
+  border-right: 2px solid #101216 !important;
+  border-bottom: 2px solid #101216 !important;
+}
+
+.dark .leaflet-tooltip.mc-hover-tooltip::before {
+  display: none !important;
+}
+
+.mc-hover-card-content {
+  padding: 5px 7px;
+  background: #C6C6C6;
+  color: #1E1E1E;
+}
+
+.dark .mc-hover-card-content {
+  background: #1C1F26;
+  color: #E2E8F0;
+}
