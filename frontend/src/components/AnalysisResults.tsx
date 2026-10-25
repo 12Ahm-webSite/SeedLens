@@ -493,6 +493,23 @@ export default function AnalysisResults({
         </div>
       </div>
 
+      {/* Bedrock Parity Notice for Structures */}
+      {edition === 'bedrock' && activeMainTab !== 'landmarks' && (
+        <div className="mb-4 p-3 bg-[#0284C7]/10 dark:bg-[#082F49]/40 border-2 border-[#0284C7]/40 dark:border-[#38BDF8]/40 text-[#0369A1] dark:text-[#38BDF8] flex items-start gap-2.5 font-mc-body text-xs shadow-sm">
+          <span className="text-base leading-none select-none">🪨</span>
+          <div>
+            <span className="font-mc-heading font-bold block mb-0.5">
+              {locale === 'ar' ? 'تنويه توافق ماينكرافت Bedrock' : 'Minecraft Bedrock Parity Notice'}
+            </span>
+            <span className="leading-relaxed">
+              {locale === 'ar'
+                ? 'تتوافق التضاريس الكبرى والبيومات ومواقع البناء الطبيعية (تبويب أماكن البناء والمناظر الخلابة) بين Java و Bedrock (1.18+). أما الهياكل المعمارية (القرى، المعابد، وغرف المحاكمة) المعروضة هنا فتتبع خوارزميات جافا وتتولد في إحداثيات مختلفة على Bedrock.'
+                : 'Macro-terrain, biomes, and natural building spots (Scenic & Building tab) match between Java and Bedrock (1.18+). However, structural clusters (villages, temples, trial chambers) shown in this tab use Java generation algorithms and generate at different coordinates on Bedrock.'}
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Category Filter Tabs */}
       {activeMainTab === 'clusters' ? (
         <div className="flex items-center gap-1.5 overflow-x-auto pb-3 scrollbar-none font-mc-mono mb-4">

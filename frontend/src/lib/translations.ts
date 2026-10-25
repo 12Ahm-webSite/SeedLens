@@ -650,9 +650,9 @@ export const translations: Record<Locale, Translations> = {
     // Bedrock & Edition
     editionJava: 'جافا (Java)',
     editionBedrock: 'بيدروك (Bedrock)',
-    bedrockParity: 'تطابق تضاريسي 100% مع Bedrock',
-    bedrockParityBadge: 'توافق Bedrock 100%',
-    bedrockParityNotice: 'تنطبق مطابقة بذور Bedrock على كافة التضاريس والبيومات (1.18+).',
+    bedrockParity: 'توافق بيومي وتضاريسي مع Bedrock (1.18+)',
+    bedrockParityBadge: 'توافق تضاريسي وبيومي',
+    bedrockParityNotice: 'تنطبق مطابقة بذور Bedrock على التضاريس الكبرى والبيومات (1.18+).',
   },
 
   en: {
@@ -989,8 +989,8 @@ export const translations: Record<Locale, Translations> = {
     // Bedrock & Edition
     editionJava: 'Java Edition',
     editionBedrock: 'Bedrock Edition',
-    bedrockParity: '100% Bedrock Terrain & Biome Parity',
-    bedrockParityBadge: '100% Bedrock Parity',
-    bedrockParityNotice: 'Bedrock 64-bit seed parity applies to all terrain and biomes (1.18+).',
+    bedrockParity: 'Bedrock Terrain & Biome Parity (1.18+)',
+    bedrockParityBadge: 'Biome & Terrain Parity',
+    bedrockParityNotice: 'Bedrock 64-bit seed parity applies to macro-terrain and biomes (1.18+).',
   },
 };

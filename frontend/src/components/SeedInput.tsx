@@ -181,7 +181,7 @@ export default function SeedInput({
               <span>{t.seedLabel} / {locale === 'ar' ? 'كلمة مفتاحية' : 'Keyphrase'}</span>
               <span className="text-[#5B8731] font-bold">
                 {edition === 'bedrock'
-                  ? (locale === 'ar' ? 'بذرة 64-بت مشتركة' : 'BEDROCK & JAVA PARITY')
+                  ? (locale === 'ar' ? 'بذرة 64-بت مشتركة (تضاريس وبيومات)' : 'BEDROCK & JAVA TERRAIN PARITY')
                   : (locale === 'ar' ? 'جاهز لمعالجة 64-بت جافا' : 'JAVA 64-BIT HASH READY')}
               </span>
             </label>
@@ -263,7 +263,7 @@ export default function SeedInput({
                       ? 'bg-[#0284C7] text-white shadow-[1px_1px_0_#075985]'
                       : 'text-[#94A3B8] hover:text-[#FFFFFF]'
                   }`}
-                  title={locale === 'ar' ? 'تطابق تضاريسي وبيومي 100% مع بذور جافا' : '100% terrain & biome parity with 64-bit Java seeds'}
+                  title={locale === 'ar' ? 'توافق تضاريسي وبيومي مع بذور جافا 1.18+' : 'Macro-terrain & biome parity with 64-bit Java seeds (1.18+)'}
                 >
                   🪨 Bedrock
                 </button>
@@ -325,8 +325,8 @@ export default function SeedInput({
             <span className="shrink-0 text-sm">🪨</span>
             <span>
               {locale === 'ar'
-                ? 'إصدار Bedrock: التضاريس، الفوهات، الجبال، والبحيرات متطابقة 100% مع Java لنفس البذور 64-بت (منذ 1.18).'
-                : 'Bedrock Edition: Terrain, calderas, lakes, and biomes share 100% block-for-block parity with 64-bit Java seeds (1.18+).'}
+                ? 'إصدار Bedrock: تتوافق التضاريس الكبرى والبيومات والفوهات الجبلية مع Java لنفس البذور 64-بت (منذ 1.18)، بينما تختلف الهياكل وتفاصيل السطح الدقيقة.'
+                : 'Bedrock Edition: Macro-terrain, calderas, lakes, and biomes match 64-bit Java seeds (1.18+), while structures and local surface details differ.'}
             </span>
           </div>
         )}

@@ -22,6 +22,22 @@ export default function Home() {
   const [results, setResults] = useState<AnalyzeSuccessResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
+  // Record visitor session
+  React.useEffect(() => {
+    try {
+      fetch('/api/analytics', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: 'track_visit',
+          edition: selectedEdition,
+        }),
+      }).catch(() => {});
+    } catch {
+      // Non-blocking
+    }
+  }, []);
+
   const handleAnalyze = async (seedInput: string, version: string) => {
     setCurrentSeed(seedInput);
     setSelectedVersion(version);

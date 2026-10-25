@@ -868,8 +868,13 @@ export default function SeedMapInner({
                 <span style="font-size:9px; background:#10B981; color:#FFFFFF; padding:1px 3px; font-weight:bold;">#${lm.id}</span>
               </div>
               <div style="background:#8B8B8B; color:#FFFFFF; padding:2px 4px; margin-bottom:3px; font-weight:bold; font-size:10px; text-align:center;" dir="ltr">
-                X: ${lm.x} | Y: ${lm.y} | Z: ${lm.z}
+                X: ${lm.x} | Y: ~${lm.y} | Z: ${lm.z}
               </div>
+              ${lm.tags && lm.tags.length > 0 ? `
+                <div style="display:flex; flex-wrap:wrap; gap:2px; margin-bottom:3px; justify-content:center;">
+                  ${lm.tags.map(t => `<span style="background:#ECECEC; border:0.5px solid #AAA; padding:0.5px 2.5px; font-size:8px; font-weight:bold; color:#444;">#${t.replace(/_/g, ' ')}</span>`).join('')}
+                </div>
+              ` : ''}
               <div style="display:flex; justify-content:space-between; font-size:9px; color:#333; margin-bottom:3px; font-weight:bold;">
                 <span>🏔️ Scenic: <b style="color:#BE185D;">${lm.scenic_score}%</b></span>
                 <span>🏰 Build: <b style="color:#B45309;">${lm.building_score}%</b></span>
@@ -895,8 +900,16 @@ export default function SeedMapInner({
             <div style="font-size:10px; color:#333; margin-bottom:6px; line-height:1.3;">
               ${descText}
             </div>
-            <div style="background:#8B8B8B; color:#FFFFFF; padding:4px 6px; border-top:1px solid #373737; border-left:1px solid #373737; border-right:1px solid #FFF; border-bottom:1px solid #FFF; margin-bottom:6px; font-weight:bold;" dir="ltr">
-              X: ${lm.x} &nbsp;|&nbsp; Y: ${lm.y} &nbsp;|&nbsp; Z: ${lm.z}
+            ${lm.tags && lm.tags.length > 0 ? `
+              <div style="display:flex; flex-wrap:wrap; gap:3px; margin-bottom:6px;">
+                ${lm.tags.map(t => `<span style="background:rgba(0,0,0,0.08); border:1px solid #999; padding:1px 3px; font-size:9px; font-weight:bold;">#${t.replace(/_/g, ' ')}</span>`).join('')}
+              </div>
+            ` : ''}
+            <div style="background:#8B8B8B; color:#FFFFFF; padding:4px 6px; border-top:1px solid #373737; border-left:1px solid #373737; border-right:1px solid #FFF; border-bottom:1px solid #FFF; margin-bottom:4px; font-weight:bold;" dir="ltr">
+              X: ${lm.x} &nbsp;|&nbsp; Y: ~${lm.y} &nbsp;|&nbsp; Z: ${lm.z}
+            </div>
+            <div style="font-size:8px; color:#555; margin-bottom:6px; font-style:italic;">
+              * ${locale === 'ar' ? 'الارتفاع Y تقريبي (~)، يُنصح بالانتقال بحذر لتفادي السقوط' : 'Y elevation is approximate (~); exercise caution when teleporting'}
             </div>
             <div style="display:flex; justify-content:space-between; color:#444; font-size:10px; margin-bottom:6px; font-weight:bold;">
               <span>🌟 Scenic: ${lm.scenic_score}%</span>

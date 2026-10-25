@@ -4,6 +4,7 @@ import path from 'path';
 import fs from 'fs';
 import { validateAndResolveSeed, validateVersion } from '@/lib/validation';
 import type { SeedLensResult } from '@/types/seedlens';
+import { recordAnalyze } from '@/lib/analytics';
 
 // Path resolution for the SeedLens CLI binary
 function getSeedlensBinaryPath(): string | null {
@@ -31,6 +32,7 @@ function getSeedlensBinaryPath(): string | null {
 }
 
 export async function POST(req: Request) {
+  const startTime = performance.now();
   try {
     let body: unknown;
     try {
@@ -49,7 +51,11 @@ export async function POST(req: Request) {
       );
     }
 
-    const { seed, version } = body as { seed?: unknown; version?: unknown };
+    const { seed, version, edition } = body as {
+      seed?: unknown;
+      version?: unknown;
+      edition?: string;
+    };
 
     // 1. Validate and resolve the seed
     const seedValidation = validateAndResolveSeed(seed);
@@ -162,6 +168,19 @@ export async function POST(req: Request) {
         { error: 'Failed to parse analysis results from engine.' },
         { status: 500 }
       );
+    }
+
+    // Record analytics
+    const latencyMs = Math.round(performance.now() - startTime);
+    try {
+      recordAnalyze(
+        seedValidation.seedString,
+        versionValidation.version || '1.20.6',
+        edition === 'bedrock' ? 'bedrock' : 'java',
+        latencyMs
+      );
+    } catch {
+      // Non-blocking for client
     }
 
     // Return the result with metadata

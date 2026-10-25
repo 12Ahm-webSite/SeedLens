@@ -9,6 +9,7 @@ import type {
   SeedLensResult,
   PlaystylePresetId,
 } from '@/types/seedlens';
+import { recordFind } from '@/lib/analytics';
 
 // Path resolution for the SeedLens CLI binary
 function getSeedlensBinaryPath(): string | null {
@@ -488,6 +489,12 @@ export async function POST(req: Request) {
       seedsEvaluatedCount: evaluatedCount,
       searchTimeMs,
     };
+
+    try {
+      recordFind(preset || 'custom', version, bestMatch.seed, searchTimeMs);
+    } catch {
+      // Non-blocking
+    }
 
     return NextResponse.json(responseData);
   } catch (err: unknown) {

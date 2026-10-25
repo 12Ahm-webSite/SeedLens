@@ -50,7 +50,7 @@ export default function Header({
               </span>
               <span className="font-mc-mono text-[10px] bg-[#5B8731] text-[#FFFFFF] px-2 py-0.5 border-t border-l border-[#89BD44] border-b border-r border-[#2A4413] font-bold shadow-[1px_1px_0_rgba(0,0,0,0.25)] hidden xs:inline-block">
                 {edition === 'bedrock'
-                  ? (locale === 'ar' ? 'متوافق مع جافا وبيدروك' : 'JAVA & BEDROCK COMPATIBLE')
+                  ? (locale === 'ar' ? 'توافق تضاريس جافا وبيدروك' : 'BEDROCK & JAVA TERRAIN PARITY')
                   : (locale === 'ar' ? 'ذكاء ماينكرافت جافا' : 'JAVA INTELLIGENCE')}
               </span>
             </div>

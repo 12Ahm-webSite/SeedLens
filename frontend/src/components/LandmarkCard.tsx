@@ -131,8 +131,11 @@ export default function LandmarkCard({
               </span>
             </div>
             <div className="font-mc-mono text-[11px] text-[#555555] dark:text-[#94A3B8] flex items-center gap-2 mt-0.5">
-              <span className="text-[#5B8731] font-bold">
-                X: {landmark.x} | Y: {landmark.y} | Z: {landmark.z}
+              <span
+                className="text-[#5B8731] font-bold"
+                title={isAr ? 'الارتفاع Y تقريبي مبني على نمط التضاريس (~)' : 'Y elevation is approximate based on terrain archetype (~)'}
+              >
+                X: {landmark.x} | Y: ~{landmark.y} | Z: {landmark.z}
               </span>
               <span>•</span>
               <span>
@@ -146,10 +149,10 @@ export default function LandmarkCard({
         <div className="flex items-center gap-1.5 shrink-0 flex-wrap justify-end">
           <span
             className="font-mc-mono text-[9px] uppercase font-bold px-1.5 py-0.5 bg-[#4A4A4A]/10 dark:bg-[#1E293B] text-[#0284C7] dark:text-[#38BDF8] border border-[#38BDF8]/40 shadow-[1px_1px_0_rgba(0,0,0,0.15)] flex items-center gap-1"
-            title={isAr ? 'التضاريس والبيومات متطابقة 100% مع إصدار Bedrock' : 'Terrain & Biomes are 100% identical on Bedrock Edition'}
+            title={isAr ? 'تتوافق البيومات والتضاريس الكبرى مع Bedrock (1.18+)، بينما تختلف الهياكل وارتفاع السطح الدقيق' : 'Macro-terrain & biomes match Bedrock (1.18+); structures and exact surface block heights differ'}
           >
             <span>🪨</span>
-            <span>{isAr ? 'توافق Bedrock 100%' : '100% Bedrock Parity'}</span>
+            <span>{isAr ? 'توافق تضاريسي وبيومي' : 'Biome & Terrain Parity'}</span>
           </span>
           <span
             className={`font-mc-mono text-[10px] uppercase font-bold px-2 py-0.5 border ${theme.badgeBg} ${theme.badgeText} ${theme.badgeBorder} shrink-0`}
@@ -164,8 +167,8 @@ export default function LandmarkCard({
         {description}
       </p>
 
-      {/* Biomes & Tags */}
-      <div className="flex flex-wrap items-center gap-1.5 mb-3.5 font-mc-mono text-[10px]">
+      {/* Biomes */}
+      <div className="flex flex-wrap items-center gap-1.5 mb-2 font-mc-mono text-[10px]">
         <span className="px-1.5 py-0.5 bg-[#5B8731]/15 text-[#3E651E] dark:text-[#84CC16] border border-[#5B8731]/30 font-bold">
           📍 {landmark.primary_biome}
         </span>
@@ -178,6 +181,20 @@ export default function LandmarkCard({
           </span>
         ))}
       </div>
+
+      {/* Feature Tags */}
+      {landmark.tags && landmark.tags.length > 0 && (
+        <div className="flex flex-wrap items-center gap-1.5 mb-3.5 font-mc-mono text-[9px]">
+          {landmark.tags.map((tag, idx) => (
+            <span
+              key={idx}
+              className="px-1.5 py-0.5 bg-[#866043]/15 text-[#866043] dark:text-[#FADB44] border border-[#866043]/30 font-bold"
+            >
+              #{tag.replace(/_/g, ' ')}
+            </span>
+          ))}
+        </div>
+      )}
 
       {/* Score Bars */}
       <div className="grid grid-cols-2 gap-3 mb-3 font-mc-mono text-[11px]">
@@ -220,6 +237,7 @@ export default function LandmarkCard({
       <div className="flex items-center justify-between pt-2 border-t border-[#7B7B7B]/20 font-mc-mono text-xs">
         <button
           onClick={handleCopyTp}
+          title={isAr ? 'نسخ أمر الانتقال (الارتفاع Y تقريبي، يُنصح بوضع المشاهد لتفادي السقوط)' : 'Copy teleport command (Y is estimated; spectator mode recommended to avoid fall hazard)'}
           className="mc-button px-2.5 py-1 text-[11px] font-bold text-[#222222] dark:text-[#E2E8F0] flex items-center gap-1.5 cursor-pointer hover:bg-[#E0E0E0] dark:hover:bg-[#313745]"
         >
           {copiedTp ? (
