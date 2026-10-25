@@ -328,7 +328,7 @@ export default function AnalysisResults({
                     : `✨ Found ${landmarks.spot_count} exceptional prime building spots & scenic landscapes!`}
                 </span>
                 <span className="bg-[#EC4899] text-white text-[10px] font-mc-mono px-1.5 py-0.5 font-bold uppercase shadow-[1px_1px_0_rgba(0,0,0,0.2)]">
-                  v4.1
+                  v4.2
                 </span>
               </div>
               <p className="text-xs text-[#444444] dark:text-[#CBD5E1] mt-0.5 font-medium">
@@ -343,11 +343,10 @@ export default function AnalysisResults({
             <button
               type="button"
               onClick={() => setActiveMainTab('landmarks')}
-              className={`px-3.5 py-1.5 font-mc-heading text-xs uppercase font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeMainTab === 'landmarks'
+              className={`px-3.5 py-1.5 font-mc-heading text-xs uppercase font-bold transition-all cursor-pointer flex items-center gap-1.5 ${activeMainTab === 'landmarks'
                   ? 'bg-[#EC4899] text-white shadow-[1px_1px_0_#831843]'
                   : 'mc-btn-green'
-              }`}
+                }`}
             >
               <Sparkles className="w-3.5 h-3.5 text-[#FDE047]" />
               <span>
@@ -364,11 +363,10 @@ export default function AnalysisResults({
       <div className="flex flex-wrap items-center gap-2 mb-4 border-b-2 border-[#8B8B8B] dark:border-[#333842] pb-1 font-mc-heading text-sm">
         <button
           onClick={() => setActiveMainTab('clusters')}
-          className={`px-4 py-2 flex items-center gap-2 font-bold transition-all cursor-pointer ${
-            activeMainTab === 'clusters'
+          className={`px-4 py-2 flex items-center gap-2 font-bold transition-all cursor-pointer ${activeMainTab === 'clusters'
               ? 'bg-[#5B8731] text-white shadow-[2px_2px_0_#2A4413] -mb-1.5'
               : 'mc-button text-[#333333] dark:text-[#E2E8F0] hover:text-[#111111]'
-          }`}
+            }`}
         >
           <Compass className="w-4 h-4" />
           <span>{t.tabUsefulClusters || 'Useful Clusters'}</span>
@@ -379,11 +377,10 @@ export default function AnalysisResults({
 
         <button
           onClick={() => setActiveMainTab('landmarks')}
-          className={`px-4 py-2 flex items-center gap-2 font-bold transition-all cursor-pointer ${
-            activeMainTab === 'landmarks'
+          className={`px-4 py-2 flex items-center gap-2 font-bold transition-all cursor-pointer ${activeMainTab === 'landmarks'
               ? 'bg-[#EC4899] text-white shadow-[2px_2px_0_#831843] -mb-1.5'
               : 'mc-button text-[#333333] dark:text-[#E2E8F0] hover:text-[#111111]'
-          }`}
+            }`}
         >
           <Sparkles className="w-4 h-4 text-[#FDE047]" />
           <span>{t.tabLandmarks || 'Scenic & Building Spots'}</span>
@@ -394,11 +391,10 @@ export default function AnalysisResults({
 
         <button
           onClick={() => setActiveMainTab('all')}
-          className={`px-4 py-2 flex items-center gap-2 font-bold transition-all cursor-pointer ${
-            activeMainTab === 'all'
+          className={`px-4 py-2 flex items-center gap-2 font-bold transition-all cursor-pointer ${activeMainTab === 'all'
               ? 'bg-[#2563EB] text-white shadow-[2px_2px_0_#1E40AF] -mb-1.5'
               : 'mc-button text-[#333333] dark:text-[#E2E8F0] hover:text-[#111111]'
-          }`}
+            }`}
         >
           <Globe className="w-4 h-4" />
           <span>{t.tabAllResults || (locale === 'ar' ? 'عرض الكل معاً (عناقيد + بناء)' : 'All Locations')}</span>
@@ -412,27 +408,26 @@ export default function AnalysisResults({
       <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-4">
         <div className="flex items-center gap-2">
           <span
-            className={`w-2.5 h-4 inline-block shadow-[1px_1px_0_#2A4413] ${
-              activeMainTab === 'clusters'
+            className={`w-2.5 h-4 inline-block shadow-[1px_1px_0_#2A4413] ${activeMainTab === 'clusters'
                 ? 'bg-[#5B8731]'
                 : activeMainTab === 'landmarks'
-                ? 'bg-[#EC4899]'
-                : 'bg-[#2563EB]'
-            }`}
+                  ? 'bg-[#EC4899]'
+                  : 'bg-[#2563EB]'
+              }`}
           ></span>
           <h2 className="font-mc-heading text-lg sm:text-xl text-[#1E1E1E] dark:text-[#F1F5F9] uppercase font-bold tracking-tight">
             {activeMainTab === 'clusters'
               ? t.discoveredClustersTitle || 'Discovered Structural Clusters'
               : activeMainTab === 'landmarks'
-              ? t.landmarksSectionTitle || 'Scenic Landscapes & Prime Building Locations'
-              : (locale === 'ar' ? 'كافة المواقع والعناقيد المكتشفة' : 'All Discovered Locations & Clusters')}
+                ? t.landmarksSectionTitle || 'Scenic Landscapes & Prime Building Locations'
+                : (locale === 'ar' ? 'كافة المواقع والعناقيد المكتشفة' : 'All Discovered Locations & Clusters')}
           </h2>
           <span className="font-mc-mono text-[11px] text-[#666666] dark:text-[#94A3B8] font-bold ms-2 hidden sm:inline">
             {activeMainTab === 'clusters'
               ? (locale === 'ar' ? '// مرتبة حسب الكثافة والأهمية' : '// SORTED BY VIABILITY & DENSITY')
               : activeMainTab === 'landmarks'
-              ? (locale === 'ar' ? '// أفضل الفوهات الجبلية والأحواض المستوية' : '// TOP CURATED SCENIC CALDERAS & BASINS')
-              : (locale === 'ar' ? '// استعراض شامل لكافة المعالم والعناقيد' : '// UNIFIED OVERVIEW OF ALL SITES')}
+                ? (locale === 'ar' ? '// أفضل الفوهات الجبلية والأحواض المستوية' : '// TOP CURATED SCENIC CALDERAS & BASINS')
+                : (locale === 'ar' ? '// استعراض شامل لكافة المعالم والعناقيد' : '// UNIFIED OVERVIEW OF ALL SITES')}
           </span>
         </div>
 
@@ -458,33 +453,30 @@ export default function AnalysisResults({
           <div className="flex items-center gap-1 bg-[#8B8B8B] dark:bg-[#181A22] p-0.5 border-t border-l border-[#373737] dark:border-[#2E3440] border-b border-r border-[#FFFFFF] dark:border-[#0E1014]">
             <button
               onClick={() => setViewMode('split')}
-              className={`px-2 py-1 text-xs font-bold transition-colors cursor-pointer ${
-                viewMode === 'split'
+              className={`px-2 py-1 text-xs font-bold transition-colors cursor-pointer ${viewMode === 'split'
                   ? 'bg-[#5B8731] text-[#FFFFFF]'
                   : 'text-[#FFFFFF] hover:bg-[#737373]'
-              }`}
+                }`}
               title={t.viewSplit}
             >
               <Columns className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setViewMode('cards')}
-              className={`px-2 py-1 text-xs font-bold transition-colors cursor-pointer ${
-                viewMode === 'cards'
+              className={`px-2 py-1 text-xs font-bold transition-colors cursor-pointer ${viewMode === 'cards'
                   ? 'bg-[#5B8731] text-[#FFFFFF]'
                   : 'text-[#FFFFFF] hover:bg-[#737373]'
-              }`}
+                }`}
               title={t.viewCards}
             >
               <LayoutGrid className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setViewMode('map')}
-              className={`px-2 py-1 text-xs font-bold transition-colors cursor-pointer ${
-                viewMode === 'map'
+              className={`px-2 py-1 text-xs font-bold transition-colors cursor-pointer ${viewMode === 'map'
                   ? 'bg-[#5B8731] text-[#FFFFFF]'
                   : 'text-[#FFFFFF] hover:bg-[#737373]'
-              }`}
+                }`}
               title={t.viewMap}
             >
               <MapIcon className="w-3.5 h-3.5" />
@@ -519,11 +511,10 @@ export default function AnalysisResults({
           </span>
           <button
             onClick={() => setActiveCategory('All')}
-            className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
-              activeCategory === 'All'
+            className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${activeCategory === 'All'
                 ? 'mc-btn-green'
                 : 'mc-button text-[#333333] hover:text-[#111111]'
-            }`}
+              }`}
           >
             {t.filterAll} ({clusters.length})
           </button>
@@ -534,11 +525,10 @@ export default function AnalysisResults({
               <button
                 key={cat}
                 onClick={() => setActiveCategory(cat)}
-                className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
-                  activeCategory === cat
+                className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${activeCategory === cat
                     ? 'mc-btn-green'
                     : 'mc-button text-[#333333] hover:text-[#111111]'
-                }`}
+                  }`}
               >
                 {catTranslated} ({count})
               </button>
@@ -553,11 +543,10 @@ export default function AnalysisResults({
           </span>
           <button
             onClick={() => setActiveLandmarkCategory('All')}
-            className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
-              activeLandmarkCategory === 'All'
+            className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${activeLandmarkCategory === 'All'
                 ? 'bg-[#EC4899] text-white shadow-[1px_1px_0_#831843]'
                 : 'mc-button text-[#333333] hover:text-[#111111]'
-            }`}
+              }`}
           >
             {t.filterAllLandmarks || 'All Spots'} ({landmarks?.spot_count ?? 0})
           </button>
@@ -568,11 +557,10 @@ export default function AnalysisResults({
               <button
                 key={cat}
                 onClick={() => setActiveLandmarkCategory(cat)}
-                className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${
-                  activeLandmarkCategory === cat
+                className={`px-2.5 py-1 text-xs font-bold whitespace-nowrap transition-colors cursor-pointer ${activeLandmarkCategory === cat
                     ? 'bg-[#EC4899] text-white shadow-[1px_1px_0_#831843]'
                     : 'mc-button text-[#333333] hover:text-[#111111]'
-                }`}
+                  }`}
               >
                 {catLabel} ({count})
               </button>
@@ -590,12 +578,12 @@ export default function AnalysisResults({
               <span>
                 {activeMainTab === 'clusters'
                   ? t.showingLocationsCount.replace(
-                      '{count}',
-                      String(filteredAndSortedClusters.length)
-                    )
+                    '{count}',
+                    String(filteredAndSortedClusters.length)
+                  )
                   : activeMainTab === 'landmarks'
-                  ? `${filteredLandmarks.length} ${t.landmarksCountLabel || 'Curated Spots'}`
-                  : `${filteredLandmarks.length + filteredAndSortedClusters.length} ${locale === 'ar' ? 'مواقع مكتشفة إجمالاً' : 'Total Locations'}`}
+                    ? `${filteredLandmarks.length} ${t.landmarksCountLabel || 'Curated Spots'}`
+                    : `${filteredLandmarks.length + filteredAndSortedClusters.length} ${locale === 'ar' ? 'مواقع مكتشفة إجمالاً' : 'Total Locations'}`}
               </span>
               <span className="hidden sm:inline">{t.clickCardToFocus}</span>
             </div>

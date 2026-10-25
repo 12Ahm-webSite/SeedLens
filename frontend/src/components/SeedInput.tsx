@@ -45,13 +45,6 @@ export default function SeedInput({
     null
   );
 
-  const presetSeeds = [
-    { label: t.presetTrading, seed: '123456789' },
-    { label: t.presetSpawn, seed: '42' },
-    { label: t.presetStrategic, seed: '2026' },
-    { label: t.presetNegative, seed: '-123456789' },
-    { label: t.presetEmpty, seed: '1040' },
-  ];
 
   if (initialSeed !== prevInitialSeed) {
     setPrevInitialSeed(initialSeed);
@@ -132,13 +125,6 @@ export default function SeedInput({
     onAnalyze(trimmed, selectedVersion);
   };
 
-  const handleSelectPreset = (presetSeed: string) => {
-    setSeed(presetSeed);
-    setClientError(null);
-    setTextConversionNote(null);
-    onAnalyze(presetSeed, selectedVersion);
-  };
-
   const displayError = clientError || errorMessage;
   const isOutOfRange =
     Boolean(displayError && (
@@ -150,27 +136,6 @@ export default function SeedInput({
 
   return (
     <div className="w-full">
-      {/* Quick Action Badges */}
-      <div className="flex items-center gap-2 font-mc-mono text-xs flex-wrap mb-3">
-        <span className="text-[#555555] dark:text-[#94A3B8] font-bold uppercase text-[11px] flex items-center gap-1">
-          <Sparkles className="w-3.5 h-3.5 text-[#5B8731]" />
-          <span>{t.trySampleSeeds}:</span>
-        </span>
-        {presetSeeds.map((preset) => (
-          <button
-            key={preset.seed}
-            type="button"
-            onClick={() => handleSelectPreset(preset.seed)}
-            disabled={isLoading}
-            className="px-2.5 py-1 mc-button hover:bg-[#E0E0E0] dark:hover:bg-[#313745] text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] transition-colors cursor-pointer"
-          >
-            <span>#{preset.seed}</span>{' '}
-            <span className="text-[10px] text-[#555555] dark:text-[#94A3B8] font-normal">
-              ({preset.label})
-            </span>
-          </button>
-        ))}
-      </div>
 
       {/* Crafting Cartography Table Console */}
       <form onSubmit={handleSubmit} className="w-full mc-gui-panel p-4">
@@ -247,22 +212,20 @@ export default function SeedInput({
                 <button
                   type="button"
                   onClick={() => onEditionChange && onEditionChange('java')}
-                  className={`px-2 py-0.5 font-mc-mono text-[10px] font-bold transition-all cursor-pointer ${
-                    edition === 'java'
-                      ? 'bg-[#5B8731] text-white shadow-[1px_1px_0_#2A4413]'
-                      : 'text-[#94A3B8] hover:text-[#FFFFFF]'
-                  }`}
+                  className={`px-2 py-0.5 font-mc-mono text-[10px] font-bold transition-all cursor-pointer ${edition === 'java'
+                    ? 'bg-[#5B8731] text-white shadow-[1px_1px_0_#2A4413]'
+                    : 'text-[#94A3B8] hover:text-[#FFFFFF]'
+                    }`}
                 >
                   ☕ Java
                 </button>
                 <button
                   type="button"
                   onClick={() => onEditionChange && onEditionChange('bedrock')}
-                  className={`px-2 py-0.5 font-mc-mono text-[10px] font-bold transition-all cursor-pointer ${
-                    edition === 'bedrock'
-                      ? 'bg-[#0284C7] text-white shadow-[1px_1px_0_#075985]'
-                      : 'text-[#94A3B8] hover:text-[#FFFFFF]'
-                  }`}
+                  className={`px-2 py-0.5 font-mc-mono text-[10px] font-bold transition-all cursor-pointer ${edition === 'bedrock'
+                    ? 'bg-[#0284C7] text-white shadow-[1px_1px_0_#075985]'
+                    : 'text-[#94A3B8] hover:text-[#FFFFFF]'
+                    }`}
                   title={locale === 'ar' ? 'توافق تضاريسي وبيومي مع بذور جافا 1.18+' : 'Macro-terrain & biome parity with 64-bit Java seeds (1.18+)'}
                 >
                   🪨 Bedrock

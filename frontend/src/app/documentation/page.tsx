@@ -21,17 +21,27 @@ import {
   CheckCircle2,
   HelpCircle,
   Terminal,
+  Search,
+  Sliders,
+  Share2,
+  Download,
+  KeyRound,
+  Eye,
+  Crown,
+  Flame,
+  Coins,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-export default function DocumentationPage() {
-  const { t, locale, dir } = useLanguage();
-  const isAr = locale === 'ar';
-  const ArrowIcon = isAr ? ArrowLeft : ArrowRight;
+type DocSection = 'changelog' | 'wishlist' | 'map_bedrock' | 'architecture' | 'faq';
 
-  const [activeSection, setActiveSection] = useState<'changelog' | 'architecture' | 'faq'>('changelog');
+export default function DocumentationPage() {
+  const { locale } = useLanguage();
+  const isAr = locale === 'ar';
+
+  const [activeSection, setActiveSection] = useState<DocSection>('changelog');
 
   return (
     <div className="min-h-screen flex flex-col bg-[#C6C6C6] dark:bg-[#12141A] text-[#1E1E1E] dark:text-[#E2E8F0] transition-colors duration-200">
@@ -51,7 +61,7 @@ export default function DocumentationPage() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-[#17B85E] shadow-[0_0_6px_#17B85E]"></span>
             <span className="font-bold text-[#555555] dark:text-[#94A3B8]">
-              {isAr ? 'وثيقة مرجعية v4.1' : 'Documentation Reference v4.1'}
+              {isAr ? 'وثيقة مرجعية v4.2 (شاملة البحث العكسي والبيدروك)' : 'Documentation Reference v4.2 (Reverse Finder & Bedrock)'}
             </span>
           </div>
         </div>
@@ -62,16 +72,16 @@ export default function DocumentationPage() {
             <div>
               <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#866043] text-[#FADB44] font-mc-mono text-[11px] font-bold mb-3 border-t-2 border-l-2 border-[#A87954] border-b-2 border-r-2 border-[#4E3523]">
                 <FileText className="w-3.5 h-3.5" />
-                <span>{isAr ? 'دليل التوثيق وسجل التحديثات الرسمي' : 'OFFICIAL DOCUMENTATION & CHANGELOG'}</span>
+                <span>{isAr ? 'دليل التوثيق وسجل التحديثات الشامل' : 'OFFICIAL DOCUMENTATION & CHANGELOG'}</span>
               </div>
               <h1 className="font-mc-heading text-2xl sm:text-3xl md:text-4xl text-[#1E1E1E] dark:text-[#F1F5F9] font-bold uppercase tracking-tight">
-                {isAr ? 'كل ما تحتاج معرفته عن ' : 'Everything about '}
+                {isAr ? 'الدليل الشامل لمنصة ' : 'Everything about '}
                 <span className="text-[#5B8731]">SeedLens</span>
               </h1>
               <p className="text-sm sm:text-base text-[#4E4E4E] dark:text-[#CBD5E1] mt-2 max-w-3xl leading-relaxed">
                 {isAr
-                  ? 'سجل مفصل لكافة التحديثات، الميزات الجديدة، وكيفية فحص التضاريس وأماكن البناء والعناقيد الهيكلية بدقة حسابية مطلقة.'
-                  : 'Comprehensive guide detailing every update, newly added features, and deterministic algorithms.'}
+                  ? 'دليل مرجعي تفصيلي يغطي محرك البحث العكسي (Reverse Seed Finder)، أنماط اللعب الـ RPG، بطاقات المعالم المتكيفة حسب الإصدار، تكافؤ البيدروك، وتصدير الخرائط والبطاقات البريدية.'
+                  : 'Comprehensive guide covering the Reverse Seed Finder, RPG Playstyle Presets, Version-Contextual Hover Cards, Bedrock Parity, Waypoints Exporter, and GIS Engine.'}
               </p>
             </div>
 
@@ -79,9 +89,9 @@ export default function DocumentationPage() {
               <div className="text-[#94A3B8] text-[10px] uppercase font-bold mb-1">
                 {isAr ? 'الإصدار النشط حالياً' : 'Current Active Release'}
               </div>
-              <div className="text-[#FADB44] font-bold text-lg font-mc-heading">SeedLens v4.1</div>
+              <div className="text-[#FADB44] font-bold text-lg font-mc-heading">SeedLens v4.2</div>
               <div className="text-[#17B85E] text-[11px] font-bold mt-1">
-                ● 100% Bit-Identical Calibrated
+                ● Reverse Finder & Bedrock Parity
               </div>
             </div>
           </div>
@@ -90,35 +100,54 @@ export default function DocumentationPage() {
           <div className="flex flex-wrap items-center gap-2 mt-6 pt-4 border-t border-[#A8A8A8] dark:border-[#2E3342] font-mc-heading text-xs">
             <button
               onClick={() => setActiveSection('changelog')}
-              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${
-                activeSection === 'changelog'
+              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${activeSection === 'changelog'
                   ? 'bg-[#5B8731] text-white shadow-[2px_2px_0_#2A4413]'
                   : 'mc-button text-[#333333] dark:text-[#E2E8F0]'
-              }`}
+                }`}
             >
               <Sparkles className="w-3.5 h-3.5" />
-              <span>{isAr ? 'سجل التحديثات الكامل (Changelog)' : 'Full Changelog'}</span>
+              <span>{isAr ? 'سجل التحديثات (Changelog)' : 'Full Changelog'}</span>
+            </button>
+
+            <button
+              onClick={() => setActiveSection('wishlist')}
+              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${activeSection === 'wishlist'
+                  ? 'bg-[#D97706] text-white shadow-[2px_2px_0_#78350F]'
+                  : 'mc-button text-[#333333] dark:text-[#E2E8F0]'
+                }`}
+            >
+              <Search className="w-3.5 h-3.5" />
+              <span>{isAr ? 'محرك البحث العكسي وأنماط RPG' : 'Reverse Finder & RPG'}</span>
+            </button>
+
+            <button
+              onClick={() => setActiveSection('map_bedrock')}
+              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${activeSection === 'map_bedrock'
+                  ? 'bg-[#059669] text-white shadow-[2px_2px_0_#064E3B]'
+                  : 'mc-button text-[#333333] dark:text-[#E2E8F0]'
+                }`}
+            >
+              <Compass className="w-3.5 h-3.5" />
+              <span>{isAr ? 'الخريطة وتكافؤ البيدروك' : 'Map HUD & Bedrock Parity'}</span>
             </button>
 
             <button
               onClick={() => setActiveSection('architecture')}
-              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${
-                activeSection === 'architecture'
+              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${activeSection === 'architecture'
                   ? 'bg-[#2563EB] text-white shadow-[2px_2px_0_#1E40AF]'
                   : 'mc-button text-[#333333] dark:text-[#E2E8F0]'
-              }`}
+                }`}
             >
               <Cpu className="w-3.5 h-3.5" />
-              <span>{isAr ? 'المعمارية التقنية للمحرك' : 'Engine Architecture'}</span>
+              <span>{isAr ? 'المعمارية التقنية ومحرك C' : 'Engine Architecture'}</span>
             </button>
 
             <button
               onClick={() => setActiveSection('faq')}
-              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${
-                activeSection === 'faq'
+              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${activeSection === 'faq'
                   ? 'bg-[#A855F7] text-white shadow-[2px_2px_0_#6B21A8]'
                   : 'mc-button text-[#333333] dark:text-[#E2E8F0]'
-              }`}
+                }`}
             >
               <HelpCircle className="w-3.5 h-3.5" />
               <span>{isAr ? 'الأسئلة الشائعة والأوامر' : 'FAQ & Commands'}</span>
@@ -129,12 +158,111 @@ export default function DocumentationPage() {
         {/* SECTION 1: Full Changelog */}
         {activeSection === 'changelog' && (
           <div className="space-y-6 animate-fade-in">
+            {/* Version 4.2 Card (Latest Active Release) */}
+            <div className="mc-gui-panel p-6 border-l-4 border-l-[#F59E0B] border-t-2 border-r-2 border-b-2">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2 border-b border-[#A8A8A8] dark:border-[#2E3342]">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-1 bg-[#F59E0B] text-black font-mc-heading text-xs font-bold shadow-[1px_1px_0_#78350F]">
+                    v4.2
+                  </span>
+                  <h2 className="font-mc-heading text-lg font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
+                    {isAr
+                      ? 'محرك البحث العكسي، أنماط RPG، وتكافؤ البيدروك الشامل'
+                      : 'Reverse Seed Finder, RPG Presets, Map HUD & Bedrock Parity'}
+                  </h2>
+                </div>
+                <span className="font-mc-mono text-xs bg-[#2A4413] text-[#89BD44] px-2 py-0.5 font-bold">
+                  {isAr ? 'أكتوبر 2026 (الإصدار النشط)' : 'October 2026 (Active)'}
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#4E4E4E] dark:text-[#CBD5E1] mb-4 leading-relaxed font-medium">
+                {isAr
+                  ? 'نقلة ثورية تُحول المنصة من مجرد محلل للبذور المدخلة إلى صانع عوالم ذكي حسب الطلب: يحدد اللاعب رغباته ومواصفات عالمه، فيقوم محرك C الموازي باستخراج البذرة المثالية مع إحداثيات الانتقال في أجزاء من الثانية.'
+                  : 'Transforming SeedLens from a passive seed analyzer to an active world architect. Specify desired landscape criteria, and the blazing C engine discovers matching seeds in milliseconds.'}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#F59E0B] font-bold mb-1">
+                    <Search className="w-4 h-4" />
+                    <span>{isAr ? 'البحث العكسي فائق السرعة' : 'Blazing Fast Reverse Finder'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'فحص آلاف البذور في الخلفية عبر C Fast-Reject Early-Exit واستخراج البذرة المطابقة لمواصفاتك في 10-50 مللي ثانية.'
+                      : 'Evaluates thousands of seeds per second using multi-threaded C pipeline with immediate exit heuristics.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#EC4899] font-bold mb-1">
+                    <Crown className="w-4 h-4" />
+                    <span>{isAr ? '5 أنماط لعب RPG جاهزة' : '5 Ready RPG Presets'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'الملك البنّاء، صائد الأقبية، صانع السينما، المحاصر المنعزل، والتاجر الإمبراطوري بضغطة زر واحدة.'
+                      : 'Curated archetypes: Mega-Builder, Dungeon Raider, Aesthetic Creator, Castaway Survivor, and Economy Mogul.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#10B981] font-bold mb-1">
+                    <Compass className="w-4 h-4" />
+                    <span>{isAr ? 'تصدير نقاط العلام (Waypoints)' : 'Waypoints Mod Exporter'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'تصدير ملفات جاهزة لمودات Xaero\'s Minimap و JourneyMap لترى المعالم كدبابيس مشعة داخل لعبتك مباشرة.'
+                      : 'Exports ready-to-use waypoint files for Xaero\'s and JourneyMap to see markers in-game.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#3B82F6] font-bold mb-1">
+                    <Share2 className="w-4 h-4" />
+                    <span>{isAr ? 'بطاقة بريد ماينكرافت السينمائية' : 'Minecraft Postcard Generator'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'توليد بطاقة بريدية عالية الجودة بصيغة PNG لمشاركة بذورك الأسطورية مع أصدقائك على Discord و Reddit.'
+                      : 'Generates high-resolution aesthetic pixel-art postcards ready to download and share.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#14B8A6] font-bold mb-1">
+                    <Layers className="w-4 h-4" />
+                    <span>{isAr ? 'وضع تكافؤ البيدروك (Bedrock Parity)' : 'Bedrock Parity Mode'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'مفتاح تبديل للنسخة يوضح تطابق التضاريس والبحيرات والبيومات 100% بين جافا وبيدروك بفضل Caves & Cliffs.'
+                      : 'Direct toggle explaining 100% terrain and biome parity between Java and Bedrock editions.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#8B5CF6] font-bold mb-1">
+                    <ShieldCheck className="w-4 h-4" />
+                    <span>{isAr ? 'لوحة القيادة الآمنة (/my-admin)' : 'Secure Operations Portal'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'لوحة إدارة وتحليلات ميدانية برمز PIN مخصص قابل للتغيير مع تتبع واقعي ونظيف للزوار والفحوصات.'
+                      : 'Protected operations dashboard with changeable PIN, real-time telemetry, and audit counters.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
             {/* Version 4.1 Card */}
             <div className="mc-gui-panel p-6 border-l-4 border-l-[#EC4899] border-t-2 border-r-2 border-b-2">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2 border-b border-[#A8A8A8] dark:border-[#2E3342]">
                 <div className="flex items-center gap-2">
                   <span className="px-2.5 py-1 bg-[#EC4899] text-white font-mc-heading text-xs font-bold shadow-[1px_1px_0_#831843]">
-                    v4.1
+                    v4.2
                   </span>
                   <h2 className="font-mc-heading text-lg font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
                     {isAr
@@ -142,102 +270,16 @@ export default function DocumentationPage() {
                       : 'Scenic & Prime Building Spots Discovery Engine'}
                   </h2>
                 </div>
-                <span className="font-mc-mono text-xs bg-[#2A4413] text-[#89BD44] px-2 py-0.5 font-bold">
-                  {isAr ? 'أكتوبر 2026 (نشط)' : 'October 2026 (Active)'}
+                <span className="font-mc-mono text-xs bg-[#4A4A4A] text-[#CBD5E1] px-2 py-0.5 font-bold">
+                  {isAr ? 'سبتمبر 2026' : 'September 2026'}
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-[#4E4E4E] dark:text-[#CBD5E1] mb-4 leading-relaxed font-medium">
+              <p className="text-xs sm:text-sm text-[#4E4E4E] dark:text-[#CBD5E1] mb-3 leading-relaxed font-medium">
                 {isAr
-                  ? 'أكبر ترقية استكشافية نوعية في SeedLens: لم يعد المحرك يقتصر على الهياكل فقط، بل أصبح يفحص تضاريس العالم ثلاثية الأبعاد (3D Biome & Height Sampling) لاكتشاف أفضل المواقع الجغرافية المناسبة للبناء والاستقرار وأخذ لقطات سينمائية مهيبة.'
-                  : 'A landmark enhancement: SeedLens now conducts high-speed 3D terrain and biome sampling across 10,000x10,000 blocks to identify scenic vistas and ideal base building locations.'}
+                  ? 'ترقية استكشافية نوعية: فحص تضاريس العالم ثلاثية الأبعاد (3D Biome & Height Sampling) لاكتشاف فوهات الكرز، الفوهات المحصنة، الجروف، أحواض البناء المستوية، وجزر النجاة المنعزلة مع تقييم Scenic و Building من 0 إلى 100%.'
+                  : '3D terrain sampling across 10,000 blocks to identify Cherry Calderas, Crater Rings, Clifftops, Basins, and Survival Islands.'}
               </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
-                <div className="mc-slot p-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#F472B6] font-bold mb-1">
-                    <Trees className="w-4 h-4" />
-                    <span>{isAr ? 'فوهات الكرز الجبلية' : 'Cherry Calderas'}</span>
-                  </div>
-                  <p className="text-[#CBD5E1] text-[11px]">
-                    {isAr
-                      ? 'أودية دائرية محاطة بسلاسل جبلية مثلجة ومغطاة بأزهار الكرز.'
-                      : 'Circular valleys enclosed by snowy peaks, blanketed with cherry blossoms.'}
-                  </p>
-                </div>
-
-                <div className="mc-slot p-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#10B981] font-bold mb-1">
-                    <Mountain className="w-4 h-4" />
-                    <span>{isAr ? 'الفوهات الجبلية المحمية' : 'Mountain Crater Rings'}</span>
-                  </div>
-                  <p className="text-[#CBD5E1] text-[11px]">
-                    {isAr
-                      ? 'مروج منخفضة محاطة بجدران جبلية شاهقة من كافة الاتجاهات كحصن طبيعي.'
-                      : 'Deep alpine meadows fortified by steep peaks in all 4 directions.'}
-                  </p>
-                </div>
-
-                <div className="mc-slot p-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#A855F7] font-bold mb-1">
-                    <Camera className="w-4 h-4" />
-                    <span>{isAr ? 'الجروف البانورامية الشاهقة' : 'Epic Clifftop Vistas'}</span>
-                  </div>
-                  <p className="text-[#CBD5E1] text-[11px]">
-                    {isAr
-                      ? 'انحدارات صخرية سحيقة بفارق ارتفاع > 80 بلوكاً تطل على محيطات وبحار.'
-                      : 'Dramatic sheer cliff drops > 80m overlooking oceans and plains.'}
-                  </p>
-                </div>
-
-                <div className="mc-slot p-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#F59E0B] font-bold mb-1">
-                    <Castle className="w-4 h-4" />
-                    <span>{isAr ? 'أحواض البناء المستوية' : 'Prime Building Basins'}</span>
-                  </div>
-                  <p className="text-[#CBD5E1] text-[11px]">
-                    {isAr
-                      ? 'أراضٍ سهلية مستوية شاسعة بجوار مياه وأشجار لبناء الممالك دون تسوية التضاريس.'
-                      : 'Extensive flat terrain adjacent to water and lumber for sprawling bases.'}
-                  </p>
-                </div>
-
-                <div className="mc-slot p-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#0284C7] font-bold mb-1">
-                    <Waves className="w-4 h-4" />
-                    <span>{isAr ? 'جزر النجاة المنعزلة' : 'Isolated Survival Islands'}</span>
-                  </div>
-                  <p className="text-[#CBD5E1] text-[11px]">
-                    {isAr
-                      ? 'جزر نقية محاطة بمحيط عميق على مسافة ≥ 300م لعشاق تحديات النجاة الصعبة.'
-                      : 'Secluded pristine islands enclosed by deep ocean for classic survival runs.'}
-                  </p>
-                </div>
-
-                <div className="mc-slot p-3 text-xs">
-                  <div className="flex items-center gap-1.5 text-[#17B85E] font-bold mb-1">
-                    <Sparkles className="w-4 h-4" />
-                    <span>{isAr ? 'نقاط تقييم مزدوجة 0-100%' : 'Dual Scoring System'}</span>
-                  </div>
-                  <p className="text-[#CBD5E1] text-[11px]">
-                    {isAr
-                      ? 'مؤشر جمالي (Scenic Score) ومؤشر للبناء (Building Score) مع حساب المسافة لنقطة البداية.'
-                      : 'Algorithmic scenic & building ratings computed from biome diversity and slope variance.'}
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-[#B8B8B8] dark:bg-[#181B22] p-3 text-xs font-mc-mono border-t border-l border-[#FFFFFF] dark:border-[#303644] border-b border-r border-[#555555] dark:border-[#0E1015]">
-                <span className="text-[#5B8731] font-bold">
-                  {isAr ? '✓ الميزات البرمجية المضافة في الواجهة:' : '✓ Frontend Enhancements Added:'}
-                </span>
-                <ul className="list-disc list-inside mt-1 space-y-1 text-[#333333] dark:text-[#CBD5E1]">
-                  <li>{isAr ? 'بانر إشعاري بارز ومتحرك يظهر فور العثور على أماكن بناء مميزة.' : 'Prominent animated callout banner whenever prime building spots are detected.'}</li>
-                  <li>{isAr ? 'تبويب موحد جديد: "عرض الكل معاً" يجمع العناقيد وأماكن البناء في قائمة واحدة.' : 'Unified view tab ("All Locations") combining both structures and building sites.'}</li>
-                  <li>{isAr ? 'تعريب كامل وشامل لكافة بطاقات التحليل، المعايير الرياضية، ونوافذ التفاصيل.' : '100% Arabic localization for all cards, explanations, modals, and metric HUDs.'}</li>
-                  <li>{isAr ? 'دبابيس خريطة تفاعلية Leaflet بأيقونات تعبيرية مخصصة وزر نسخ أمر الانتقال السريع.' : 'Interactive Leaflet pins with custom emojis and instant /tp clipboard buttons.'}</li>
-                </ul>
-              </div>
             </div>
 
             {/* Version 4.0 Card */}
@@ -253,31 +295,16 @@ export default function DocumentationPage() {
                       : 'Multi-Version Engine & Trial Chambers Discovery'}
                   </h2>
                 </div>
-                <span className="font-mc-mono text-xs bg-[#2A4413] text-[#89BD44] px-2 py-0.5 font-bold">
-                  {isAr ? 'سبتمبر 2026' : 'September 2026'}
+                <span className="font-mc-mono text-xs bg-[#4A4A4A] text-[#CBD5E1] px-2 py-0.5 font-bold">
+                  {isAr ? 'أغسطس 2026' : 'August 2026'}
                 </span>
               </div>
 
-              <p className="text-xs sm:text-sm text-[#4E4E4E] dark:text-[#CBD5E1] mb-3 leading-relaxed font-medium">
+              <p className="text-xs sm:text-sm text-[#4E4E4E] dark:text-[#CBD5E1] mb-2 leading-relaxed font-medium">
                 {isAr
-                  ? 'توسيع المحرك ليدعم كافة إصدارات ماينكرافت الرسمية من 1.18 وحتى 1.21.4، مع إضافة غرف المحاكمة (Trial Chambers) وشاراتها النحاسية المميزة دون كسر توافقية النسخ السابقة.'
-                  : 'Expanded the engine to support all Java editions from 1.18 to 1.21.4, integrating Trial Chambers generation rules and custom copper badges.'}
+                  ? 'توسيع المحرك ليدعم كافة إصدارات ماينكرافت الرسمية من 1.18 وحتى 1.21.4 (Winter Drop)، مع إضافة غرف المحاكمة (Trial Chambers) وشاراتها النحاسية المميزة دون المساس بعناقيد v3.1.'
+                  : 'Expanded support from 1.18 to 1.21.4, integrating Trial Chambers and copper badges without altering baseline clusters.'}
               </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2.5 font-mc-mono text-xs mb-3">
-                <div className="p-2 bg-[#E2E2E2] dark:bg-[#181B22] border border-[#A8A8A8] dark:border-[#333842]">
-                  <span className="text-[#D97706] font-bold">1.21.1 / 1.21.4:</span>
-                  <p className="text-[11px] text-[#555555] dark:text-[#94A3B8]">{isAr ? 'غرف المحاكمة + الحديقة الشاحبة' : 'Trial Chambers + Pale Garden'}</p>
-                </div>
-                <div className="p-2 bg-[#E2E2E2] dark:bg-[#181B22] border border-[#A8A8A8] dark:border-[#333842]">
-                  <span className="text-[#2CBAA8] font-bold">1.20.6 / 1.20:</span>
-                  <p className="text-[11px] text-[#555555] dark:text-[#94A3B8]">{isAr ? 'آثار المسار + بساتين الكرز' : 'Trail Ruins + Cherry Groves'}</p>
-                </div>
-                <div className="p-2 bg-[#E2E2E2] dark:bg-[#181B22] border border-[#A8A8A8] dark:border-[#333842]">
-                  <span className="text-[#5B8731] font-bold">1.19.4 / 1.18.2:</span>
-                  <p className="text-[11px] text-[#555555] dark:text-[#94A3B8]">{isAr ? 'المدينة القديمة + كهوف التحديث الأول' : 'Ancient Cities + Caves & Cliffs'}</p>
-                </div>
-              </div>
             </div>
 
             {/* Version 3.1 Card */}
@@ -307,7 +334,212 @@ export default function DocumentationPage() {
           </div>
         )}
 
-        {/* SECTION 2: Technical Architecture */}
+        {/* SECTION 2: Wishlist & RPG Presets Guide */}
+        {activeSection === 'wishlist' && (
+          <div className="mc-gui-panel p-6 sm:p-8 space-y-6 animate-fade-in border-2 border-[#D97706]">
+            <div className="flex items-center gap-3 pb-3 border-b border-[#A8A8A8] dark:border-[#2E3342]">
+              <div className="w-10 h-10 bg-[#D97706] border-2 border-[#F59E0B] border-b-[#78350F] border-r-[#78350F] flex items-center justify-center text-white shadow-[1px_1px_0_#000] shrink-0">
+                <Search className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="font-mc-heading text-xl font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
+                  {isAr ? 'دليل محرك البحث العكسي واستمارة رغبات العالم' : 'Reverse Seed Finder & RPG Playstyle Guide'}
+                </h2>
+                <p className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono">
+                  Wishlist Sliders • RPG Presets • Waypoint Mod Export • Postcards
+                </p>
+              </div>
+            </div>
+
+            <div className="bg-[#B8B8B8] dark:bg-[#181B22] p-4 text-xs font-mc-mono border-t border-l border-[#FFFFFF] dark:border-[#303644] border-b border-r border-[#555555] dark:border-[#0E1015]">
+              <h3 className="font-mc-heading text-sm font-bold text-[#D97706] mb-1">
+                {isAr ? 'كيف يعمل محرك البحث العكسي؟' : 'How does the Reverse Seed Finder work?'}
+              </h3>
+              <p className="text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+                {isAr
+                  ? 'بدلاً من البحث اليدوي العشوائي، يُمكّنك محرك SeedLens من تحديد متطلباتك (مثلاً: فوهة كرز محاطة بقمم مثلجة مع سهولة بناء ≥ 85% وهياكل قرب الـ Spawn). يقوم محرك C الموازي بفحص آلاف البذور في الخلفية بتقنية الاستبعاد المبكر (Fast-Reject Early-Exit)، مستبعداً البذور غير المطابقة في أجزاء من الميكروثانية حتى يجد بذرة أحلامك بدقة تامة.'
+                  : 'Instead of manually testing random seeds, set your desired parameters. The multi-threaded C engine evaluates thousands of seeds in milliseconds via early-exit heuristics, returning your ideal seed instantly.'}
+              </p>
+            </div>
+
+            {/* RPG Presets Table */}
+            <div>
+              <h3 className="font-mc-heading text-sm font-bold text-[#1E1E1E] dark:text-[#F1F5F9] mb-3 flex items-center gap-2">
+                <Crown className="w-4 h-4 text-[#F59E0B]" />
+                <span>{isAr ? 'شخصيات اللعب الجاهزة (RPG Playstyle Presets)' : 'Curated RPG Playstyle Presets'}</span>
+              </h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
+                <div className="mc-slot p-3.5 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-bold text-[#F59E0B] flex items-center gap-1.5">
+                      <Castle className="w-4 h-4" />
+                      {isAr ? 'الملك البنّاء (Mega-Builder)' : 'Mega-Builder'}
+                    </span>
+                    <span className="text-[10px] bg-[#B45309] text-white px-1.5 py-0.5 font-mc-mono">Build ≥ 85%</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'سهول خضراء فسيحة بجوار مياه جارية ومصادر أخشاب لبناء مدن وقواعد دون عناء تسوية التضاريس.'
+                      : 'Extensive flat grasslands next to rivers and wood supplies for building sprawling megacities.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3.5 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-bold text-[#EF4444] flex items-center gap-1.5">
+                      <Swords className="w-4 h-4" />
+                      {isAr ? 'صائد الأقبية (Dungeon Raider)' : 'Dungeon Raider'}
+                    </span>
+                    <span className="text-[10px] bg-[#991B1B] text-white px-1.5 py-0.5 font-mc-mono">Combat Trial</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'غرف محاكمة (Trial Chambers) ومدينة قديمة على بعد خطوات من الـ Spawn للقتال ونهب الصولجان والدروع.'
+                      : 'Early-game Trial Chambers and Ancient City near spawn for rapid gear progression and combat.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3.5 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-bold text-[#EC4899] flex items-center gap-1.5">
+                      <Camera className="w-4 h-4" />
+                      {isAr ? 'صانع السينما (Aesthetic Creator)' : 'Aesthetic Creator'}
+                    </span>
+                    <span className="text-[10px] bg-[#9D174D] text-white px-1.5 py-0.5 font-mc-mono">Scenic ≥ 90%</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'فوهات كرز ساحرة محاطة بجبال مسننة تمنح لقطات سينمائية مبهرة لصنّاع المحتوى ومحبي اللقطات الخلابة.'
+                      : 'Scenic Cherry Calderas enclosed by jagged peaks, perfect for cinematics and scenic bases.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3.5 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-bold text-[#0284C7] flex items-center gap-1.5">
+                      <Waves className="w-4 h-4" />
+                      {isAr ? 'المحاصر المنعزل (Castaway Survivor)' : 'Castaway Survivor'}
+                    </span>
+                    <span className="text-[10px] bg-[#075985] text-white px-1.5 py-0.5 font-mc-mono">Ocean ≥ 400m</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'جزيرة نجاة نقية معزولة وسط محيط سحيق دون يابسة مجاورة لتحديات النجاة الصعبة والمنارات.'
+                      : 'Secluded survival island enclosed by vast deep ocean for hardcore survival challenges.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3.5 text-xs">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-bold text-[#10B981] flex items-center gap-1.5">
+                      <Coins className="w-4 h-4" />
+                      {isAr ? 'التاجر الإمبراطوري (Economy Mogul)' : 'Economy Mogul'}
+                    </span>
+                    <span className="text-[10px] bg-[#065F46] text-white px-1.5 py-0.5 font-mc-mono">3+ Villages</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'عاصمة تجارية تضم 3 قرى أو أكثر على مسافة مشي قصيرة لتأسيس قاعات المقايضة ومزارع الحديد فوراً.'
+                      : 'Dense cluster of 3+ villages close together for instant trading halls and iron farms.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Waypoints & Postcards Guide */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                <h4 className="font-mc-heading text-xs font-bold text-[#10B981] uppercase mb-1.5 flex items-center gap-1.5">
+                  <Compass className="w-4 h-4" />
+                  <span>{isAr ? 'تصدير نقاط العلام لمودات الخرائط' : 'In-Game Waypoints Export'}</span>
+                </h4>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-2">
+                  {isAr
+                    ? 'اضغط زر "تصدير نقاط العلام (Waypoints)" في شريط النتائج لتحميل ملف نصي جاهز لمود Xaero\'s Minimap أو JourneyMap، ضعه في مجلد الخريطة داخل ملفات لعبتك وستظهر كل المواقع كدبابيس مشعة مباشرة على شاشتك!'
+                    : 'Click "Export Waypoints" in the results bar to download ready config files for Xaero\'s Minimap or JourneyMap, projecting markers directly in your HUD.'}
+                </p>
+              </div>
+
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                <h4 className="font-mc-heading text-xs font-bold text-[#3B82F6] uppercase mb-1.5 flex items-center gap-1.5">
+                  <Share2 className="w-4 h-4" />
+                  <span>{isAr ? 'توليد بطاقة المشاركة السينمائية' : 'Minecraft Postcard Sharing'}</span>
+                </h4>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-2">
+                  {isAr
+                    ? 'اضغط زر "مشاركة بطاقة المعلم" لتحصل على بطاقة بريدية سينمائية مرسومة بأناقة ماينكرافت البيكسلية متضمنة رقم البذرة والإحداثيات ودرجات التقييم، قابلة للتحميل بضغطة زر كصورة PNG لمشاركتها على وسائل التواصل.'
+                    : 'Click "Share Postcard" to generate an aesthetic pixel-art postcard with seed, coordinates, and scores, downloadable as PNG for Discord and Reddit.'}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SECTION 3: Map HUD & Bedrock Parity Guide */}
+        {activeSection === 'map_bedrock' && (
+          <div className="mc-gui-panel p-6 sm:p-8 space-y-6 animate-fade-in border-2 border-[#059669]">
+            <div className="flex items-center gap-3 pb-3 border-b border-[#A8A8A8] dark:border-[#2E3342]">
+              <div className="w-10 h-10 bg-[#059669] border-2 border-[#34D399] border-b-[#064E3B] border-r-[#064E3B] flex items-center justify-center text-white shadow-[1px_1px_0_#000] shrink-0">
+                <Compass className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="font-mc-heading text-xl font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
+                  {isAr ? 'تجربة الخريطة المتقدمة وتكافؤ البيدروك' : 'Interactive Map HUD & Bedrock Parity'}
+                </h2>
+                <p className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono">
+                  Real-time Coordinates HUD • Version-Contextual Hover Cards • 100% Terrain Parity
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div className="mc-slot p-4">
+                <span className="text-[#34D399] font-mc-mono font-bold block mb-1">FEATURE 01</span>
+                <h3 className="font-mc-heading font-bold text-sm text-white mb-2">
+                  {isAr ? 'شريط الإحداثيات الحي (Coordinates HUD)' : 'Real-time Coordinates HUD'}
+                </h3>
+                <p className="text-[#CBD5E1] leading-relaxed">
+                  {isAr
+                    ? 'شريط تفاعلي في الزاوية السفلية للخريطة يقرأ إحداثيات مؤشر الفأرة (X, Z) لحظياً أثناء التحريك مع حساب المسافة لنقطة الـ Spawn، مما يتيح لك معاينة أي موقع بدقة البلوكة دون الحاجة للنقر.'
+                    : 'A live HUD in the bottom corner tracks cursor X, Z coordinates and distance from world spawn with zero latency.'}
+                </p>
+              </div>
+
+              <div className="mc-slot p-4">
+                <span className="text-[#F59E0B] font-mc-mono font-bold block mb-1">FEATURE 02</span>
+                <h3 className="font-mc-heading font-bold text-sm text-white mb-2">
+                  {isAr ? 'بطاقات الهوفر المتكيفة حسب الإصدار' : 'Version-Contextual Hover Cards'}
+                </h3>
+                <p className="text-[#CBD5E1] leading-relaxed">
+                  {isAr
+                    ? 'عند تمرير مؤشر الفأرة فوق أي دبوس، تظهر بطاقة مصغرة أنيقة بصورة متجهة مطابقة تماماً للإصدار المختار: تظهر قمم ثلجية لـ 1.18 وأزهار كرز لـ 1.20 وغرف محاكمة لـ 1.21، مع زر سريع لنسخ أمر /tp دون إرباك مساحة الخريطة.'
+                    : 'Hovering over pins displays compact contextual previews matching the active Minecraft version, complete with instant /tp copy buttons.'}
+                </p>
+              </div>
+            </div>
+
+            {/* Bedrock Parity Deep Dive */}
+            <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+              <h3 className="font-mc-heading text-sm font-bold text-[#059669] uppercase mb-2 flex items-center gap-2">
+                <Layers className="w-4 h-4" />
+                <span>{isAr ? 'حقيقة تكافؤ البيدروك وجافا (Bedrock Edition Parity)' : 'Understanding Bedrock Parity'}</span>
+              </h3>
+              <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                {isAr
+                  ? 'منذ تحديث Minecraft 1.18 (Caves & Cliffs Part II)، وحّدت شركة Mojang خوارزمية توليد التضاريس والبيومات بالكامل بين Java و Bedrock. هذا يعني أن أي بذرة 64-بت ستنتج نفس الجبال، نفس الوديان، نفس فوهات الكرز، ونفس جزر النجاة في نفس الإحداثيات تماماً على الهاتف أو الكونسول أو الحاسوب!'
+                  : 'Since Minecraft 1.18 Caves & Cliffs, Mojang unified terrain and biome generation across Java and Bedrock. All 64-bit seeds yield identical mountains, cherry groves, rivers, and islands across both editions.'}
+              </p>
+              <div className="mc-slot p-2.5 text-xs font-mc-mono text-[#FADB44]">
+                {isAr
+                  ? '💡 ملاحظة للمستخدمين: ميزة اكتشاف المعالم وأماكن البناء صالحة بنسبة 100% للبيدروك، بينما قد تختلف إحداثيات بعض القرى والمعابد بسبب اختلاف مولد الهياكل الداخلي.'
+                  : '💡 Note: Landmarks and scenic spots are 100% identical on Bedrock. Individual village coordinates may slightly vary.'}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SECTION 4: Technical Architecture */}
         {activeSection === 'architecture' && (
           <div className="mc-gui-panel p-6 sm:p-8 space-y-6 animate-fade-in border-2 border-[#2563EB]">
             <div className="flex items-center gap-3 pb-3 border-b border-[#A8A8A8] dark:border-[#2E3342]">
@@ -319,13 +551,25 @@ export default function DocumentationPage() {
                   {isAr ? 'المعمارية التقنية وتدفق البيانات في SeedLens' : 'Technical Architecture & Pipeline'}
                 </h2>
                 <p className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono">
-                  Input → Cubiomes → Spatial Clusterer → Heuristics → JSON API → Leaflet GIS
+                  Input → Fast-Reject C Pipeline → Cubiomes → Spatial Clusterer → Leaflet GIS
                 </p>
               </div>
             </div>
 
             {/* Pipeline Steps */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+              <div className="mc-slot p-4">
+                <span className="text-[#F59E0B] font-mc-mono font-bold block mb-1">STAGE 00</span>
+                <h3 className="font-mc-heading font-bold text-sm text-white mb-2">
+                  {isAr ? 'محرك الفحص العكسي فائق السرعة' : 'Fast-Reject Early-Exit Pipeline (C)'}
+                </h3>
+                <p className="text-[#CBD5E1] leading-relaxed">
+                  {isAr
+                    ? 'في وضع البحث العكسي (seedlens find)، يفحص المحرك معايير التضاريس والبيومات المطلوبة بأقل تكلفة حسابية؛ إذا لم تتطابق البذرة، يتم استبعادها في أقل من ميكروثانية والانتقال للبذرة التالية دون توليد العالم كاملاً.'
+                    : 'In reverse search mode, the C engine evaluates conditions with minimal compute, discarding non-matching seeds in microseconds before full simulation.'}
+                </p>
+              </div>
+
               <div className="mc-slot p-4">
                 <span className="text-[#FADB44] font-mc-mono font-bold block mb-1">STAGE 01</span>
                 <h3 className="font-mc-heading font-bold text-sm text-white mb-2">
@@ -361,23 +605,11 @@ export default function DocumentationPage() {
                     : 'Groups candidate structures within a 500m proximity threshold, calculating exact bounding diameters and nearest pairwise distances.'}
                 </p>
               </div>
-
-              <div className="mc-slot p-4">
-                <span className="text-[#EC4899] font-mc-mono font-bold block mb-1">STAGE 04</span>
-                <h3 className="font-mc-heading font-bold text-sm text-white mb-2">
-                  {isAr ? 'التقييم الاستراتيجي والعرض التفاعلي' : 'Heuristic Evaluation & Interactive GIS'}
-                </h3>
-                <p className="text-[#CBD5E1] leading-relaxed">
-                  {isAr
-                    ? 'تطبيق القواعد الرياضية لتصنيف العواصم التجارية والمراكز الاستراتيجية وتصدير مخرجات JSON فائقة النقاء لعرضها على خريطة Leaflet والبطاقات التفاعلية.'
-                    : 'Applies rigorous heuristic criteria to classify archetypes, outputting structured JSON serialized directly to Next.js Leaflet interactive view.'}
-                </p>
-              </div>
             </div>
           </div>
         )}
 
-        {/* SECTION 4: FAQ & Commands */}
+        {/* SECTION 5: FAQ & Commands */}
         {activeSection === 'faq' && (
           <div className="mc-gui-panel p-6 sm:p-8 space-y-6 animate-fade-in border-2 border-[#A855F7]">
             <div className="flex items-center gap-3 pb-3 border-b border-[#A8A8A8] dark:border-[#2E3342]">
@@ -386,10 +618,10 @@ export default function DocumentationPage() {
               </div>
               <div>
                 <h2 className="font-mc-heading text-xl font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
-                  {isAr ? 'الأسئلة الشائعة ودليل أوامر الانتقال السريع' : 'FAQ & Quick Teleport Commands'}
+                  {isAr ? 'الأسئلة الشائعة ودليل أوامر الانتقال وتصدير الخرائط' : 'FAQ, Teleport & Mod Export Guide'}
                 </h2>
                 <p className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono">
-                  Minecraft Teleport Syntax & Troubleshooting
+                  Minecraft Teleport Syntax • Mod Integration • Bedrock & Security
                 </p>
               </div>
             </div>
@@ -411,24 +643,35 @@ export default function DocumentationPage() {
               </div>
 
               <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
-                <h3 className="font-mc-heading text-sm font-bold text-[#5B8731] uppercase mb-1">
-                  {isAr ? 'لماذا يختلف توليد العالم بين إصدارات ماينكرافت؟' : 'Why do world layouts change between Minecraft versions?'}
+                <h3 className="font-mc-heading text-sm font-bold text-[#059669] uppercase mb-1">
+                  {isAr ? 'هل بذور ومواقع SeedLens تعمل على ماينكرافت بيدروك (Bedrock)؟' : 'Do SeedLens seeds and spots work on Bedrock Edition?'}
                 </h3>
                 <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
                   {isAr
-                    ? 'تقوم شركة Mojang بتحديث خوارزميات التوليد مع كل تحديث رئيسي؛ مثلاً أضاف تحديث 1.19 المدن القديمة العميقة، وأضاف تحديث 1.20 بساتين الكرز وآثار المسار، بينما أضاف تحديث 1.21 غرف المحاكمة. لذلك يوفر SeedLens قائمة منسدلة لاختيار إصدارك بدقة.'
-                    : 'Mojang frequently updates generation tables with new structures and biomes. SeedLens offers full multi-version profiles to simulate the exact generation rules of each version.'}
+                    ? 'نعم بنسبة 100% للتضاريس والبيومات! منذ تحديث 1.18، تتطابق الجبال وفوهات الكرز والبحيرات والوديان بدقة متناهية بين جافا وبيدروك. يمكنك اختيار وضع [Bedrock Edition] في واجهة البحث للتركيز على المعالم المشتركة.'
+                    : 'Yes! 100% parity for terrain, mountains, caldera lakes, and biomes since 1.18. Toggle the [Bedrock Edition] mode in the search bar for matched features.'}
                 </p>
               </div>
 
               <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
-                <h3 className="font-mc-heading text-sm font-bold text-[#5B8731] uppercase mb-1">
-                  {isAr ? 'هل يدعم SeedLens إصدار ماينكرافت بيدروك (Bedrock)؟' : 'Does SeedLens support Minecraft Bedrock Edition?'}
+                <h3 className="font-mc-heading text-sm font-bold text-[#D97706] uppercase mb-1">
+                  {isAr ? 'كيف أستخدم ملف نقاط العلام (Waypoints) داخل ماينكرافت؟' : 'How do I import exported Waypoints into Minecraft?'}
                 </h3>
                 <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
                   {isAr
-                    ? 'نواة البيومات والتضاريس متطابقة تقريباً بين جافا وبيدروك منذ تحديث 1.18 بفضل الـ Parity، لكن مواقع الهياكل الصغرى قد تختلف قليلاً. صُمم SeedLens ومُعاير حصرياً لدقة ماينكرافت جافا 100%.'
-                    : 'Biomes largely match Bedrock via terrain parity, but structure placements differ. SeedLens is strictly calibrated for Minecraft Java edition.'}
+                    ? 'بعد تنزيل الملف من زر "تصدير نقاط العلام"، افتح مجلد `.minecraft/waypoints` لمود Xaero\'s أو JourneyMap وضع الملف بداخله. عند دخولك للعالم ستظهر كافة القرى وفوهات الكرز كدبابيس ثلاثية الأبعاد على شاشتك.'
+                    : 'Download the waypoints file and place it into `.minecraft/waypoints` for Xaero\'s Minimap or JourneyMap. All spots appear as 3D markers in your game.'}
+                </p>
+              </div>
+
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                <h3 className="font-mc-heading text-sm font-bold text-[#8B5CF6] uppercase mb-1">
+                  {isAr ? 'كيف أصل إلى لوحة القيادة المركزية (/my-admin) وأغير رمز المرور؟' : 'How do I access /my-admin and change the PIN?'}
+                </h3>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+                  {isAr
+                    ? 'انتقل إلى مسار /my-admin في المتصفح، وأدخل رمز المرور الإداري. من داخل اللوحة، اضغط على زر [🔑 تغيير الرمز] لتحديث الرمز وحفظه فوراً في النظام.'
+                    : 'Navigate to /my-admin and enter your security PIN. Click the [🔑 Change PIN] button in the header to update and persist your PIN securely.'}
                 </p>
               </div>
             </div>

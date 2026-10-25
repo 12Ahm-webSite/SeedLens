@@ -1,14 +1,13 @@
 import { NextResponse } from 'next/server';
-import { getAnalytics, recordVisit } from '@/lib/analytics';
-
-const ADMIN_PIN = process.env.ADMIN_PIN || '1234';
+import { getAnalytics, recordVisit, resetAnalytics } from '@/lib/analytics';
+import { verifyAdminPin, setAdminPin, normalizePin } from '@/lib/adminAuth';
 
 export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
     const pin = searchParams.get('pin') || req.headers.get('x-admin-pin');
 
-    if (pin !== ADMIN_PIN) {
+    if (!verifyAdminPin(pin)) {
       return NextResponse.json(
         { error: 'Unauthorized: Invalid Admin PIN', authenticated: false },
         { status: 401 }
@@ -32,21 +31,62 @@ export async function GET(req: Request) {
 export async function POST(req: Request) {
   try {
     const body = await req.json().catch(() => ({}));
-    const { action, visitorHash, edition, pin } = body as {
+    const { action, visitorHash, edition, pin, currentPin, newPin } = body as {
       action?: string;
       visitorHash?: string;
       edition?: string;
       pin?: string;
+      currentPin?: string;
+      newPin?: string;
     };
 
     if (action === 'verify') {
-      const isValid = pin === ADMIN_PIN;
+      const isValid = verifyAdminPin(pin);
       return NextResponse.json({ valid: isValid });
     }
 
     if (action === 'track_visit') {
       recordVisit(visitorHash, { edition });
       return NextResponse.json({ success: true });
+    }
+
+    if (action === 'change_pin') {
+      const pinToCheck = currentPin || pin;
+      if (!verifyAdminPin(pinToCheck)) {
+        return NextResponse.json(
+          { error: 'رمز المرور الحالي غير صحيح (Current PIN is incorrect)' },
+          { status: 401 }
+        );
+      }
+
+      const normalizedNew = normalizePin(newPin);
+      if (!normalizedNew || normalizedNew.length < 4) {
+        return NextResponse.json(
+          { error: 'يجب أن يتكون رمز المرور الجديد من 4 خانات على الأقل (Minimum 4 digits)' },
+          { status: 400 }
+        );
+      }
+
+      const saved = setAdminPin(normalizedNew);
+      if (!saved) {
+        return NextResponse.json(
+          { error: 'فشل حفظ رمز المرور الجديد في النظام' },
+          { status: 500 }
+        );
+      }
+
+      return NextResponse.json({
+        success: true,
+        message: 'تم تحديث رمز المرور الإداري بنجاح',
+      });
+    }
+
+    if (action === 'reset') {
+      if (!verifyAdminPin(pin)) {
+        return NextResponse.json({ error: 'Unauthorized PIN for reset' }, { status: 401 });
+      }
+      const freshData = resetAnalytics();
+      return NextResponse.json({ success: true, data: freshData });
     }
 
     return NextResponse.json({ error: 'Unknown action' }, { status: 400 });

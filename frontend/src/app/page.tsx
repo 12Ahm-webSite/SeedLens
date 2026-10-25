@@ -22,14 +22,21 @@ export default function Home() {
   const [results, setResults] = useState<AnalyzeSuccessResponse | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  // Record visitor session
+  // Record authentic visitor session
   React.useEffect(() => {
     try {
+      let vid = localStorage.getItem('seedlens_vid');
+      if (!vid) {
+        vid = 'usr_' + Math.random().toString(36).substring(2, 10) + Date.now().toString(36);
+        localStorage.setItem('seedlens_vid', vid);
+      }
+
       fetch('/api/analytics', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           action: 'track_visit',
+          visitorHash: vid,
           edition: selectedEdition,
         }),
       }).catch(() => {});

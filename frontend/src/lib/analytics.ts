@@ -47,62 +47,27 @@ function getStoragePath(): string {
 }
 
 function getInitialData(): AnalyticsData {
-  const today = new Date().toISOString().split('T')[0];
-  const yesterday = new Date(Date.now() - 86400000).toISOString().split('T')[0];
-  const dayBefore = new Date(Date.now() - 172800000).toISOString().split('T')[0];
-
   return {
-    total_visits: 128,
-    unique_visitors: 46,
+    total_visits: 0,
+    unique_visitors: 0,
     visitor_hashes: {},
-    seeds_analyzed: 84,
-    seeds_found: 19,
+    seeds_analyzed: 0,
+    seeds_found: 0,
     editions: {
-      java: 68,
-      bedrock: 35,
+      java: 0,
+      bedrock: 0,
     },
-    versions: {
-      '1.21.4': 38,
-      '1.21.1': 32,
-      '1.20.6': 26,
-      '1.19.4': 5,
-      '1.18.2': 2,
-    },
-    daily_activity: {
-      [dayBefore]: { visits: 34, analyses: 21, finds: 4 },
-      [yesterday]: { visits: 48, analyses: 31, finds: 7 },
-      [today]: { visits: 46, analyses: 32, finds: 8 },
-    },
-    recent_events: [
-      {
-        id: 'evt-init-1',
-        timestamp: new Date().toISOString(),
-        type: 'analyze',
-        details: 'Analyzed seed 123456789 (Found 5 clusters, 23 spots)',
-        version: '1.20.6',
-        edition: 'java',
-        latency_ms: 14,
-      },
-      {
-        id: 'evt-init-2',
-        timestamp: new Date(Date.now() - 120000).toISOString(),
-        type: 'find',
-        details: 'Found seed matching preset mega_builder',
-        version: '1.21.4',
-        edition: 'java',
-        latency_ms: 42,
-      },
-      {
-        id: 'evt-init-3',
-        timestamp: new Date(Date.now() - 340000).toISOString(),
-        type: 'visit',
-        details: 'New visitor session from web client',
-        edition: 'bedrock',
-        latency_ms: 2,
-      },
-    ],
+    versions: {},
+    daily_activity: {},
+    recent_events: [],
     last_updated: new Date().toISOString(),
   };
+}
+
+export function resetAnalytics(): AnalyticsData {
+  const fresh = getInitialData();
+  saveAnalytics(fresh);
+  return fresh;
 }
 
 export function getAnalytics(): AnalyticsData {
@@ -147,7 +112,7 @@ export function recordVisit(visitorHash?: string, metadata?: { edition?: string 
       data.unique_visitors = (data.unique_visitors || 0) + 1;
     }
   } else {
-    data.unique_visitors = Math.max(data.unique_visitors || 0, Math.floor(data.total_visits * 0.42));
+    data.unique_visitors = (data.unique_visitors || 0) + 1;
   }
 
   if (metadata?.edition === 'bedrock') {
