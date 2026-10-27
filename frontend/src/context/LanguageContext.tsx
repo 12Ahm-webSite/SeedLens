@@ -15,9 +15,18 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: React.ReactNode }) {
+export function LanguageProvider({
+  children,
+  initialLocale,
+}: {
+  children: React.ReactNode;
+  initialLocale?: Locale;
+}) {
   // Arabic is the default language
   const [locale, setLocaleState] = useState<Locale>(() => {
+    if (initialLocale === 'ar' || initialLocale === 'en') {
+      return initialLocale;
+    }
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('seedlens_locale') as Locale | null;
       if (saved === 'ar' || saved === 'en') {
@@ -28,15 +37,24 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
   });
 
   useEffect(() => {
+    if (initialLocale && (initialLocale === 'ar' || initialLocale === 'en') && initialLocale !== locale) {
+      setLocaleState(initialLocale);
+    }
+  }, [initialLocale]);
+
+  useEffect(() => {
     document.documentElement.lang = locale;
     document.documentElement.dir = locale === 'ar' ? 'rtl' : 'ltr';
   }, [locale]);
 
   const setLocale = (newLocale: Locale) => {
     setLocaleState(newLocale);
-    localStorage.setItem('seedlens_locale', newLocale);
-    document.documentElement.lang = newLocale;
-    document.documentElement.dir = newLocale === 'ar' ? 'rtl' : 'ltr';
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('seedlens_locale', newLocale);
+      document.cookie = `seedlens_locale=${newLocale}; path=/; max-age=31536000; SameSite=Lax`;
+      document.documentElement.lang = newLocale;
+      document.documentElement.dir = newLocale === 'ar' ? 'rtl' : 'ltr';
+    }
   };
 
   const toggleLocale = () => {

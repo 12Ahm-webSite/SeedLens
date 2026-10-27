@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import crypto from 'crypto';
 
 function getPinFilePath(): string {
   const possible = [
@@ -63,5 +64,16 @@ export function setAdminPin(newPin: string): boolean {
 export function verifyAdminPin(candidatePin: unknown): boolean {
   const currentPin = getAdminPin();
   const normalizedCandidate = normalizePin(candidatePin);
-  return Boolean(normalizedCandidate && normalizedCandidate === currentPin);
+  if (!normalizedCandidate || normalizedCandidate.length === 0) {
+    return false;
+  }
+
+  const currentBuf = Buffer.from(currentPin, 'utf-8');
+  const candidateBuf = Buffer.from(normalizedCandidate, 'utf-8');
+
+  if (currentBuf.length !== candidateBuf.length) {
+    return false;
+  }
+
+  return crypto.timingSafeEqual(currentBuf, candidateBuf);
 }

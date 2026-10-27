@@ -8,6 +8,7 @@ export async function GET(req: Request) {
     const pin = searchParams.get('pin') || req.headers.get('x-admin-pin');
 
     if (!verifyAdminPin(pin)) {
+      await new Promise((resolve) => setTimeout(resolve, 600));
       return NextResponse.json(
         { error: 'Unauthorized: Invalid Admin PIN', authenticated: false },
         { status: 401 }
@@ -42,6 +43,9 @@ export async function POST(req: Request) {
 
     if (action === 'verify') {
       const isValid = verifyAdminPin(pin);
+      if (!isValid) {
+        await new Promise((resolve) => setTimeout(resolve, 600));
+      }
       return NextResponse.json({ valid: isValid });
     }
 
@@ -53,6 +57,7 @@ export async function POST(req: Request) {
     if (action === 'change_pin') {
       const pinToCheck = currentPin || pin;
       if (!verifyAdminPin(pinToCheck)) {
+        await new Promise((resolve) => setTimeout(resolve, 600));
         return NextResponse.json(
           { error: 'رمز المرور الحالي غير صحيح (Current PIN is incorrect)' },
           { status: 401 }
@@ -83,6 +88,7 @@ export async function POST(req: Request) {
 
     if (action === 'reset') {
       if (!verifyAdminPin(pin)) {
+        await new Promise((resolve) => setTimeout(resolve, 600));
         return NextResponse.json({ error: 'Unauthorized PIN for reset' }, { status: 401 });
       }
       const freshData = resetAnalytics();

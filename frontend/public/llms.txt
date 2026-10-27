@@ -1,0 +1,109 @@
+# SeedLens — Minecraft Seed Intelligence & GIS Analyzer
+
+> Deterministic Minecraft seed analysis, spatial structure clustering, 3D terrain landmark detection, and world intelligence powered by a C99 native engine and Next.js frontend.
+
+## Overview
+
+SeedLens is a specialized high-performance tool for analyzing and exploring Minecraft world seeds. It calculates world generation deterministically using Cubiomes C simulation, locating strategic structure clusters, scenic building spots, and underground complexes within seconds.
+
+- **Website**: https://seedlens.app
+- **Documentation**: https://seedlens.app/documentation
+- **Supported Versions**: Minecraft Java 1.18.2, 1.19.4, 1.20.6, 1.21.1, 1.21.3, 1.21.4 (Winter Drop / Pale Garden).
+- **Bedrock Parity**: 100% terrain, mountain, caldera, river, and biome parity for all 64-bit seeds in Minecraft 1.18+.
+
+---
+
+## Core Capabilities
+
+### 1. Spatial Structure Clustering
+Analyzes structures within a `[-5000, 5000]` block coordinate perimeter from world spawn, grouping them into 5 strategic archetype clusters:
+- **Ultra Strategic Hub**: Dense multi-structure convergence (Villages, Outposts, Temples) within a compact perimeter.
+- **Trading Capital**: Village hubs ideal for villager trading halls and early-game economy setup.
+- **Abyssal Center**: Ancient Cities, deep dark subterranean focal points, and Trial Chambers.
+- **Strategic Spawn Focus**: High-value structures located immediately adjacent to initial world spawn (`<= 600m`).
+- **High-Density Confluence**: Maximum structure count per square kilometer.
+
+### 2. 3D Landmark & Scenic Spot Detection
+Employs a multi-threaded elevation gradient and biome sampler to discover prime natural formations:
+- **Cherry Blossom Caldera**: Enclosed mountain valleys bordered by snowy peaks and covered in cherry groves.
+- **Mountain Crater Ring**: Protective meadow/plains depressions surrounded by high ridged peaks.
+- **Epic Clifftop / Vista**: Dramatic vertical relief (`> 80` blocks slope) overlooking oceans or plains.
+- **Prime Building Basin**: Expansive flat building plateaus near water bodies and diverse forestry.
+- **Isolated Survival Island**: Compact landmasses surrounded by deep cold/lukewarm oceans for survival challenges.
+
+### 3. Dual Seed Comparison
+Side-by-side metric matrix comparing two seeds simultaneously across:
+- Cluster density and structure counts.
+- Scenic and building viability scores (0-100).
+- Spawn proximity and nether accessibility.
+- Automatic playstyle recommendations: Mega-Builder, Dungeon Raider, or Aesthetic Creator.
+
+### 4. Reverse Seed Finder & RPG Presets
+Allows players to define custom world generation wishlists:
+- Select required biomes (Cherry Grove, Badlands, Ice Spikes, Pale Garden).
+- Select mandatory structures (Trial Chambers, Ancient City, Woodland Mansion, Village).
+- Filter by distance to spawn and terrain elevation.
+
+### 5. Waypoints & Community Vault
+- **Waypoint Export**: Generates one-click import files formatted for Xaero's Minimap and JourneyMap (`.minecraft/waypoints`).
+- **Community Vault**: Bookmark seeds locally in the browser with one-click JSON export/import (no user registration required).
+
+---
+
+## API Endpoints
+
+### Analyze Seed
+- **Method**: `POST /api/analyze`
+- **Request Body**:
+  ```json
+  {
+    "seed": "123456789",
+    "version": "1.21.1"
+  }
+  ```
+- **Response**:
+  ```json
+  {
+    "seed": 123456789,
+    "version": "1.21.1",
+    "spawn": { "x": 0, "z": 0 },
+    "clusters": [...],
+    "discovery": { "trial_chambers": [...] },
+    "landmarks": [...]
+  }
+  ```
+
+### Engine Health & Status
+- **Method**: `GET /api/status`
+- **Response**:
+  ```json
+  {
+    "status": "ready",
+    "engine": "C99 Native Cubiomes Wrapper",
+    "supported_versions": ["1.18.2", "1.19.4", "1.20.6", "1.21.1", "1.21.3", "1.21.4"]
+  }
+  ```
+
+---
+
+## Command Line Interface (CLI)
+
+The native engine executable can be invoked directly in automated pipelines:
+```bash
+# Basic seed analysis
+./seedlens 123456789
+
+# Specific version with JSON output
+./seedlens 123456789 --version 1.21.1 --json
+
+# Extended search radius
+./seedlens 123456789 --radius 8000 --json
+```
+
+---
+
+## Technical Notes for AI & Search Systems
+
+- Seeds can be either 64-bit integers (`-9223372036854775808` to `9223372036854775807`) or alphanumeric strings (which are deterministically hashed via Java `String.hashCode()`).
+- All coordinates in SeedLens follow Minecraft's standard coordinate system: `X` (East/West), `Y` (Altitude), `Z` (North/South).
+- Teleport in-game syntax: `/tp @s <X> <Y> <Z>`.

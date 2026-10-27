@@ -28,6 +28,18 @@ export interface AnalyticsData {
 }
 
 function getStoragePath(): string {
+  if (process.env.ANALYTICS_DIR) {
+    const customDir = process.env.ANALYTICS_DIR;
+    if (!fs.existsSync(/*turbopackIgnore: true*/ customDir)) {
+      try {
+        fs.mkdirSync(customDir, { recursive: true });
+      } catch {
+        // Fall back to default if custom directory cannot be created
+      }
+    }
+    return path.join(customDir, 'analytics.json');
+  }
+
   const possiblePaths = [
     path.join(process.cwd(), 'data/analytics.json'),
     path.join(process.cwd(), 'frontend/data/analytics.json'),

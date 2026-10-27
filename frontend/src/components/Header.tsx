@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { Compass, Globe, BookOpen } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import MinecraftClockToggle from '@/components/MinecraftClockToggle';
@@ -19,6 +20,26 @@ export default function Header({
   edition = 'java',
 }: HeaderProps) {
   const { t, locale, toggleLocale } = useLanguage();
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const isEnRoute = pathname?.startsWith('/en');
+  const baseHref = isEnRoute ? '/en' : '/ar';
+  const docHref = isEnRoute ? '/en/documentation' : '/ar/documentation';
+
+  const handleToggleLocale = () => {
+    const targetLocale = locale === 'ar' ? 'en' : 'ar';
+    toggleLocale();
+    if (pathname) {
+      if (pathname.startsWith('/ar')) {
+        router.push(pathname.replace(/^\/ar/, `/${targetLocale}`));
+      } else if (pathname.startsWith('/en')) {
+        router.push(pathname.replace(/^\/en/, `/${targetLocale}`));
+      } else {
+        router.push(`/${targetLocale}`);
+      }
+    }
+  };
 
   const scrollTo = (id: string) => {
     if (onNavigate) {
@@ -37,7 +58,7 @@ export default function Header({
         {/* Brand & Logo */}
         <div className="flex items-center gap-3">
           <Link
-            href="/"
+            href={baseHref}
             onClick={() => scrollTo('hero')}
             className="flex items-center gap-2.5 text-start focus:outline-none cursor-pointer group"
           >
@@ -60,28 +81,28 @@ export default function Header({
         {/* Center Nav Links for desktop */}
         <nav className="hidden md:flex items-center gap-2">
           <Link
-            href="/#analyzer"
+            href={`${baseHref}#analyzer`}
             onClick={() => scrollTo('analyzer')}
             className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navAnalyzer}
           </Link>
           <Link
-            href="/#how-it-works"
+            href={`${baseHref}#how-it-works`}
             onClick={() => scrollTo('how-it-works')}
             className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navHowItWorks}
           </Link>
           <Link
-            href="/#categories-info"
+            href={`${baseHref}#categories-info`}
             onClick={() => scrollTo('categories-info')}
             className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
           >
             {t.navCategories}
           </Link>
           <Link
-            href="/documentation"
+            href={docHref}
             className="mc-button px-3 py-1 text-xs text-[#222222] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer flex items-center gap-1.5"
           >
             <BookOpen className="w-3.5 h-3.5 text-[#5B8731]" />
@@ -112,7 +133,7 @@ export default function Header({
 
           {/* Language Switcher Button */}
           <button
-            onClick={toggleLocale}
+            onClick={handleToggleLocale}
             className="mc-button flex items-center gap-1.5 px-2.5 py-1 text-xs text-[#1E1E1E] dark:text-[#E2E8F0] font-bold hover:text-[#5B8731] cursor-pointer"
             title={locale === 'ar' ? 'Switch to English' : 'التحويل إلى العربية'}
           >

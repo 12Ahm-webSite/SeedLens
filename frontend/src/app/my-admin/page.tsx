@@ -72,7 +72,9 @@ export default function AdminPage() {
     setError(null);
     const cleaned = normalizeInputPin(inputPin);
     try {
-      const res = await fetch(`/api/analytics?pin=${encodeURIComponent(cleaned)}`);
+      const res = await fetch('/api/analytics', {
+        headers: { 'x-admin-pin': cleaned },
+      });
       if (res.ok) {
         const json = await res.json();
         setIsAuthenticated(true);
@@ -113,7 +115,9 @@ export default function AdminPage() {
     if (!pin) return;
     setLoading(true);
     try {
-      const res = await fetch(`/api/analytics?pin=${encodeURIComponent(pin)}`);
+      const res = await fetch('/api/analytics', {
+        headers: { 'x-admin-pin': pin },
+      });
       if (res.ok) {
         const json = await res.json();
         setAnalytics(json.data);
@@ -132,7 +136,10 @@ export default function AdminPage() {
     try {
       const res = await fetch('/api/analytics', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-pin': pin,
+        },
         body: JSON.stringify({ action: 'reset', pin }),
       });
       if (res.ok) {
@@ -181,7 +188,10 @@ export default function AdminPage() {
     try {
       const res = await fetch('/api/analytics', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'x-admin-pin': normCurrent,
+        },
         body: JSON.stringify({
           action: 'change_pin',
           currentPin: normCurrent,

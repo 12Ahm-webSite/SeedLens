@@ -32,7 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
-
+SEO_GEO_PLAN.md
 # vercel
 .vercel
 
@@ -42,3 +42,4 @@ next-env.d.ts
 
 # local tool artifacts
 .freebuff/
+plan/
