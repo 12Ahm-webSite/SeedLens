@@ -1,9 +1,11 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Compass, Sparkles, Map, ShieldCheck, Search } from 'lucide-react';
+import { Compass, Sparkles, Map, ShieldCheck, Search, Bookmark } from 'lucide-react';
 import SeedInput from '@/components/SeedInput';
 import WishlistFinder from '@/components/WishlistFinder';
+import SeedComparison from '@/components/SeedComparison';
+import CommunityVaultModal from '@/components/CommunityVaultModal';
 import { useLanguage } from '@/context/LanguageContext';
 
 interface HeroProps {
@@ -27,8 +29,10 @@ export default function Hero({
   initialSeed,
   errorMessage,
 }: HeroProps) {
-  const { t } = useLanguage();
-  const [activeMode, setActiveMode] = useState<'analyzer' | 'wishlist'>('analyzer');
+  const { t, locale } = useLanguage();
+  const isAr = locale === 'ar';
+  const [activeMode, setActiveMode] = useState<'analyzer' | 'wishlist' | 'compare'>('analyzer');
+  const [showVaultModal, setShowVaultModal] = useState<boolean>(false);
 
   return (
     <section id="hero" className="relative pt-8 pb-10 md:pt-12 md:pb-14">
@@ -54,8 +58,8 @@ export default function Hero({
           </div>
         </div>
 
-        {/* Mode Switcher Tabs */}
-        <div className="flex items-center gap-2.5 mb-4">
+        {/* Mode Switcher Tabs + Community Vault Button */}
+        <div className="flex flex-wrap items-center gap-2.5 mb-4">
           <button
             type="button"
             onClick={() => setActiveMode('analyzer')}
@@ -68,6 +72,7 @@ export default function Hero({
             <Search className="w-3.5 h-3.5 text-[#FADB44]" />
             <span>{t.tabAnalyzeSeed}</span>
           </button>
+
           <button
             type="button"
             onClick={() => setActiveMode('wishlist')}
@@ -80,11 +85,34 @@ export default function Hero({
             <Sparkles className="w-3.5 h-3.5 text-[#FADB44] animate-pulse" />
             <span>{t.tabWishlistFinder}</span>
           </button>
+
+          <button
+            type="button"
+            onClick={() => setActiveMode('compare')}
+            className={`px-4 py-2.5 text-xs font-mc-heading uppercase tracking-wider rounded border-2 transition-all cursor-pointer flex items-center gap-2 ${
+              activeMode === 'compare'
+                ? 'bg-[#2563EB] text-white border-b-4 border-[#1E40AF] shadow-md'
+                : 'bg-black/10 dark:bg-white/10 text-[#444] dark:text-[#94A3B8] border-transparent hover:bg-black/15 dark:hover:bg-white/15'
+            }`}
+          >
+            <Compass className="w-3.5 h-3.5 text-[#FADB44]" />
+            <span>{t.tabCompareSeeds}</span>
+          </button>
+
+          {/* Community Vault & Bookmarks Drawer Trigger */}
+          <button
+            type="button"
+            onClick={() => setShowVaultModal(true)}
+            className="sm:ms-auto px-3.5 py-2 text-xs font-mc-heading uppercase tracking-wider rounded border-2 border-[#D97706] bg-[#D97706]/15 text-[#D97706] dark:text-[#FBBF24] hover:bg-[#D97706] hover:text-white transition-all cursor-pointer flex items-center gap-2"
+          >
+            <Bookmark className="w-3.5 h-3.5" />
+            <span>{t.tabCommunityVault}</span>
+          </button>
         </div>
 
-        {/* Console Container (Cartography Analyzer vs Wishlist Finder) */}
+        {/* Console Container (Cartography Analyzer vs Wishlist Finder vs Seed Comparison) */}
         <div id="analyzer" className="scroll-mt-24">
-          {activeMode === 'analyzer' ? (
+          {activeMode === 'analyzer' && (
             <SeedInput
               onAnalyze={onAnalyze}
               isLoading={isLoading}
@@ -95,13 +123,25 @@ export default function Hero({
               initialSeed={initialSeed}
               errorMessage={errorMessage}
             />
-          ) : (
+          )}
+
+          {activeMode === 'wishlist' && (
             <WishlistFinder
               selectedVersion={selectedVersion}
               onVersionChange={onVersionChange}
               onSelectSeed={(seed, ver) => {
                 onVersionChange(ver);
                 onAnalyze(seed, ver);
+              }}
+            />
+          )}
+
+          {activeMode === 'compare' && (
+            <SeedComparison
+              onLoadSeedInAnalyzer={(seed, ver) => {
+                onVersionChange(ver);
+                onAnalyze(seed, ver);
+                setActiveMode('analyzer');
               }}
             />
           )}
@@ -150,6 +190,18 @@ export default function Hero({
           </div>
         </div>
       </div>
+
+      {/* Community Vault & Bookmarks Modal */}
+      <CommunityVaultModal
+        isOpen={showVaultModal}
+        onClose={() => setShowVaultModal(false)}
+        onSelectSeed={(seed, ver, ed) => {
+          if (ver) onVersionChange(ver);
+          if (ed && onEditionChange) onEditionChange(ed);
+          onAnalyze(seed, ver || selectedVersion);
+          setActiveMode('analyzer');
+        }}
+      />
     </section>
   );
 }

@@ -30,12 +30,16 @@ import {
   Crown,
   Flame,
   Coins,
+  Scale,
+  Bookmark,
+  ArrowLeftRight,
+  Image as ImageIcon,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-type DocSection = 'changelog' | 'wishlist' | 'map_bedrock' | 'architecture' | 'faq';
+type DocSection = 'changelog' | 'wishlist' | 'compare_vault' | 'map_bedrock' | 'architecture' | 'faq';
 
 export default function DocumentationPage() {
   const { locale } = useLanguage();
@@ -61,7 +65,7 @@ export default function DocumentationPage() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-[#17B85E] shadow-[0_0_6px_#17B85E]"></span>
             <span className="font-bold text-[#555555] dark:text-[#94A3B8]">
-              {isAr ? 'وثيقة مرجعية v4.2 (شاملة البحث العكسي والبيدروك)' : 'Documentation Reference v4.2 (Reverse Finder & Bedrock)'}
+              {isAr ? 'وثيقة مرجعية v4.3 (مقارنة البذور، مستودع المجتمع، والمعاينات)' : 'Documentation Reference v4.3 (Seed Comparison, Vault & Previews)'}
             </span>
           </div>
         </div>
@@ -80,8 +84,8 @@ export default function DocumentationPage() {
               </h1>
               <p className="text-sm sm:text-base text-[#4E4E4E] dark:text-[#CBD5E1] mt-2 max-w-3xl leading-relaxed">
                 {isAr
-                  ? 'دليل مرجعي تفصيلي يغطي محرك البحث العكسي (Reverse Seed Finder)، أنماط اللعب الـ RPG، بطاقات المعالم المتكيفة حسب الإصدار، تكافؤ البيدروك، وتصدير الخرائط والبطاقات البريدية.'
-                  : 'Comprehensive guide covering the Reverse Seed Finder, RPG Playstyle Presets, Version-Contextual Hover Cards, Bedrock Parity, Waypoints Exporter, and GIS Engine.'}
+                  ? 'دليل مرجعي تفصيلي يغطي مقارنة البذور جنباً إلى جنب، مستودع بذور المجتمع والمفضلة، محرك البحث العكسي (Reverse Seed Finder)، أنماط RPG، معاينات المعالم المتناسبة مع النت، تكافؤ البيدروك، وتصدير الخرائط والبطاقات البريدية.'
+                  : 'Comprehensive guide covering Seed vs Seed Comparison, Community Vault & Bookmarks, Reverse Seed Finder, RPG Presets, Bandwidth-Friendly Previews, Bedrock Parity, and GIS Engine.'}
               </p>
             </div>
 
@@ -89,9 +93,9 @@ export default function DocumentationPage() {
               <div className="text-[#94A3B8] text-[10px] uppercase font-bold mb-1">
                 {isAr ? 'الإصدار النشط حالياً' : 'Current Active Release'}
               </div>
-              <div className="text-[#FADB44] font-bold text-lg font-mc-heading">SeedLens v4.2</div>
+              <div className="text-[#FADB44] font-bold text-lg font-mc-heading">SeedLens v4.3</div>
               <div className="text-[#17B85E] text-[11px] font-bold mt-1">
-                ● Reverse Finder & Bedrock Parity
+                ● Comparison, Vault & Previews
               </div>
             </div>
           </div>
@@ -107,6 +111,17 @@ export default function DocumentationPage() {
             >
               <Sparkles className="w-3.5 h-3.5" />
               <span>{isAr ? 'سجل التحديثات (Changelog)' : 'Full Changelog'}</span>
+            </button>
+
+            <button
+              onClick={() => setActiveSection('compare_vault')}
+              className={`px-3 py-1.5 flex items-center gap-1.5 font-bold transition-all cursor-pointer ${activeSection === 'compare_vault'
+                  ? 'bg-[#0284C7] text-white shadow-[2px_2px_0_#075985]'
+                  : 'mc-button text-[#333333] dark:text-[#E2E8F0]'
+                }`}
+            >
+              <Scale className="w-3.5 h-3.5" />
+              <span>{isAr ? 'مقارنة البذور والمستودع' : 'Comparison & Vault'}</span>
             </button>
 
             <button
@@ -158,7 +173,106 @@ export default function DocumentationPage() {
         {/* SECTION 1: Full Changelog */}
         {activeSection === 'changelog' && (
           <div className="space-y-6 animate-fade-in">
-            {/* Version 4.2 Card (Latest Active Release) */}
+            {/* Version 4.3 Card (Latest Active Release) */}
+            <div className="mc-gui-panel p-6 border-l-4 border-l-[#0284C7] border-t-2 border-r-2 border-b-2">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2 border-b border-[#A8A8A8] dark:border-[#2E3342]">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-1 bg-[#0284C7] text-white font-mc-heading text-xs font-bold shadow-[1px_1px_0_#075985]">
+                    v4.3
+                  </span>
+                  <h2 className="font-mc-heading text-lg font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
+                    {isAr
+                      ? 'مقارنة البذور جنباً إلى جنب، مستودع المجتمع والمفضلة، ومعاينات WebP الخفيفة'
+                      : 'Seed vs Seed Comparison, Community Vault & Bookmarks, Bandwidth-Friendly Previews'}
+                  </h2>
+                </div>
+                <span className="font-mc-mono text-xs bg-[#2A4413] text-[#89BD44] px-2 py-0.5 font-bold">
+                  {isAr ? 'أكتوبر 2026 (الإصدار النشط الأحدث)' : 'October 2026 (Latest Active)'}
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#4E4E4E] dark:text-[#CBD5E1] mb-4 leading-relaxed font-medium">
+                {isAr
+                  ? 'ترقية استكشافية متقدمة تضيف ميزة مقارنة بذرتين في شاشة واحدة ومصفوفة مقاييس تقابلية مع توصيات أسلوب اللعب الذكية، ومستودع بذور المجتمع والمفضلة المحلية مع تصدير واستيراد JSON، ومكتبة معاينات المعالم والهياكل بصيغة WebP القياسية خفيفة الحجم (10-45 كيلوبايت) المتناسبة مع سرعة وباقة نت المستخدم مع خطة استرجاع تلقائية للرسومات المتجهية.'
+                  : 'Advanced expansion delivering side-by-side seed comparison with RPG playstyle recommendations, community vault with bookmark persistence & JSON export/import, and bandwidth-friendly WebP preview library (10-45KB) with instant SVG fallback.'}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mb-4">
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#0284C7] font-bold mb-1">
+                    <Scale className="w-4 h-4" />
+                    <span>{isAr ? 'مقارنة البذور جنباً إلى جنب' : 'Seed vs Seed Comparison'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'وضع بذرتين معاً ومقارنة كثافة الهياكل، نقاط البناء، المناظر الطبيعية، وقرب الـ Spawn مع تحديد الفائز بشارة 👑.'
+                      : 'Simultaneous comparison across clusters, landmarks, trial chambers, and building scores with winner crowns.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#F59E0B] font-bold mb-1">
+                    <Crown className="w-4 h-4" />
+                    <span>{isAr ? 'توصيات أسلوب اللعب الذكي' : 'Smart Playstyle Advice'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'تحليل ذكي يوصيك بالبذرة الأنسب لـ: الملك البنّاء (Mega-Builder)، صائد الأقبية (Dungeon Raider)، وصانع السينما (Aesthetic Creator).'
+                      : 'Recommends the ideal seed based on your desired playstyle: Mega-Builder, Dungeon Raider, or Aesthetic Creator.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#10B981] font-bold mb-1">
+                    <Bookmark className="w-4 h-4" />
+                    <span>{isAr ? 'مستودع المجتمع والمفضلة' : 'Community Vault & Bookmarks'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'حفظ أي بذرة بنقرة واحدة ⭐ في مفضلة المتصفح، مع بنك بذور أسبوعية موثقة ومصنفة جاهزة للاستكشاف الفوري.'
+                      : 'Bookmark any seed to localStorage with one click, explore curated weekly seeds, and load them instantly.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#8B5CF6] font-bold mb-1">
+                    <Download className="w-4 h-4" />
+                    <span>{isAr ? 'تصدير واستيراد المفضلة JSON' : 'Export & Import JSON'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'نسخ احتياطي لمفضلتك ومشاركتها مع أصدقائك عبر ملف JSON خفيف يُستورد بضغطة زر واحدة.'
+                      : 'Backup and share your bookmarked seeds with friends via clean JSON files.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#EC4899] font-bold mb-1">
+                    <ImageIcon className="w-4 h-4" />
+                    <span>{isAr ? 'معاينات WebP خفيفة للنت' : 'Bandwidth-Friendly Previews'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'صور حقيقية للمعالم والهياكل مضغوطة بعناية (10-45 كيلوبايت) لتناسب باقات النت وتعمل بسلاسة تامة مع استرجاع SVG.'
+                      : 'Curated standard-quality WebP screenshots (10-45KB) that load instantly without wasting mobile data.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3 text-xs">
+                  <div className="flex items-center gap-1.5 text-[#14B8A6] font-bold mb-1">
+                    <ArrowLeftRight className="w-4 h-4" />
+                    <span>{isAr ? 'النقل المباشر للمحلل والخريطة' : 'Direct Load to Analyzer'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr
+                      ? 'زر تحميل مباشر لتحويل البذرة الفائزة من شاشة المقارنة أو المستودع إلى شاشة التحليل والخريطة دون كتابتها يدوياً.'
+                      : 'One-click action to load winning seeds directly into the comprehensive analyzer and interactive map.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Version 4.2 Card */}
             <div className="mc-gui-panel p-6 border-l-4 border-l-[#F59E0B] border-t-2 border-r-2 border-b-2">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2 border-b border-[#A8A8A8] dark:border-[#2E3342]">
                 <div className="flex items-center gap-2">
@@ -171,8 +285,8 @@ export default function DocumentationPage() {
                       : 'Reverse Seed Finder, RPG Presets, Map HUD & Bedrock Parity'}
                   </h2>
                 </div>
-                <span className="font-mc-mono text-xs bg-[#2A4413] text-[#89BD44] px-2 py-0.5 font-bold">
-                  {isAr ? 'أكتوبر 2026 (الإصدار النشط)' : 'October 2026 (Active)'}
+                <span className="font-mc-mono text-xs bg-[#4A4A4A] text-[#CBD5E1] px-2 py-0.5 font-bold">
+                  {isAr ? 'أكتوبر 2026' : 'October 2026'}
                 </span>
               </div>
 
@@ -334,7 +448,175 @@ export default function DocumentationPage() {
           </div>
         )}
 
-        {/* SECTION 2: Wishlist & RPG Presets Guide */}
+        {/* SECTION 2: Compare & Vault Guide */}
+        {activeSection === 'compare_vault' && (
+          <div className="mc-gui-panel p-6 sm:p-8 space-y-6 animate-fade-in border-2 border-[#0284C7]">
+            <div className="flex items-center gap-3 pb-3 border-b border-[#A8A8A8] dark:border-[#2E3342]">
+              <div className="w-10 h-10 bg-[#0284C7] border-2 border-[#38BDF8] border-b-[#075985] border-r-[#075985] flex items-center justify-center text-white shadow-[1px_1px_0_#000] shrink-0">
+                <Scale className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 className="font-mc-heading text-xl font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
+                  {isAr ? 'دليل مقارنة البذور ومستودع المجتمع والمفضلة' : 'Seed Comparison, Community Vault & Bookmarks'}
+                </h2>
+                <p className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono">
+                  Side-by-Side Dual Matrix • Smart RPG Advice • Weekly Seeds • JSON Backup • WebP Previews
+                </p>
+              </div>
+            </div>
+
+            {/* Sub-section 1: Dual Seed Comparison */}
+            <div>
+              <h3 className="font-mc-heading text-sm font-bold text-[#0284C7] mb-2 flex items-center gap-2">
+                <Scale className="w-4 h-4" />
+                <span>{isAr ? '1. مقارنة البذور جنباً إلى جنب (Dual Seed Comparison)' : '1. Dual Seed Comparison'}</span>
+              </h3>
+              <p className="text-xs text-[#4E4E4E] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                {isAr
+                  ? 'أداة فريدة تضع بذرتين وجهاً لوجه في شاشة واحدة: تقوم المنصة بتحليل كلا العالمين بالتوازي وبأقصى سرعة، ثم تعرض مصفوفة إحصائية تقارن بينهما في كافة المقاييس الجوهرية:'
+                  : 'Compare two seeds face-to-face on a single screen with parallel execution and comparative metric bars:'}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 text-xs mb-4">
+                <div className="mc-slot p-3">
+                  <span className="text-[#FADB44] font-bold block mb-1">🏰 {isAr ? 'العناقيد الاستراتيجية' : 'Strategic Clusters'}</span>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr ? 'مقارنة عدد العناقيد المفيدة (القرى، المعابد، والمراكز الهيكلية) المتواجدة في نطاق الـ 5000م.' : 'Total useful clusters (villages, temples, mega hubs) within the perimeter.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3">
+                  <span className="text-[#10B981] font-bold block mb-1">⭐ {isAr ? 'المعالم وأماكن البناء' : 'Scenic Spots'}</span>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr ? 'مقارنة أعلى درجات ملاءمة البناء (Building Score) ونسبة الجمالية التضاريسية (Scenic Score).' : 'Evaluates maximum building ease and cinematic vista scores.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3">
+                  <span className="text-[#EC4899] font-bold block mb-1">⚔️ {isAr ? 'غرف المحاكمة والهياكل' : 'Trial Chambers & Loot'}</span>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr ? 'مقارنة توافر غرف المحاكمة، المدن القديمة، والقصور لتحديد العالم الأنسب للقتال والنهب السريع.' : 'Compares counts of Trial Chambers and Ancient Cities for combat.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3">
+                  <span className="text-[#38BDF8] font-bold block mb-1">🎯 {isAr ? 'قرب الـ Spawn' : 'Spawn Proximity'}</span>
+                  <p className="text-[#CBD5E1] text-[11px]">
+                    {isAr ? 'أيهما يوفر هيكلاً أو قرية أقرب إلى نقطة البداية لتسهيل أول ليلة في عالم النجاة.' : 'Measures which seed offers immediate structures near the world spawn.'}
+                  </p>
+                </div>
+              </div>
+
+              {/* Recommendation explanation */}
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342] text-xs">
+                <h4 className="font-mc-heading text-xs font-bold text-[#F59E0B] uppercase mb-1 flex items-center gap-1.5">
+                  <Crown className="w-4 h-4" />
+                  <span>{isAr ? 'نظام التوصية الذكية لأسلوب اللعب (Smart RPG Advice)' : 'Smart RPG Recommendation Engine'}</span>
+                </h4>
+                <p className="text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-2">
+                  {isAr
+                    ? 'بعد استكمال المقارنة، لا تتركك المنصة محتاراً بين الأرقام! يقوم المحرك بتحليل الفوارق الإحصائية وترشيح البذرة الفائزة وتبرير السبب بناءً على أسلوب لعبك:'
+                    : 'The comparison engine synthesizes statistical differences to provide actionable recommendations for your playstyle:'}
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-[#4E4E4E] dark:text-[#CBD5E1] font-mc-mono text-[11px]">
+                  <li><strong className="text-[#F59E0B]">{isAr ? 'خيار الملك البنّاء (Mega-Builder):' : 'Mega-Builder:'}</strong> {isAr ? 'يرشح البذرة التي تملك أعلى مؤشر استواء أرض (Building Score) مع أحواض خضراء شاسعة.' : 'Favors the seed with higher building score and prime flat basins.'}</li>
+                  <li><strong className="text-[#EF4444]">{isAr ? 'خيار صائد الأقبية (Dungeon Raider):' : 'Dungeon Raider:'}</strong> {isAr ? 'يرشح البذرة التي تملك غرف محاكمة ومراكز أعماق أقرب للـ Spawn.' : 'Favors early combat structures and Trial Chambers.'}</li>
+                  <li><strong className="text-[#EC4899]">{isAr ? 'خيار صانع السينما (Aesthetic Creator):' : 'Aesthetic Creator:'}</strong> {isAr ? 'يرشح البذرة التي تتفوق في درجات الـ Scenic Score وفوهات الكرز الساحرة.' : 'Favors peak scenic scores and cherry calderas for media creators.'}</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Sub-section 2: Community Vault & Bookmarks */}
+            <div className="pt-2 border-t border-[#A8A8A8] dark:border-[#2E3342]">
+              <h3 className="font-mc-heading text-sm font-bold text-[#10B981] mb-2 flex items-center gap-2">
+                <Bookmark className="w-4 h-4" />
+                <span>{isAr ? '2. مستودع بذور المجتمع والمفضلة المحلية (Community Vault & Bookmarks)' : '2. Community Vault & Local Bookmarks'}</span>
+              </h3>
+              <p className="text-xs text-[#4E4E4E] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                {isAr
+                  ? 'مستودع متكامل متاح عبر زر [🏛️ مستودع البذور] يتيح لك حفظ ومشاركة واكتشاف أفضل بذور ماينكرافت دون الحاجة لحساب أو تسجيل دخول:'
+                  : 'A complete seed vault accessible via the [🏛️ Community Vault] button for saving, sharing, and discovering verified seeds:'}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs mb-3">
+                <div className="mc-slot p-3.5">
+                  <div className="flex items-center gap-1.5 text-[#10B981] font-bold mb-1">
+                    <Bookmark className="w-4 h-4" />
+                    <span>{isAr ? 'حفظ المفضلة بنقرة واحدة' : 'One-Click Bookmarks'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'في أي وقت تفحص فيه بذرة تعجبك، اضغط على زر [⭐ حفظ في المفضلة] في شريط النتائج لتُخزن في متصفحك (localStorage) فوراً للرجوع إليها في أي وقت.'
+                      : 'Click [⭐ Bookmark Seed] in the results bar to instantly persist favorite seeds in your browser.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3.5">
+                  <div className="flex items-center gap-1.5 text-[#8B5CF6] font-bold mb-1">
+                    <Download className="w-4 h-4" />
+                    <span>{isAr ? 'تصدير واستيراد JSON' : 'Export & Import JSON'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'يمكنك تنزيل كافة مفضلتك كملف JSON لنسخها احتياطياً أو استيراد بذور أصدقائك بضغطة زر دون أي فقدان للبيانات.'
+                      : 'Download your bookmarked collection as JSON or import shared seed collections effortlessly.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3.5">
+                  <div className="flex items-center gap-1.5 text-[#F59E0B] font-bold mb-1">
+                    <Crown className="w-4 h-4" />
+                    <span>{isAr ? 'بذور المجتمع الموثقة' : 'Curated Community Seeds'}</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'كتالوج جاهز لبذور أسطورية مثبتة رياضياً (عاصمة تجارية، غرف محاكمة سريعة، فوهات كرز شاهقة، والحديقة الشاحبة Pale Garden) مع أوامر /tp وزر فحص فوري.'
+                      : 'Curated library of proven seeds with direct /tp coordinates and instant one-click analysis.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Sub-section 3: Bandwidth-Friendly Screenshot Previews */}
+            <div className="pt-2 border-t border-[#A8A8A8] dark:border-[#2E3342]">
+              <h3 className="font-mc-heading text-sm font-bold text-[#EC4899] mb-2 flex items-center gap-2">
+                <ImageIcon className="w-4 h-4" />
+                <span>{isAr ? '3. مكتبة المعاينات المصورة الخفيفة المتناسبة مع سرعة النت (Bandwidth-Friendly Previews)' : '3. Bandwidth-Friendly Image Previews'}</span>
+              </h3>
+              <p className="text-xs text-[#4E4E4E] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                {isAr
+                  ? 'تم تصميم مكتبة المعاينات المصورة لتقديم مظهر جمالي سينمائي داخل بطاقات المعالم وبطاقات الهوفر في الخريطة مع الالتزام الصارم بـ عدم استهلاك باقة وبيانات إنترنت المستخدم:'
+                  : 'Curated in-game visual previews for landmarks and map hover cards, strictly engineered to preserve user mobile data and load instantly on any network:'}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mc-mono">
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <h4 className="font-mc-heading text-xs font-bold text-[#EC4899] uppercase mb-1">
+                    {isAr ? 'ضغط WebP القياسي عالي الكفاءة' : 'Optimized WebP Standard Quality'}
+                  </h4>
+                  <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+                    {isAr
+                      ? 'تم ضغط كافة لقطات الشاشة الحقيقية من داخل اللعبة بصيغة WebP الحديثة بدقة ملائمة، حيث يتراوح حجم الصورة الواحدة بين 10 إلى 45 كيلوبايت فقط! هذا يعني أن تصفح عشرات المعالم يستهلك أقل من 1 ميجابايت من الإنترنت، مما يضمن سرعة فتح فائقة حتى على اتصالات 3G و 4G.'
+                      : 'All in-game previews are compressed to modern WebP format (10KB–45KB). Browsing dozens of spots consumes less than 1MB of bandwidth.'}
+                  </p>
+                </div>
+
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <h4 className="font-mc-heading text-xs font-bold text-[#10B981] uppercase mb-1">
+                    {isAr ? 'نظام الرجوع الآمن للرسومات المتجهية (SVG Fallback)' : 'Graceful Vector SVG Fallback'}
+                  </h4>
+                  <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+                    {isAr
+                      ? 'في حال ضعف أو انقطاع الاتصال أو تفعيل المستخدم لوضع توفير البيانات الصارم، ترجع الواجهة برمجياً وبشكل فوري وتلقائي (Graceful Degradation) إلى الرسومات المتجهية SVG الخفيفة والمدمجة في الكود، لضمان استمرار عمل الخريطة والبطاقات بلا أي توقف.'
+                      : 'If network connectivity drops, components automatically fallback to inline procedural SVG vector graphics with zero delay.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* SECTION 3: Wishlist & RPG Presets Guide */}
         {activeSection === 'wishlist' && (
           <div className="mc-gui-panel p-6 sm:p-8 space-y-6 animate-fade-in border-2 border-[#D97706]">
             <div className="flex items-center gap-3 pb-3 border-b border-[#A8A8A8] dark:border-[#2E3342]">
@@ -672,6 +954,39 @@ export default function DocumentationPage() {
                   {isAr
                     ? 'انتقل إلى مسار /my-admin في المتصفح، وأدخل رمز المرور الإداري. من داخل اللوحة، اضغط على زر [🔑 تغيير الرمز] لتحديث الرمز وحفظه فوراً في النظام.'
                     : 'Navigate to /my-admin and enter your security PIN. Click the [🔑 Change PIN] button in the header to update and persist your PIN securely.'}
+                </p>
+              </div>
+
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                <h3 className="font-mc-heading text-sm font-bold text-[#0284C7] uppercase mb-1">
+                  {isAr ? 'كيف أقارن بين بذرتين في آن واحد لاختيار الأنسب؟' : 'How do I compare two seeds side-by-side?'}
+                </h3>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-2">
+                  {isAr
+                    ? 'انقر على تبويب [مقارنة بذرتين] في أعلى الصفحة، وأدخل رقم البذرة الأولى وإصدارها ورقم البذرة الثانية وإصدارها ثم اضغط زر "بدء المقارنة الفورية". سيعرض لك النظام جدولاً إحصائياً يقارن العناقيد، تضاريس البناء، غرف المحاكمة، وقرب الـ Spawn مع تتويج البذرة الفائزة 👑 وتقديم نصيحة لاختيار البذرة المناسبة لأسلوب لعبك.'
+                    : 'Switch to the [Compare Seeds] tab in the header, input both seeds and their target versions, then click "Run Instant Comparison". You will get a side-by-side metrics matrix with winner crowns and playstyle advice.'}
+                </p>
+              </div>
+
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                <h3 className="font-mc-heading text-sm font-bold text-[#10B981] uppercase mb-1">
+                  {isAr ? 'كيف أحفظ بذوري المفضلة أو أنقلها إلى جهاز آخر؟' : 'How do I bookmark seeds and transfer them between devices?'}
+                </h3>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+                  {isAr
+                    ? 'عند فحص أي بذرة، اضغط زر [⭐ حفظ في المفضلة] في شريط النتائج. لفتح المفضلة، انقر زر [🏛️ مستودع البذور] في الشريط العلوي؛ ستجد تبويب "مفضلتي" الذي يحتوي زراً لـ [تصدير JSON] لعمل نسخة احتياطية أو [استيراد JSON] لاسترجاع بذورك على أي حاسوب آخر دون الحاجة لتسجيل أي حساب.'
+                    : 'Click [⭐ Bookmark Seed] on any analysis result. Open the [🏛️ Community Vault] modal from the header and navigate to "My Bookmarks" to export or import your seeds as JSON without any account.'}
+                </p>
+              </div>
+
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                <h3 className="font-mc-heading text-sm font-bold text-[#EC4899] uppercase mb-1">
+                  {isAr ? 'هل تستهلك المعاينات المصورة الكثير من بيانات الإنترنت؟' : 'Do the in-game preview images consume high network bandwidth?'}
+                </h3>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+                  {isAr
+                    ? 'إطلاقاً! تم ضغط كافة الصور بدقة متوازنة وبتقنية WebP الحديثة ليتراوح حجم الصورة بين 10 إلى 45 كيلوبايت فقط، مما يجعلها خفيفة جداً ومتوافقة تماماً مع باقات وبيانات الهاتف المتنقل (3G/4G/5G). كما تتوفر آلية تحويل فوري للرسومات المتجهية SVG إذا انقطع الاتصال.'
+                    : 'Not at all! All images are standard-quality WebP assets (10KB–45KB), designed specifically to protect mobile data and load with zero delay. An automatic SVG fallback is built-in.'}
                 </p>
               </div>
             </div>

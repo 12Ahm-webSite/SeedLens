@@ -1,26 +1,86 @@
 {
-  "total_visits": 14,
+  "total_visits": 18,
   "unique_visitors": 1,
   "visitor_hashes": {
     "usr_ic79ls2vmvnnuryb": "2026-10-25T10:04:11.675Z"
   },
-  "seeds_analyzed": 2,
+  "seeds_analyzed": 5,
   "seeds_found": 0,
   "editions": {
-    "java": 16,
+    "java": 23,
     "bedrock": 0
   },
   "versions": {
-    "26.3": 2
+    "26.3": 2,
+    "1.21.1": 3
   },
   "daily_activity": {
     "2026-10-25": {
-      "visits": 14,
-      "analyses": 2,
+      "visits": 18,
+      "analyses": 5,
       "finds": 0
     }
   },
   "recent_events": [
+    {
+      "id": "evt-1792929152423-c9az",
+      "timestamp": "2026-10-25T11:52:32.423Z",
+      "type": "visit",
+      "details": "User loaded SeedLens main app",
+      "edition": "java",
+      "latency_ms": 1
+    },
+    {
+      "id": "evt-1792929152383-ti7c",
+      "timestamp": "2026-10-25T11:52:32.383Z",
+      "type": "visit",
+      "details": "User loaded SeedLens main app",
+      "edition": "java",
+      "latency_ms": 1
+    },
+    {
+      "id": "evt-1792928760234-55af",
+      "timestamp": "2026-10-25T11:46:00.234Z",
+      "type": "analyze",
+      "details": "Analyzed seed 123456789",
+      "version": "1.21.1",
+      "edition": "java",
+      "latency_ms": 1270
+    },
+    {
+      "id": "evt-1792928750929-r5yx",
+      "timestamp": "2026-10-25T11:45:50.929Z",
+      "type": "analyze",
+      "details": "Analyzed seed 123456789",
+      "version": "1.21.1",
+      "edition": "java",
+      "latency_ms": 1211
+    },
+    {
+      "id": "evt-1792928743202-c52m",
+      "timestamp": "2026-10-25T11:45:43.202Z",
+      "type": "analyze",
+      "details": "Analyzed seed 123456789",
+      "version": "1.21.1",
+      "edition": "java",
+      "latency_ms": 1300
+    },
+    {
+      "id": "evt-1792928416977-srtl",
+      "timestamp": "2026-10-25T11:40:16.977Z",
+      "type": "visit",
+      "details": "User loaded SeedLens main app",
+      "edition": "java",
+      "latency_ms": 1
+    },
+    {
+      "id": "evt-1792928416765-roqf",
+      "timestamp": "2026-10-25T11:40:16.765Z",
+      "type": "visit",
+      "details": "User loaded SeedLens main app",
+      "edition": "java",
+      "latency_ms": 1
+    },
     {
       "id": "evt-1792923713025-tbl5",
       "timestamp": "2026-10-25T10:21:53.025Z",
@@ -152,5 +212,5 @@
       "latency_ms": 1
     }
   ],
-  "last_updated": "2026-10-25T10:21:53.025Z"
+  "last_updated": "2026-10-25T11:52:32.423Z"
 }

@@ -15,6 +15,7 @@ import {
   Sparkles,
   Waves,
 } from 'lucide-react';
+import { getFeatureScreenshot } from '@/lib/previews';
 
 interface LandmarkCardProps {
   landmark: LandmarkSpot;
@@ -35,6 +36,7 @@ export default function LandmarkCard({
   const isAr = locale === 'ar';
   const name = isAr ? landmark.name_ar : landmark.name_en;
   const description = isAr ? landmark.description_ar : landmark.description_en;
+  const preview = getFeatureScreenshot(landmark.category);
 
   const handleCopyTp = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -161,6 +163,21 @@ export default function LandmarkCard({
           </span>
         </div>
       </div>
+
+      {/* In-Game Screenshot Preview */}
+      {preview && (
+        <div className="relative w-full h-32 sm:h-36 mb-3 overflow-hidden border border-[#555555] dark:border-[#333842] group bg-black/20">
+          <img
+            src={preview.url}
+            alt={isAr ? preview.alt_ar : preview.alt_en}
+            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div className="absolute bottom-1 right-1 bg-black/75 px-1.5 py-0.5 text-[9px] font-mc-mono text-[#FADB44] font-bold">
+            {isAr ? 'لقطة سينمائية HD' : 'HD Preview'}
+          </div>
+        </div>
+      )}
 
       {/* Description */}
       <p className="font-mc-body text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">

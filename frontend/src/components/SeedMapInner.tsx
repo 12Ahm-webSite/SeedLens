@@ -16,6 +16,17 @@ import { Compass } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { MinecraftTerrainEngine, TerrainPoint } from '@/lib/minecraftTerrain';
 import { getHoverCardBanner } from '@/lib/hoverCardBanners';
+import { getFeatureScreenshot } from '@/lib/previews';
+
+function buildHoverMedia(typeOrCategory: string, version: string = '1.20.6', isBedrock: boolean = false): string {
+  const fallbackSvg = getHoverCardBanner(typeOrCategory, version, isBedrock);
+  const screenshot = getFeatureScreenshot(typeOrCategory);
+  if (!screenshot) return fallbackSvg;
+  return `
+    <img src="${screenshot.url}" alt="" style="width:100%; height:100%; object-fit:cover; display:block;" onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='block';" />
+    <div style="display:none; width:100%; height:100%;">${fallbackSvg}</div>
+  `;
+}
 
 interface SeedMapInnerProps {
   seed?: string | number;
@@ -699,7 +710,7 @@ export default function SeedMapInner({
         const structNameTranslated = translateStructure(structure.type);
 
         // Version-Contextual Hover Tooltip Card
-        const structBanner = getHoverCardBanner(structure.type, version, edition === 'bedrock');
+        const structBanner = buildHoverMedia(structure.type, version, edition === 'bedrock');
         structMarker.bindTooltip(`
           <div style="width:200px; font-family:monospace; font-size:11px; overflow:hidden;">
             <div style="width:100%; height:50px; position:relative; overflow:hidden; border-bottom:1.5px solid #555;">
@@ -773,7 +784,7 @@ export default function SeedMapInner({
         const statusNote = ds.viability_status === "terrain_validated" ? "Terrain Validated" : "Biome Viable";
 
         // Version-Contextual Hover Tooltip Card
-        const dsBanner = getHoverCardBanner(ds.type, version, edition === 'bedrock');
+        const dsBanner = buildHoverMedia(ds.type, version, edition === 'bedrock');
         dsMarker.bindTooltip(`
           <div style="width:200px; font-family:monospace; font-size:11px; overflow:hidden;">
             <div style="width:100%; height:50px; position:relative; overflow:hidden; border-bottom:1.5px solid #555;">
@@ -852,7 +863,7 @@ export default function SeedMapInner({
         });
 
         // Version-Contextual Hover Tooltip Card
-        const lmBanner = getHoverCardBanner(lm.category, version, edition === 'bedrock');
+        const lmBanner = buildHoverMedia(lm.category, version, edition === 'bedrock');
         lmMarker.bindTooltip(`
           <div style="width:210px; font-family:monospace; font-size:11px; overflow:hidden;">
             <div style="width:100%; height:52px; position:relative; overflow:hidden; border-bottom:1.5px solid #555;">

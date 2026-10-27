@@ -236,6 +236,8 @@ export interface Translations {
   // Wishlist & Reverse Seed Finder
   tabAnalyzeSeed: string;
   tabWishlistFinder: string;
+  tabCompareSeeds: string;
+  tabCommunityVault: string;
   wishlistHeroBadge: string;
   wishlistTitle: string;
   wishlistSubtitle: string;
@@ -569,6 +571,8 @@ export const translations: Record<Locale, Translations> = {
     // Wishlist & Reverse Seed Finder
     tabAnalyzeSeed: 'فحص بذرة معينة',
     tabWishlistFinder: '✨ مكتشف البذور العكسي',
+    tabCompareSeeds: '⚖️ مقارنة بذرتين',
+    tabCommunityVault: '🏛️ بذور المجتمع والمفضلة',
     wishlistHeroBadge: 'توليد وبحث عكسي ذكي // الجيل الرابع',
     wishlistTitle: 'ابحث عن عالم أحلامك بمواصفاتك الخاصة',
     wishlistSubtitle: 'حدد رغباتك وتفضيلاتك التضاريسية والهيكلية، وسيقوم المحرك بفحص البذور والعثور على العالم المثالي لك فوراً!',
@@ -908,6 +912,8 @@ export const translations: Record<Locale, Translations> = {
     // Wishlist & Reverse Seed Finder
     tabAnalyzeSeed: 'Analyze Seed',
     tabWishlistFinder: '✨ Wishlist Seed Finder',
+    tabCompareSeeds: '⚖️ Compare Seeds',
+    tabCommunityVault: '🏛️ Community Vault & Bookmarks',
     wishlistHeroBadge: 'ACTIVE REVERSE SEARCH // V4 INTELLIGENCE',
     wishlistTitle: 'Find Your Dream World by Custom Specs',
     wishlistSubtitle: 'Specify your structural and scenic desires, and the engine will discover your perfect Minecraft seed instantly!',

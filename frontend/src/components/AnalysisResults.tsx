@@ -26,9 +26,12 @@ import {
   Camera,
   Waves,
   MapPin,
+  Bookmark,
+  BookmarkCheck,
 } from 'lucide-react';
 import WaypointsModal from '@/components/WaypointsModal';
 import PostcardModal from '@/components/PostcardModal';
+import { isBookmarked, saveBookmark, removeBookmark } from '@/lib/bookmarks';
 
 interface AnalysisResultsProps {
   data: AnalyzeSuccessResponse;
@@ -69,6 +72,30 @@ export default function AnalysisResults({
   const [viewMode, setViewMode] = useState<ViewMode>('split');
   const [showWaypointsModal, setShowWaypointsModal] = useState(false);
   const [showPostcardModal, setShowPostcardModal] = useState(false);
+  const [bookmarked, setBookmarked] = useState<boolean>(false);
+
+  React.useEffect(() => {
+    setBookmarked(isBookmarked(String(seed)));
+  }, [seed]);
+
+  const handleToggleBookmark = () => {
+    if (bookmarked) {
+      removeBookmark(String(seed));
+      setBookmarked(false);
+    } else {
+      const topLm = landmarks?.spots?.[0];
+      saveBookmark({
+        seed: String(seed),
+        version: minecraft_version,
+        edition: edition,
+        highlight: topLm ? (locale === 'ar' ? topLm.name_ar : topLm.name_en) : undefined,
+        scenicScore: topLm?.scenic_score,
+        buildingScore: topLm?.building_score,
+        clusterCount: clusters.length,
+      });
+      setBookmarked(true);
+    }
+  };
 
   const copySeedToClipboard = () => {
     navigator.clipboard.writeText(String(seed));
@@ -308,6 +335,26 @@ export default function AnalysisResults({
             >
               <Sparkles className="w-3.5 h-3.5 text-[#FADB44]" />
               <span>{t.exportPostcardBtn}</span>
+            </button>
+
+            <button
+              onClick={handleToggleBookmark}
+              className={`flex items-center gap-1 px-2.5 py-1 mc-button hover:bg-[#E0E0E0] dark:hover:bg-[#313745] font-bold cursor-pointer transition-colors ${
+                bookmarked ? 'text-[#D97706] dark:text-[#FBBF24]' : 'text-[#222222] dark:text-[#E2E8F0]'
+              }`}
+              title={locale === 'ar' ? 'حفظ في المفضلة' : 'Bookmark this seed'}
+            >
+              {bookmarked ? (
+                <>
+                  <BookmarkCheck className="w-3.5 h-3.5 text-[#D97706] dark:text-[#FBBF24]" />
+                  <span>{locale === 'ar' ? 'محفوظة' : 'Saved'}</span>
+                </>
+              ) : (
+                <>
+                  <Bookmark className="w-3.5 h-3.5" />
+                  <span>{locale === 'ar' ? 'حفظ' : 'Bookmark'}</span>
+                </>
+              )}
             </button>
           </div>
         </div>
