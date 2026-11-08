@@ -21,6 +21,7 @@ interface SeedMapProps {
   worldSpawn?: WorldSpawn;
   discovery?: DiscoverySummary;
   landmarks?: LandmarksSummary;
+  anomalies?: import('@/types/seedlens').AnomaliesSummary;
   selectedClusterId?: number | null;
   onSelectCluster?: (clusterId: number) => void;
   selectedLandmarkId?: number | null;

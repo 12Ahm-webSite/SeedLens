@@ -7,6 +7,7 @@ import LandmarkCard from '@/components/LandmarkCard';
 import ClusterDetailsModal from '@/components/ClusterDetailsModal';
 import SeedMap from '@/components/SeedMap';
 import EmptyState from '@/components/EmptyState';
+import AnomalyBanner from '@/components/AnomalyBanner';
 import { useLanguage } from '@/context/LanguageContext';
 import {
   Copy,
@@ -59,7 +60,7 @@ export default function AnalysisResults({
   const [selectedClusterId, setSelectedClusterId] = useState<number | null>(null);
   const [selectedLandmarkId, setSelectedLandmarkId] = useState<number | null>(null);
 
-  const { seed, minecraft_version, summary, clusters, search, discovery, landmarks } = data;
+  const { seed, minecraft_version, summary, clusters, search, discovery, landmarks, anomalies } = data;
 
   // Default to landmarks tab if clusters is empty but landmarks exist
   const [activeMainTab, setActiveMainTab] = useState<'clusters' | 'landmarks' | 'all'>(
@@ -360,6 +361,9 @@ export default function AnalysisResults({
         </div>
       </div>
 
+      {/* Worldgen Anomalies & Glitched Phenomena Banner (v4.5) */}
+      <AnomalyBanner anomalies={anomalies} />
+
       {/* Prominent Callout Banner for Scenic & Building Spots */}
       {landmarks && landmarks.spot_count > 0 && (
         <div className="mb-5 p-3.5 bg-gradient-to-r from-[#2A4413]/30 via-[#5B8731]/15 to-[#EC4899]/25 border-2 border-[#5B8731] dark:border-[#89BD44] shadow-[2px_2px_0_rgba(0,0,0,0.3)] flex flex-wrap items-center justify-between gap-3 animate-fade-in">
@@ -375,7 +379,7 @@ export default function AnalysisResults({
                     : `✨ Found ${landmarks.spot_count} exceptional prime building spots & scenic landscapes!`}
                 </span>
                 <span className="bg-[#EC4899] text-white text-[10px] font-mc-mono px-1.5 py-0.5 font-bold uppercase shadow-[1px_1px_0_rgba(0,0,0,0.2)]">
-                  v4.2
+                  v4.5
                 </span>
               </div>
               <p className="text-xs text-[#444444] dark:text-[#CBD5E1] mt-0.5 font-medium">
@@ -719,6 +723,7 @@ export default function AnalysisResults({
               worldSpawn={data.world_spawn}
               discovery={discovery}
               landmarks={landmarks}
+              anomalies={anomalies}
               selectedClusterId={selectedClusterId}
               onSelectCluster={(id) => {
                 setSelectedClusterId(id);
@@ -819,6 +824,7 @@ export default function AnalysisResults({
             worldSpawn={data.world_spawn}
             discovery={discovery}
             landmarks={landmarks}
+            anomalies={anomalies}
             selectedClusterId={selectedClusterId}
             onSelectCluster={(id) => setSelectedClusterId(id)}
             selectedLandmarkId={selectedLandmarkId}

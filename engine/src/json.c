@@ -295,6 +295,54 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
     }
 
     jbuf_append(&b, "    ]\n");
+    jbuf_append(&b, "  },\n");
+
+    /* Worldgen Anomalies: Glitched and rare world generation phenomena (v4.5) */
+    jbuf_append(&b, "  \"anomalies\": {\n");
+    jbuf_printf(&b, "    \"total_found\": %d,\n", result->anomalies.total_found);
+    jbuf_printf(&b, "    \"anomaly_count\": %d,\n", result->anomalies.anomaly_count);
+    jbuf_append(&b, "    \"items\": [\n");
+
+    for (int i = 0; i < result->anomalies.anomaly_count; i++)
+    {
+        const SeedLensAnomaly *an = &result->anomalies.items[i];
+        jbuf_append(&b, "      {\n");
+        jbuf_printf(&b, "        \"id\": %d,\n", an->id);
+        jbuf_printf(&b, "        \"category\": \"%s\",\n", an->category);
+        jbuf_printf(&b, "        \"severity\": \"%s\",\n", an->severity);
+        jbuf_append(&b, "        \"name_ar\": \"");
+        jbuf_append_escaped(&b, an->name_ar);
+        jbuf_append(&b, "\",\n");
+        jbuf_append(&b, "        \"name_en\": \"");
+        jbuf_append_escaped(&b, an->name_en);
+        jbuf_append(&b, "\",\n");
+        jbuf_printf(&b, "        \"x\": %d,\n", an->x);
+        jbuf_printf(&b, "        \"y\": %d,\n", an->y);
+        jbuf_printf(&b, "        \"z\": %d,\n", an->z);
+        jbuf_printf(&b, "        \"distance_to_spawn\": %.1f,\n", an->distance_to_spawn);
+        jbuf_printf(&b, "        \"axis\": \"%s\",\n", an->axis);
+        jbuf_printf(&b, "        \"teleport_command\": \"%s\",\n", an->teleport_command);
+        jbuf_printf(&b, "        \"confidence_score\": %d,\n", an->confidence_score);
+
+        /* Tags */
+        jbuf_append(&b, "        \"tags\": [");
+        for (int tg = 0; tg < an->tag_count; tg++)
+        {
+            jbuf_printf(&b, "\"%s\"%s", an->tags[tg], (tg + 1 < an->tag_count) ? ", " : "");
+        }
+        jbuf_append(&b, "],\n");
+
+        jbuf_append(&b, "        \"description_ar\": \"");
+        jbuf_append_escaped(&b, an->description_ar);
+        jbuf_append(&b, "\",\n");
+        jbuf_append(&b, "        \"description_en\": \"");
+        jbuf_append_escaped(&b, an->description_en);
+        jbuf_append(&b, "\"\n");
+
+        jbuf_printf(&b, "      }%s\n", (i + 1 < result->anomalies.anomaly_count) ? "," : "");
+    }
+
+    jbuf_append(&b, "    ]\n");
     jbuf_append(&b, "  }\n");
     jbuf_append(&b, "}\n");
 

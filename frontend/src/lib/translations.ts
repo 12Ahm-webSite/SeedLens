@@ -258,6 +258,20 @@ export interface Translations {
   presetEconomyMogulTitle: string;
   presetEconomyMogulRole: string;
   presetEconomyMogulDesc: string;
+  presetGlitchHunterTitle: string;
+  presetGlitchHunterRole: string;
+  presetGlitchHunterDesc: string;
+
+  // Anomalies & Glitches (v4.5)
+  anomalySectionTitle: string;
+  anomalySectionDesc: string;
+  anomalyBannerTitle: string;
+  anomalyBadgeLegendary: string;
+  anomalyBadgeRare: string;
+  anomalyBadgeExtreme: string;
+  anomalyAxisLabel: string;
+  anomalyConfidenceLabel: string;
+  tabAnomalies: string;
   customWishlistTitle: string;
   minScenicScore: string;
   minBuildingScore: string;
@@ -337,7 +351,7 @@ export const translations: Record<Locale, Translations> = {
       'أدخل أي Minecraft Java Seed لاكتشاف التجمعات الهيكلية النادرة، العواصم التجارية، الروابط السحيقة بين السطح والمدن القديمة، والبؤر الاستيطانية عبر نطاق 10,000×10,000 بلوك.',
     statRadiusTitle: 'نطاق 10 آلاف بلوك',
     statRadiusDesc: 'يغطي [-5000، 5000] حول مركز العالم',
-    statTaxonomyTitle: 'تصنيف v4.2 الاستراتيجي',
+    statTaxonomyTitle: 'تصنيف v4.5 الاستراتيجي',
     statTaxonomyDesc: '5 فلاتر لتصنيف أهم المواقع المفيدة عملياً',
     statCubiomesTitle: 'موثق عبر Cubiomes',
     statCubiomesDesc: 'فحص إمكانية التوليد الواقعي للتضاريس',
@@ -593,6 +607,20 @@ export const translations: Record<Locale, Translations> = {
     presetEconomyMogulTitle: 'التاجر الإمبراطوري',
     presetEconomyMogulRole: 'مقايضة ومزارع حديد',
     presetEconomyMogulDesc: 'عاصمة تجارية تضم قرى متعددة متقاربة لتأسيس مزارع الحديد وقاعات المقايضة فوراً.',
+    presetGlitchHunterTitle: 'صائد الخوارق والقلتشات',
+    presetGlitchHunterRole: 'اكتشاف الظواهر المستحيلة',
+    presetGlitchHunterDesc: 'بذور نادرة تحوي ظواهر غير طبيعية مثل المناجم اللانهائية، جزر الإند المفرغة من الحجر، وتكرار التضاريس الرياضي.',
+
+    // Anomalies & Glitches (v4.5)
+    anomalySectionTitle: 'خوارق التوليد وبذور القلتشات النادرة',
+    anomalySectionDesc: 'رصد رياضي للظواهر الشاذة والتكرار اللانهائي للهياكل وجزر الإند المفرغة دون أي حجر.',
+    anomalyBannerTitle: 'تم رصد ظاهرة خارقة في التوليد!',
+    anomalyBadgeLegendary: 'قلتش أسطوري',
+    anomalyBadgeRare: 'ظاهرة نادرة',
+    anomalyBadgeExtreme: 'خلل تضاريسي خارق',
+    anomalyAxisLabel: 'محور التكرار',
+    anomalyConfidenceLabel: 'نسبة الدقة الحسابية',
+    tabAnomalies: '🌀 خوارق التوليد',
     customWishlistTitle: 'أو خصص مواصفات العالم بدقة',
     minScenicScore: 'الحد الأدنى لجمالية المشهد',
     minBuildingScore: 'الحد الأدنى لملاءمة البناء',
@@ -677,7 +705,7 @@ export const translations: Record<Locale, Translations> = {
       'Input any Minecraft Java seed to discover rare multi-structure clusters, trading hubs, abyssal surface-to-deep connections, and strategic outposts across a 10,000×10,000 block world perimeter.',
     statRadiusTitle: '10K Block Radius',
     statRadiusDesc: 'Covers [-5000, 5000] around world spawn',
-    statTaxonomyTitle: 'v4.2 Calibrated',
+    statTaxonomyTitle: 'v4.5 Calibrated',
     statTaxonomyDesc: '5 strategic category classification filters',
     statCubiomesTitle: 'Cubiomes Verified',
     statCubiomesDesc: 'Viability checked against real terrain logic',
@@ -934,6 +962,20 @@ export const translations: Record<Locale, Translations> = {
     presetEconomyMogulTitle: 'The Economy Mogul',
     presetEconomyMogulRole: 'Trading & Iron Farms',
     presetEconomyMogulDesc: 'Trading metropolis with multiple close villages for rapid iron farming and villager trading.',
+    presetGlitchHunterTitle: 'Glitch & Anomaly Hunter',
+    presetGlitchHunterRole: 'Impossible Worldgen Explorer',
+    presetGlitchHunterDesc: 'Rare seeds featuring mind-bending glitches: infinite repeating mineshafts, void End islands, and PRNG terrain loops.',
+
+    // Anomalies & Glitches (v4.5)
+    anomalySectionTitle: 'Worldgen Anomalies & Glitched Phenomena',
+    anomalySectionDesc: 'Mathematical detection of broken world generation: infinite structural repeats and empty End islands.',
+    anomalyBannerTitle: 'Worldgen Glitch Detected!',
+    anomalyBadgeLegendary: 'Legendary Glitch',
+    anomalyBadgeRare: 'Rare Anomaly',
+    anomalyBadgeExtreme: 'Extreme Worldgen Quirk',
+    anomalyAxisLabel: 'Repetition Axis',
+    anomalyConfidenceLabel: 'Mathematical Confidence',
+    tabAnomalies: '🌀 Worldgen Anomalies',
     customWishlistTitle: 'Or Fine-Tune Your Wishlist Manually',
     minScenicScore: 'Minimum Scenic Score',
     minBuildingScore: 'Minimum Building Score',

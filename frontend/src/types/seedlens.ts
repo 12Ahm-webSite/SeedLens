@@ -107,6 +107,30 @@ export interface LandmarksSummary {
   spots: LandmarkSpot[];
 }
 
+export interface WorldgenAnomaly {
+  id: number;
+  category: string;
+  severity: 'legendary' | 'rare' | 'extreme' | string;
+  name_ar: string;
+  name_en: string;
+  x: number;
+  y: number;
+  z: number;
+  distance_to_spawn: number;
+  axis: string;
+  teleport_command: string;
+  confidence_score: number;
+  tags: string[];
+  description_ar: string;
+  description_en: string;
+}
+
+export interface AnomaliesSummary {
+  total_found: number;
+  anomaly_count: number;
+  items: WorldgenAnomaly[];
+}
+
 export interface SeedLensResult {
   schema_version?: number;
   seed: number | string;
@@ -118,6 +142,7 @@ export interface SeedLensResult {
   clusters: Cluster[];
   discovery?: DiscoverySummary;
   landmarks?: LandmarksSummary;
+  anomalies?: AnomaliesSummary;
   interpreted_seed?: string;
 }
 
@@ -150,7 +175,8 @@ export type PlaystylePresetId =
   | 'dungeon_raider'
   | 'aesthetic_creator'
   | 'castaway_survivor'
-  | 'economy_mogul';
+  | 'economy_mogul'
+  | 'glitch_hunter';
 
 export interface WishlistQuery {
   playstylePreset?: PlaystylePresetId;

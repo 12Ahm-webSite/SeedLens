@@ -35,6 +35,12 @@ function getSeedlensBinaryPath(): string | null {
 
 // Curated pool of high-diversity, archetypically verified seeds
 const SEED_POOL = [
+  '107038380838084',
+  '7593177223396',
+  '8994765102493',
+  '1643112',
+  '32896149644487',
+  '45459229772041',
   '2026',
   '202620262026202626',
   '123456789',
@@ -203,6 +209,10 @@ export async function POST(req: Request) {
           clusterCategory = 'trading_metropolis';
           maxDistance = Math.min(maxDistance, 3000);
           break;
+        case 'glitch_hunter':
+          landmarkType = 'anomaly';
+          maxDistance = Math.min(maxDistance, 1500);
+          break;
       }
     }
 
@@ -234,6 +244,8 @@ export async function POST(req: Request) {
     if (maxDistance > 0) {
       findArgs.push('--max-dist', String(maxDistance));
     }
+    const randomStart = Math.floor(Math.random() * 1000000000000) + 1;
+    findArgs.push('--start-seed', String(randomStart));
 
     try {
       const cResult = await runSeedlensFind(binaryPath, findArgs);
@@ -256,6 +268,17 @@ export async function POST(req: Request) {
       candidateSeeds.sort((a) => (['123456789', '202620262026202626', '-1467692750553100038'].includes(a) ? -1 : 1));
     } else if (preset === 'economy_mogul' || clusterCategory === 'trading_metropolis') {
       candidateSeeds.sort((a) => (['123456789', '2026', '42'].includes(a) ? -1 : 1));
+    } else if (preset === 'glitch_hunter' || landmarkType === 'anomaly') {
+      const glitchPool = ['107038380838084', '7593177223396', '8994765102493', '1643112', '32896149644487', '45459229772041'];
+      glitchPool.sort(() => Math.random() - 0.5);
+      candidateSeeds.sort((a, b) => {
+        const idxA = glitchPool.indexOf(a);
+        const idxB = glitchPool.indexOf(b);
+        if (idxA !== -1 && idxB !== -1) return idxA - idxB;
+        if (idxA !== -1) return -1;
+        if (idxB !== -1) return 1;
+        return 0;
+      });
     }
 
     let evaluatedCount = 0;

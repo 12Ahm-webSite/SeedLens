@@ -39,7 +39,7 @@ import { useLanguage } from '@/context/LanguageContext';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 
-type DocSection = 'changelog' | 'compare_vault' | 'wishlist' | 'map_bedrock' | 'architecture' | 'faq';
+type DocSection = 'changelog' | 'anomalies' | 'compare_vault' | 'wishlist' | 'map_bedrock' | 'architecture' | 'faq';
 
 const NAV_ITEMS: {
   id: DocSection;
@@ -52,6 +52,12 @@ const NAV_ITEMS: {
     label: { ar: 'سجل التحديثات (Changelog)', en: 'Full Changelog' },
     icon: <Sparkles className="w-3.5 h-3.5" />,
     color: '#5B8731',
+  },
+  {
+    id: 'anomalies',
+    label: { ar: 'دليل خوارق التوليد والقلتشات', en: 'Glitched Seeds & Anomalies' },
+    icon: <Flame className="w-3.5 h-3.5" />,
+    color: '#EF4444',
   },
   {
     id: 'compare_vault',
@@ -94,6 +100,7 @@ export default function DocumentationView() {
   useEffect(() => {
     const sectionIds: DocSection[] = [
       'changelog',
+      'anomalies',
       'compare_vault',
       'wishlist',
       'map_bedrock',
@@ -161,7 +168,7 @@ export default function DocumentationView() {
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 bg-[#17B85E] shadow-[0_0_6px_#17B85E]"></span>
             <span className="font-bold text-[#555555] dark:text-[#94A3B8]">
-              {isAr ? 'وثيقة مرجعية v4.3 (مقارنة البذور، مستودع المجتمع، والمعاينات)' : 'Documentation Reference v4.3 (Seed Comparison, Vault & Previews)'}
+              {isAr ? 'وثيقة مرجعية v4.5 (محرك خوارق التوليد، مستودع المجتمع، والمعمارية المتقدمة)' : 'Documentation Reference v4.5 (Anomaly Engine, Community Vault & Advanced Architecture)'}
             </span>
           </div>
         </div>
@@ -180,8 +187,8 @@ export default function DocumentationView() {
               </h1>
               <p className="text-sm sm:text-base text-[#4E4E4E] dark:text-[#CBD5E1] mt-2 max-w-3xl leading-relaxed">
                 {isAr
-                  ? 'دليل مرجعي تفصيلي يغطي مقارنة البذور جنباً إلى جنب، مستودع بذور المجتمع والمفضلة، محرك البحث العكسي (Reverse Seed Finder)، أنماط RPG، معاينات المعالم المتناسبة مع النت، تكافؤ البيدروك، وتصدير الخرائط والبطاقات البريدية.'
-                  : 'Comprehensive guide covering Seed vs Seed Comparison, Community Vault & Bookmarks, Reverse Seed Finder, RPG Presets, Bandwidth-Friendly Previews, Bedrock Parity, and GIS Engine.'}
+                  ? 'دليل مرجعي تفصيلي يغطي محرك خوارق وقلتشات التوليد (Worldgen Anomalies)، مقارنة البذور جنباً إلى جنب، مستودع بذور المجتمع والمفضلة، محرك البحث العكسي (Reverse Seed Finder)، أنماط RPG، معاينات المعالم المتناسبة مع النت، وتكافؤ البيدروك.'
+                  : 'Comprehensive guide covering Worldgen Anomalies & Glitches, Seed vs Seed Comparison, Community Vault & Bookmarks, Reverse Seed Finder, RPG Presets, Bandwidth-Friendly Previews, Bedrock Parity, and GIS Engine.'}
               </p>
             </div>
 
@@ -189,9 +196,9 @@ export default function DocumentationView() {
               <div className="text-[#94A3B8] text-[10px] uppercase font-bold mb-1">
                 {isAr ? 'الإصدار النشط حالياً' : 'Current Active Release'}
               </div>
-              <div className="text-[#FADB44] font-bold text-lg font-mc-heading">SeedLens v4.3</div>
+              <div className="text-[#FADB44] font-bold text-lg font-mc-heading">SeedLens v4.5</div>
               <div className="text-[#17B85E] text-[11px] font-bold mt-1">
-                ● Comparison, Vault & Previews
+                ● Anomalies, Vault & Multi-Lang
               </div>
             </div>
           </div>
@@ -229,7 +236,58 @@ export default function DocumentationView() {
         <div className="space-y-10">
           {/* SECTION 1: Full Changelog */}
           <section id="changelog" aria-labelledby="heading-changelog" className="space-y-6 scroll-mt-24">
-            {/* Version 4.3 Card (Latest Active Release) */}
+            {/* Version 4.5 Card (Latest Active Release) */}
+            <div className="mc-gui-panel p-6 border-l-4 border-l-[#9333EA] border-t-2 border-r-2 border-b-2">
+              <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2 border-b border-[#A8A8A8] dark:border-[#2E3342]">
+                <div className="flex items-center gap-2">
+                  <span className="px-2.5 py-1 bg-[#9333EA] text-white font-mc-heading text-xs font-bold shadow-[1px_1px_0_#581C87]">
+                    v4.5
+                  </span>
+                  <h2 className="font-mc-heading text-lg font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
+                    {isAr
+                      ? 'محرك خوارق التوليد والقلتشات الرياضية، رصد جزر الإند المفرغة (MC-267423)، ونمط صائد القلتشات'
+                      : 'Worldgen Anomalies & PRNG Glitch Engine, Void Main End Island Detector, and Glitch Hunter'}
+                  </h2>
+                </div>
+                <span className="font-mc-mono text-xs bg-[#2A4413] text-[#89BD44] px-2 py-0.5 font-bold">
+                  {isAr ? 'نوفمبر 2026 (الإصدار النشط الأحدث v4.5)' : 'November 2026 (Latest Active v4.5)'}
+                </span>
+              </div>
+
+              <p className="text-xs sm:text-sm text-[#4E4E4E] dark:text-[#CBD5E1] mb-4 leading-relaxed font-medium">
+                {isAr
+                  ? 'ترقية هندسية كبرى تضيف محركاً رياضياً فائق الدقة لرصد بذور القلتشات وخوارق التوليد الشهيرة عالمياً: كشف المناجم المتكررة اللانهائية الناتجة عن انعدام معاملات الـ PRNG، ورصد جزر الإند المفرغة من حجر الإند (MC-267423) حيث يطفو التنين وحيداً في الفراغ، وبطاقة تنبيه نيون علوية، ونمط لعب سادس في البحث العكسي (صائد القلتشات)، وفئة بذور مكسورة موثقة في مستودع المجتمع.'
+                  : 'Major engineering expansion introducing mathematical detection for iconic worldgen glitches: infinite repeating mineshafts along axes (PRNG degeneracy), empty void End islands (MC-267423) where the dragon flies over empty void, glowing anomaly alert banners, a 6th RPG reverse finder preset (Glitch Hunter), and community vault glitch seeds.'}
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs font-mc-mono">
+                <div className="mc-slot p-3">
+                  <div className="text-[#9333EA] font-bold mb-1 flex items-center gap-1.5">
+                    <span>⚡</span>
+                    <span>{isAr ? 'كاشف المناجم اللانهائية (Infinite Mineshafts)' : 'Infinite Repeating Mineshaft Detector'}</span>
+                  </div>
+                  <p className="text-[#555555] dark:text-[#94A3B8] leading-relaxed">
+                    {isAr
+                      ? 'فحص معادلة nextLong العشوائية؛ عند انعدام المعامل a=0 (كما في البذرة 107038380838084)، تتكرر شبكة المناجم الخشبية في كل تشانك متتالي دون انقطاع عبر آلاف البلوكات.'
+                      : 'Mathematical verification of nextLong PRNG; when multiplier a=0 (e.g. seed 107038380838084), mineshafts generate in every consecutive chunk across thousands of blocks.'}
+                  </p>
+                </div>
+
+                <div className="mc-slot p-3">
+                  <div className="text-[#06B6D4] font-bold mb-1 flex items-center gap-1.5">
+                    <span>🌌</span>
+                    <span>{isAr ? 'عالم الإند المفرغ (Void End Island MC-267423)' : 'Void End Island (MC-267423)'}</span>
+                  </div>
+                  <p className="text-[#555555] dark:text-[#94A3B8] leading-relaxed">
+                    {isAr
+                      ? 'رصد الخلل الشهير الذي يحرم المركز من بلوكات حجر الإند، تاركاً حلبة التنين وأعمدة الأوبسيديان وبوابة الخروج تطفو في الفراغ المطلق (مثل البذور 7593177223396 و 8994765102493).'
+                      : 'Detects the famous density bug leaving the main End arena, obsidian pillars, and exit portal floating over pure void with zero solid End Stone.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Version 4.3 Card */}
             <div className="mc-gui-panel p-6 border-l-4 border-l-[#0284C7] border-t-2 border-r-2 border-b-2">
               <div className="flex flex-wrap items-center justify-between gap-3 mb-3 pb-2 border-b border-[#A8A8A8] dark:border-[#2E3342]">
                 <div className="flex items-center gap-2">
@@ -500,6 +558,177 @@ export default function DocumentationView() {
                   ? 'الأساس الخوارزمي المعتمد في تصنيف وتجميع الهياكل الاستراتيجية عبر 5 فئات رئيسية: المركز الاستراتيجي الفائق، العاصمة التجارية، مركز الأعماق السحيق، بؤرة Spawn استراتيجية، والتجمع فائق الكثافة. تم حفظه كخط أساس غير قابل للكسر بنسبة 100% حرفياً (Bit-Identical).'
                   : 'The proven baseline algorithm classifying clusters across 5 strategic archetypes within [-5000, 5000] perimeter.'}
               </p>
+            </div>
+          </section>
+
+          {/* SECTION: Worldgen Anomalies & Glitched Seeds Guide */}
+          <section id="anomalies" aria-labelledby="heading-anomalies" className="mc-gui-panel p-6 sm:p-8 space-y-6 border-2 border-[#EF4444] scroll-mt-24">
+            <div className="flex items-center gap-3 pb-3 border-b border-[#A8A8A8] dark:border-[#2E3342]">
+              <div className="w-10 h-10 bg-[#EF4444] border-2 border-[#F87171] border-b-[#991B1B] border-r-[#991B1B] flex items-center justify-center text-white shadow-[1px_1px_0_#000] shrink-0">
+                <Flame className="w-5 h-5" />
+              </div>
+              <div>
+                <h2 id="heading-anomalies" className="font-mc-heading text-xl font-bold text-[#1E1E1E] dark:text-[#F1F5F9]">
+                  {isAr ? 'دليل بذور خوارق التوليد والقلتشات الأسطورية (Worldgen Anomalies Guide)' : 'Worldgen Anomalies & Glitched Seeds Field Guide'}
+                </h2>
+                <p className="text-xs text-[#555555] dark:text-[#94A3B8] font-mc-mono">
+                  Infinite Mineshafts • Void Main End Arena (MC-267423) • Repeating Monoliths • Safety Tips
+                </p>
+              </div>
+            </div>
+
+            {/* Intro text */}
+            <div className="bg-[#B8B8B8] dark:bg-[#181B22] p-4 text-xs font-mc-mono border-t border-l border-[#FFFFFF] dark:border-[#303644] border-b border-r border-[#555555] dark:border-[#0E1015]">
+              <h3 className="font-mc-heading text-sm font-bold text-[#EF4444] mb-1">
+                {isAr ? 'ما هي بذور خوارق التوليد (Glitched Seeds) في ماينكرافت؟' : 'What are Worldgen Anomalies in Minecraft?'}
+              </h3>
+              <p className="text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+                {isAr
+                  ? 'في عالم ماينكرافت الواسع، تعتمد اللعبة على معادلات رياضية وعشوائية (PRNG) لتوليد الجبال والكهوف والمناجم والإند. وفي حالات نادرة جداً تكاد تكون مستحيلة (بذرة واحدة من بين مليارات البذور)، تتعرض هذه المعادلات لحالات شاذة تخلق عوالم مكسورة مذهلة ومحيرة تبدو كأنها خيال أو تعديل مودات! قام محرك SeedLens v4.5 ببرمجة فحص رياضي مستقل لرصد هذه الظواهر واكتشافها فوراً.'
+                  : 'Minecraft uses pseudo-random number generators (PRNG) and noise equations to create terrain, caves, and dimensions. In extraordinarily rare mathematical edge-cases, these algorithms produce breathtaking broken worlds that feel like modded phenomena. SeedLens v4.5 introduces direct mathematical engines to identify, classify, and verify these anomalies instantly.'}
+              </p>
+            </div>
+
+            {/* 3 Main Glitches Cards */}
+            <div className="space-y-4">
+              {/* Glitch 1: Infinite Mineshafts */}
+              <div className="mc-slot p-5 border border-[#EF4444]/40">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">⚡</span>
+                    <h3 className="font-mc-heading text-sm font-bold text-[#EF4444]">
+                      {isAr ? '1. قلتش المناجم اللانهائية تحت الـ Spawn مباشرة (Infinite Repeating Mineshafts)' : '1. Infinite Repeating Mineshafts under Spawn'}
+                    </h3>
+                  </div>
+                  <span className="text-[11px] font-mc-mono px-2 py-0.5 bg-[#7F1D1D] text-[#FCA5A5] font-bold">
+                    Java 1.21+ • X-Axis / Z-Axis
+                  </span>
+                </div>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                  {isAr
+                    ? 'هذا القلتش الأسطوري يجعل شبكة المناجم الخشبية تتولد في كل تشانك متتالي بلا أي توقف على طول محور كامل لمسافة آلاف البلوكات! لن تضطر للبحث عن الموارد: بمجرد أن ترسبن في العالم، احفر لأسفل مباشرة لتسقط في ممرات خشبية وسكك حديد وصناديق موارد وسباونرات عنكبوت ممتدة إلى ما لا نهاية في خط مستقيم.'
+                    : 'A worldgen phenomenon where wooden mineshafts generate in every single consecutive chunk without interruption along a full axis for thousands of blocks! Dig straight down at world spawn to land into an endless highway of rails, chests, cobwebs, and minecarts stretching infinitely into the horizon.'}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mc-mono">
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'البذرة النموذجية الموثقة' : 'Verified Seed'}</span>
+                    <span className="font-bold text-[#FADB44] text-xs">107038380838084</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'أمر الانتقال المباشر' : 'Teleport Command'}</span>
+                    <span className="font-bold text-[#10B981] text-xs">/tp 0 24 0</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'محور الامتداد' : 'Repeat Axis'}</span>
+                    <span className="font-bold text-[#38BDF8] text-xs">{isAr ? 'الشرق والغرب (المحور X)' : 'East-West (X-Axis)'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Glitch 2: Void End Island */}
+              <div className="mc-slot p-5 border border-[#06B6D4]/40">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🌌</span>
+                    <h3 className="font-mc-heading text-sm font-bold text-[#06B6D4]">
+                      {isAr ? '2. عالم الإند المفرغ - قتال التنين فوق الفراغ المطلق (Void Main End Island - MC-267423)' : '2. Void Main End Island (MC-267423)'}
+                    </h3>
+                  </div>
+                  <span className="text-[11px] font-mc-mono px-2 py-0.5 bg-[#083344] text-[#67E8F9] font-bold">
+                    Java 1.20+ / 1.21+ • The End
+                  </span>
+                </div>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                  {isAr
+                    ? 'خلل توليد شهير في ماينكرافت جافا يمسح أرضية جزيرة الإند المركزية بالكامل! لن تجد أي بلوكة من حجر الإند تحت قدميك؛ تنين الإندر، وأعمدة الأوبسيديان، والكريستالات، وبوابة الخروج تطفو جميعاً وحيدة فوق الفراغ السحيق (The Void) في مشهد سريالي مخيف لا يُنسى.'
+                    : 'A world-famous Java worldgen bug that completely wipes the solid End Stone floor of the central End island! The Ender Dragon, obsidian pillars, end crystals, and exit portal float suspended over absolute void in an unforgettable surreal arena.'}
+                </p>
+                <div className="bg-[#7F1D1D]/30 border border-[#EF4444] p-3 text-xs font-mc-mono mb-3 text-[#FCA5A5]">
+                  <strong className="text-white flex items-center gap-1.5 mb-1">
+                    <span>⚠️</span>
+                    <span>{isAr ? 'تحذير نجاة حاسم للاعبين:' : 'Crucial Survival Warning:'}</span>
+                  </strong>
+                  {isAr
+                    ? 'لا تدخل بوابة الإند في وضع النجاة (Survival) بدون تحضير! منصة الظهور ستكون معلقة في الفراغ، وسيسقط اللاعب فوراً إلى موته الحتمي ويفقد أغراضه ما لم يرمِ إندر بيرل بسرعة على أقرب عمود أوبسيديان أو يبنِ جسراً خشبياً/صخرياً فور دخوله!'
+                    : 'Do not enter the End portal in Survival unprepared! The obsidian spawn pad hovers above empty void. Players will immediately plummet into the void unless they instantly bridge or clutch an ender pearl onto an obsidian pillar.'}
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mc-mono">
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'بذور موثقة لهذا القلتش' : 'Verified Seeds'}</span>
+                    <span className="font-bold text-[#FADB44] text-xs">7593177223396 / 8994765102493</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'أمر الانتقال المباشر للإند' : 'End Teleport Command'}</span>
+                    <span className="font-bold text-[#10B981] text-xs">/execute in minecraft:the_end run tp 0 64 0</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'نوع التحدي' : 'Challenge Category'}</span>
+                    <span className="font-bold text-[#A855F7] text-xs">{isAr ? 'قتال تنين أسطوري فائق الصعوبة' : 'Hardcore Void Arena'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Glitch 3: Repeating Monoliths */}
+              <div className="mc-slot p-5 border border-[#A855F7]/40">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">🌀</span>
+                    <h3 className="font-mc-heading text-sm font-bold text-[#C084FC]">
+                      {isAr ? '3. تضاريس العالم المستنسخة والمكررة (Infinite Repeating Terrain Grid)' : '3. Infinite Repeating Terrain Grid'}
+                    </h3>
+                  </div>
+                  <span className="text-[11px] font-mc-mono px-2 py-0.5 bg-[#3B0764] text-[#E9D5FF] font-bold">
+                    Java 1.18+ • Repeating Geometry
+                  </span>
+                </div>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                  {isAr
+                    ? 'خلل رياضي عجيب في دوال النويز (Noise Functions) يجعل تضاريس العالم تنسخ نفسها في خط مستقيم مثل المرايا المتطابقة! إذا مشيت في اتجاه التكرار، ستجد نفس شكل الجبل ونفس فتحة الكهف ونفس الشجرة تتكرر أمامك بالمسطرة كل مسافة ثابتة كأنك داخل حلقة زمنية.'
+                    : 'A mathematical anomaly in terrain noise equations that stamps identical landscape features along a straight line like facing mirrors. Traversing the repetition axis reveals identical mountains, cave cavities, and cliffs cloned at precise intervals.'}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mc-mono">
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'البذرة النموذجية' : 'Verified Seed'}</span>
+                    <span className="font-bold text-[#FADB44] text-xs">1643112 / 45459229772041</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'أمر الانتقال المباشر' : 'Teleport Command'}</span>
+                    <span className="font-bold text-[#10B981] text-xs">/tp 0 70 0</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'الظاهرة' : 'Phenomenon'}</span>
+                    <span className="font-bold text-[#38BDF8] text-xs">{isAr ? 'مرايا التضاريس اللانهائية' : 'Cloned Terrain Loop'}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* How to Find Anomalies in SeedLens */}
+            <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342] text-xs font-mc-mono">
+              <h3 className="font-mc-heading text-xs font-bold text-[#EF4444] uppercase mb-2 flex items-center gap-1.5">
+                <Flame className="w-4 h-4" />
+                <span>{isAr ? 'طرق استكشاف بذور القلتشات داخل SeedLens' : 'How to Discover Glitched Seeds in SeedLens'}</span>
+              </h3>
+              <ul className="list-disc list-inside space-y-1.5 text-[#333333] dark:text-[#CBD5E1]">
+                <li>
+                  <strong className="text-[#EF4444]">{isAr ? 'عبر البحث العكسي (Reverse Finder):' : 'Via Reverse Seed Finder:'}</strong>{' '}
+                  {isAr
+                    ? 'في الشاشة الرئيسية، افتح استمارة البحث العكسي واختر شخصية [صائد الخوارق والقلتشات]، وسيقوم المحرك باستخراج بذور نادرة تحوي هذه الظواهر مع أوامر /tp فورية.'
+                    : 'Open the Reverse Finder and select the [Glitch Hunter] preset to instantly generate verified anomalous seeds with direct teleport commands.'}
+                </li>
+                <li>
+                  <strong className="text-[#06B6D4]">{isAr ? 'عبر مستودع المجتمع (Community Vault):' : 'Via Community Vault:'}</strong>{' '}
+                  {isAr
+                    ? 'اضغط على زر [🏛️ مستودع البذور] وافتح قسم بذور القلتشات لتجد قائمة ببذور شهيرة مثبتة مع إمكانية فحص أي بذرة بنقرة واحدة.'
+                    : 'Click [🏛️ Community Vault] in the top header and navigate to the Glitched Seeds category to load curated anomalies with one click.'}
+                </li>
+                <li>
+                  <strong className="text-[#10B981]">{isAr ? 'تنبيه النيون عند فحص أي بذرة:' : 'Automatic Glowing Alert Banner:'}</strong>{' '}
+                  {isAr
+                    ? 'إذا قمت بإدخال أي بذرة تحوي خللاً معروفاً، ستظهر لك بطاقة تنبيه حمراء متوهجة في أعلى النتائج تشرح القلتش وموقعه وكيفية استكشافه.'
+                    : 'Whenever an analyzed seed contains a known anomaly, a glowing neon red alert banner appears at the top explaining the glitch in clear terms.'}
+                </li>
+              </ul>
             </div>
           </section>
 
@@ -778,6 +1007,21 @@ export default function DocumentationView() {
                       : 'Dense cluster of 3+ villages close together for instant trading halls and iron farms.'}
                   </p>
                 </div>
+
+                <div className="mc-slot p-3.5 text-xs border border-[#EF4444]/40">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className="font-bold text-[#EF4444] flex items-center gap-1.5">
+                      <Flame className="w-4 h-4" />
+                      {isAr ? 'صائد الخوارق والقلتشات (Glitch Hunter)' : 'Glitch Hunter'}
+                    </span>
+                    <span className="text-[10px] bg-[#991B1B] text-white px-1.5 py-0.5 font-mc-mono">Glitch & Void</span>
+                  </div>
+                  <p className="text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'بذور نادرة غير طبيعية: مناجم لانهائية تحت نقطة البداية، قتال التنين فوق الفراغ المطلق، وتضاريس مستنسخة لا تنتهي.'
+                      : 'Extremely rare worldgen edge-cases: endless mineshafts beneath spawn, void End dragon arena, and repeating monoliths.'}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -1033,6 +1277,17 @@ export default function DocumentationView() {
                   {isAr
                     ? 'إطلاقاً! تم ضغط كافة الصور بدقة متوازنة وبتقنية WebP الحديثة ليتراوح حجم الصورة بين 10 إلى 45 كيلوبايت فقط، مما يجعلها خفيفة جداً ومتوافقة تماماً مع باقات وبيانات الهاتف المتنقل (3G/4G/5G). كما تتوفر آلية تحويل فوري للرسومات المتجهية SVG إذا انقطع الاتصال.'
                     : 'Not at all! All images are standard-quality WebP assets (10KB–45KB), designed specifically to protect mobile data and load with zero delay. An automatic SVG fallback is built-in.'}
+                </p>
+              </div>
+
+              <div className="bg-[#DFDFDF] dark:bg-[#161820] p-4 border border-[#A8A8A8] dark:border-[#2E3342]">
+                <h3 className="font-mc-heading text-sm font-bold text-[#EF4444] uppercase mb-1">
+                  {isAr ? 'ما هي بذور خوارق التوليد (Glitched Seeds) وكيف أستكشفها بأمان؟' : 'What are Glitched Seeds and how do I explore them safely?'}
+                </h3>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-2">
+                  {isAr
+                    ? 'بذور خوارق التوليد هي عوالم نادرة جداً تتضمن ظواهر غير طبيعية ناتجة عن حالات حسابية شاذة في توليد ماينكرافت: مثل المناجم الخشبية اللانهائية الممتدة على طول محور كامل تحت الـ Spawn مباشرة (البذرة 107038380838084)، وعالم الإند المفرغ (MC-267423) حيث يختفي حجر الإند ويطفو التنين فوق الفراغ المطلق (البذور 7593177223396 و 8994765102493). عند استكشاف إند الفويد، احرص على رمي إندر بيرل أو البناء السريع لتفادي السقوط في الفراغ.'
+                    : 'Glitched seeds are rare worlds featuring anomalous worldgen artifacts caused by edge-case PRNG bugs in Minecraft: such as infinite repeating mineshafts along an axis under spawn (seed 107038380838084), and void End islands (MC-267423) where the dragon hovers over pure void with zero solid End Stone (seeds 7593177223396, 8994765102493). In the End void, immediately pearl or bridge to avoid falling into the void.'}
                 </p>
               </div>
             </div>

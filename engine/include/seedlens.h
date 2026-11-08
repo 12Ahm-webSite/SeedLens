@@ -149,6 +149,35 @@ typedef struct {
     SeedLensLandmark spots[SEEDLENS_MAX_LANDMARKS];
 } SeedLensLandmarksResult;
 
+#define SEEDLENS_MAX_ANOMALIES 16
+
+/* Worldgen Anomaly / Glitch spot (v4.5) */
+typedef struct {
+    int id;
+    char category[48];         /* "infinite_repeating_mineshaft", "void_end_island", etc. */
+    char severity[24];         /* "legendary", "rare", "extreme" */
+    char name_ar[128];
+    char name_en[128];
+    int x;
+    int y;
+    int z;
+    double distance_to_spawn;
+    char axis[24];             /* "x_axis", "z_axis", "dimension_end", etc. */
+    char teleport_command[64];
+    int confidence_score;      /* 0-100 */
+    char tags[6][32];
+    int tag_count;
+    char description_ar[512];
+    char description_en[512];
+} SeedLensAnomaly;
+
+/* Anomalies collection result */
+typedef struct {
+    int total_found;
+    int anomaly_count;
+    SeedLensAnomaly items[SEEDLENS_MAX_ANOMALIES];
+} SeedLensAnomaliesResult;
+
 /* Full analysis result */
 typedef struct {
     int schema_version;
@@ -169,6 +198,9 @@ typedef struct {
 
     /* Landmarks & Scenic/Building Spots */
     SeedLensLandmarksResult landmarks;
+
+    /* Worldgen Anomalies & Glitched Seeds Engine (v4.5) */
+    SeedLensAnomaliesResult anomalies;
 } SeedLensAnalysisResult;
 
 /* API functions */

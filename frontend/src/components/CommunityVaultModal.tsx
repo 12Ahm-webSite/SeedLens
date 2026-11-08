@@ -216,6 +216,35 @@ export default function CommunityVaultModal({
         {/* Content Body */}
         <div className="flex-1 overflow-y-auto p-4 space-y-3">
           {activeTab === 'community' && (
+            <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none font-mc-mono text-xs">
+              {[
+                { id: 'all', label_ar: 'الكل', label_en: 'All' },
+                { id: 'glitch_anomaly', label_ar: '🌀 خوارق وقلتشات', label_en: '🌀 Glitch & Anomalies' },
+                { id: 'cherry_caldera', label_ar: '🌸 فوهات الكرز', label_en: '🌸 Cherry Caldera' },
+                { id: 'trading_metropolis', label_ar: '🏛️ العاصمة التجارية', label_en: '🏛️ Metropolis' },
+                { id: 'dungeon_raider', label_ar: '⚔️ صائد الأقبية', label_en: '⚔️ Dungeon Raider' },
+                { id: 'survival_island', label_ar: '🏝️ جزيرة نجاة', label_en: '🏝️ Survival Island' },
+                { id: 'prime_basin', label_ar: '🏰 حوض البناء', label_en: '🏰 Prime Basin' },
+                { id: 'strategic_hub', label_ar: '💎 مركز استراتيجي', label_en: '💎 Mega-Hub' },
+              ].map((c) => (
+                <button
+                  key={c.id}
+                  onClick={() => setCategoryFilter(c.id)}
+                  className={`px-2.5 py-1 text-[11px] font-bold shrink-0 transition-all cursor-pointer ${
+                    categoryFilter === c.id
+                      ? c.id === 'glitch_anomaly'
+                        ? 'bg-[#9333EA] text-white shadow-[1px_1px_0_#581C87]'
+                        : 'bg-[#D97706] text-white shadow-[1px_1px_0_#78350F]'
+                      : 'mc-button text-[#444444] dark:text-[#CBD5E1]'
+                  }`}
+                >
+                  {isAr ? c.label_ar : c.label_en}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {activeTab === 'community' && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
               {filteredCommunity.map((item) => (
                 <div

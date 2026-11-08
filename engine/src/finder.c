@@ -28,8 +28,17 @@ static uint64_t get_initial_seed(int64_t user_start)
     }
     struct timespec ts;
     clock_gettime(CLOCK_REALTIME, &ts);
-    uint64_t s = ((uint64_t)ts.tv_sec << 32) ^ (uint64_t)ts.tv_nsec;
-    s ^= (uint64_t)rand();
+    uint64_t s = ((uint64_t)ts.tv_sec * 1000000007ULL) ^ (uint64_t)ts.tv_nsec;
+    FILE *f = fopen("/dev/urandom", "rb");
+    if (f)
+    {
+        uint64_t r = 0;
+        if (fread(&r, sizeof(r), 1, f) == 1)
+        {
+            s ^= r;
+        }
+        fclose(f);
+    }
     return s ? s : 123456789ULL;
 }
 
@@ -93,6 +102,10 @@ int seedlens_find(
     {
         cl_cat = "trading_metropolis";
     }
+    else if (strcmp(preset, "glitch_hunter") == 0)
+    {
+        lm_type = "anomaly";
+    }
 
     uint64_t current_seed = get_initial_seed(query->start_seed);
     Generator g;
@@ -116,6 +129,71 @@ int seedlens_find(
 
         int64_t np[6];
         int b_spawn = sampleBiomeNoise(&g.bn, np, spawn_pos.x >> 2, 16, spawn_pos.z >> 2, NULL, 0);
+
+        /* --- PRESET 0 / LM: Glitch Hunter (Worldgen Anomalies & Broken Seeds) --- */
+        if (strcmp(preset, "glitch_hunter") == 0 || strcmp(lm_type, "anomaly") == 0)
+        {
+            SeedLensAnomaliesResult an_res;
+            int an_count = collect_anomalies_internal(seed, profile, spawn_pos, &an_res);
+            if (an_count > 0)
+            {
+                result->found = 1;
+                result->seed = (int64_t)seed;
+                snprintf(result->highlight_type, sizeof(result->highlight_type), "anomaly");
+                snprintf(result->highlight_title, sizeof(result->highlight_title), "%s", an_res.items[0].name_ar);
+                snprintf(result->highlight_name, sizeof(result->highlight_name), "%s", an_res.items[0].name_en);
+                snprintf(result->highlight_category, sizeof(result->highlight_category), "%s", an_res.items[0].category);
+                result->highlight_x = an_res.items[0].x;
+                result->highlight_y = an_res.items[0].y;
+                result->highlight_z = an_res.items[0].z;
+                result->highlight_distance = an_res.items[0].distance_to_spawn;
+                result->highlight_scenic_score = 99;
+                result->highlight_building_score = 95;
+                snprintf(result->highlight_tp_command, sizeof(result->highlight_tp_command), "%s", an_res.items[0].teleport_command);
+                snprintf(result->highlight_description, sizeof(result->highlight_description), "%s", an_res.items[0].description_ar);
+                snprintf(result->highlight_primary_biome, sizeof(result->highlight_primary_biome), "Glitched Anomaly");
+                found = 1;
+                break;
+            }
+
+            static const uint64_t glitch_seeds[] = {
+                107038380838084ULL,
+                7593177223396ULL,
+                8994765102493ULL,
+                1643112ULL,
+                32896149644487ULL,
+                45459229772041ULL
+            };
+            int num_glitch = (int)(sizeof(glitch_seeds) / sizeof(glitch_seeds[0]));
+            int start_idx = (int)(current_seed % (uint64_t)num_glitch);
+            if (step < num_glitch)
+            {
+                int pick_idx = (start_idx + step) % num_glitch;
+                uint64_t gseed = glitch_seeds[pick_idx];
+                int an_gcount = collect_anomalies_internal(gseed, profile, spawn_pos, &an_res);
+                if (an_gcount > 0)
+                {
+                    result->found = 1;
+                    result->seed = (int64_t)gseed;
+                    snprintf(result->highlight_type, sizeof(result->highlight_type), "anomaly");
+                    snprintf(result->highlight_title, sizeof(result->highlight_title), "%s", an_res.items[0].name_ar);
+                    snprintf(result->highlight_name, sizeof(result->highlight_name), "%s", an_res.items[0].name_en);
+                    snprintf(result->highlight_category, sizeof(result->highlight_category), "%s", an_res.items[0].category);
+                    result->highlight_x = an_res.items[0].x;
+                    result->highlight_y = an_res.items[0].y;
+                    result->highlight_z = an_res.items[0].z;
+                    result->highlight_distance = an_res.items[0].distance_to_spawn;
+                    result->highlight_scenic_score = 99;
+                    result->highlight_building_score = 95;
+                    snprintf(result->highlight_tp_command, sizeof(result->highlight_tp_command), "%s", an_res.items[0].teleport_command);
+                    snprintf(result->highlight_description, sizeof(result->highlight_description), "%s", an_res.items[0].description_ar);
+                    snprintf(result->highlight_primary_biome, sizeof(result->highlight_primary_biome), "Glitched Anomaly");
+                    found = 1;
+                    break;
+                }
+            }
+            continue;
+        }
 
         /* --- PRESET 1 / LM: Isolated Island (Castaway Survivor) --- */
         if (strcmp(preset, "castaway_survivor") == 0 || strcmp(lm_type, "isolated_island") == 0)

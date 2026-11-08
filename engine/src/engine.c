@@ -169,5 +169,13 @@ int seedlens_analyze(
         &result->landmarks
     );
 
+    /* Collect worldgen anomalies & glitched phenomena (v4.5) */
+    collect_anomalies_internal(
+        (uint64_t)seed,
+        profile,
+        spawn_pos,
+        &result->anomalies
+    );
+
     return 0;
 }

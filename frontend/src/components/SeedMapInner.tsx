@@ -37,6 +37,7 @@ interface SeedMapInnerProps {
   worldSpawn?: WorldSpawn;
   discovery?: DiscoverySummary;
   landmarks?: LandmarksSummary;
+  anomalies?: import('@/types/seedlens').AnomaliesSummary;
   selectedClusterId?: number | null;
   onSelectCluster?: (clusterId: number) => void;
   selectedLandmarkId?: number | null;
@@ -275,6 +276,7 @@ export default function SeedMapInner({
   worldSpawn,
   discovery,
   landmarks,
+  anomalies,
   selectedClusterId,
   onSelectCluster,
   selectedLandmarkId,
@@ -939,7 +941,60 @@ export default function SeedMapInner({
         }
       });
     }
-  }, [clusters, discovery, landmarks, selectedClusterId, onSelectCluster, onSelectLandmark, locale, t, translateCategory, translateStructure, version, edition]);
+
+    // Worldgen Anomalies (Glitches & Broken Seeds)
+    if (anomalies?.items && landmarksLayersRef.current) {
+      anomalies.items.forEach((an) => {
+        const title = locale === 'ar' ? an.name_ar : an.name_en;
+        const desc = locale === 'ar' ? an.description_ar : an.description_en;
+        const anIcon = L.divIcon({
+          className: 'custom-anomaly-pin',
+          html: `<div style="
+            width: 26px;
+            height: 26px;
+            background: #9333EA;
+            border: 2px solid #FDE047;
+            box-shadow: 0 0 12px #9333EA, 1px 1px 0 #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FFFFFF;
+            font-size: 13px;
+            font-weight: bold;
+          ">⚡</div>`,
+          iconSize: [26, 26],
+          iconAnchor: [13, 13],
+        });
+
+        const anMarker = L.marker(mcToLatLng(an.x, an.z), { icon: anIcon, zIndexOffset: 2500 });
+        anMarker.bindPopup(`
+          <div style="font-family: inherit; font-size: 12px; color: #1E1E1E; padding: 2px; min-width: 200px;">
+            <div style="font-weight: bold; color: #9333EA; font-size: 13px; margin-bottom: 2px; display: flex; align-items: center; gap: 4px;">
+              <span>⚡</span> <span>${title}</span>
+            </div>
+            <div style="font-size: 10px; color: #06B6D4; font-weight: bold; margin-bottom: 4px;">
+              [GLITCH ANOMALY // ${an.severity.toUpperCase()}]
+            </div>
+            <p style="font-size: 11px; margin: 0 0 6px 0; color: #4B5563; line-height: 1.4;">
+              ${desc}
+            </p>
+            <div style="font-size: 10px; font-family: monospace; color: #374151; margin-bottom: 6px;">
+              X: ${an.x} | Y: ${an.y} | Z: ${an.z}
+            </div>
+            <button
+              onclick="navigator.clipboard.writeText('${an.teleport_command}')"
+              style="width:100%; background:#9333EA; color:#FFFFFF; border-top:2px solid #C084FC; border-left:2px solid #C084FC; border-right:2px solid #581C87; border-bottom:2px solid #581C87; padding:4px 6px; font-size:11px; font-family:monospace; cursor:pointer; font-weight:bold; box-shadow:1px 1px 0 #000;"
+            >
+              Copy ${an.teleport_command}
+            </button>
+          </div>
+        `);
+        if (landmarksLayersRef.current) {
+          anMarker.addTo(landmarksLayersRef.current);
+        }
+      });
+    }
+  }, [clusters, discovery, landmarks, anomalies, selectedClusterId, onSelectCluster, onSelectLandmark, locale, t, translateCategory, translateStructure, version, edition]);
 
   // Center on selected cluster when it changes
   useEffect(() => {

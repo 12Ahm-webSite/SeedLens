@@ -121,4 +121,11 @@ int collect_landmarks_internal(
     SeedLensLandmarksResult *out_landmarks
 );
 
+int collect_anomalies_internal(
+    uint64_t seed,
+    const VersionProfile *profile,
+    Pos spawn_pos,
+    SeedLensAnomaliesResult *out_anomalies
+);
+
 #endif /* SEEDLENS_INTERNAL_H */

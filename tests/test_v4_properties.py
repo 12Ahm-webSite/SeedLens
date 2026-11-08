@@ -159,9 +159,40 @@ def main():
 
     print('  -> PASSED: Ultra-fast C Fast-Reject Finder successfully verified across all RPG presets.')
 
+    # Property 9: Worldgen Anomalies & Glitched Seeds Detection (v4.5)
+    print('[Test 9] Worldgen Anomalies & Glitched Seeds Detection (v4.5)')
+
+    # 1. Infinite repeating mineshafts along X axis
+    data_glitch = run_seedlens('107038380838084', '1.21.1')
+    assert 'anomalies' in data_glitch, 'Missing anomalies in seed 107038380838084'
+    assert data_glitch['anomalies']['anomaly_count'] >= 1, 'Expected at least 1 anomaly in 107038380838084'
+    an0 = data_glitch['anomalies']['items'][0]
+    assert an0['category'] == 'infinite_repeating_mineshaft', f'Unexpected category: {an0["category"]}'
+    assert an0['severity'] == 'legendary', f'Unexpected severity: {an0["severity"]}'
+    assert an0['axis'] == 'x_axis', f'Unexpected axis: {an0["axis"]}'
+    assert an0['confidence_score'] == 100, f'Unexpected confidence: {an0["confidence_score"]}'
+
+    # 2. Void Main End Island (MC-267423)
+    data_void = run_seedlens('7593177223396', '1.21.1')
+    assert 'anomalies' in data_void, 'Missing anomalies in seed 7593177223396'
+    assert data_void['anomalies']['anomaly_count'] >= 1, 'Expected at least 1 anomaly in 7593177223396'
+    an_void = data_void['anomalies']['items'][0]
+    assert an_void['category'] == 'void_end_island', f'Unexpected category: {an_void["category"]}'
+    assert an_void['severity'] == 'legendary', f'Unexpected severity: {an_void["severity"]}'
+    assert an_void['axis'] == 'dimension_end', f'Unexpected axis: {an_void["axis"]}'
+
+    # 3. Reverse finder for glitch_hunter preset
+    cmd_find = [BIN_PATH, 'find', '--version', '1.21.1', '--preset', 'glitch_hunter']
+    res_find = subprocess.run(cmd_find, capture_output=True, text=True)
+    assert res_find.returncode == 0, f'Finder failed: {res_find.stderr}'
+    parsed_find = json.loads(res_find.stdout)
+    assert parsed_find['matchedPreset'] == 'glitch_hunter'
+    assert parsed_find['highlightType'] == 'anomaly'
+    print('  -> PASSED: Worldgen Anomalies & Glitched Seeds successfully detected in C Engine.')
+
     print()
     print('======================================================================')
-    print('ALL 8 PROPERTY & BENCHMARK FOUNDATION TESTS COMPLETED SUCCESSFULLY!')
+    print('ALL 9 PROPERTY & BENCHMARK FOUNDATION TESTS COMPLETED SUCCESSFULLY!')
     print('======================================================================')
 
 if __name__ == '__main__':

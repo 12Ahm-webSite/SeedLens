@@ -20,6 +20,7 @@ import {
   Mountain,
   AlertTriangle,
   Layers,
+  Zap,
 } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { findDreamSeed } from '@/lib/api';
@@ -206,6 +207,13 @@ export default function WishlistFinder({
         setClusterCategory('trading_metropolis');
         setMaxDistance(2000);
         break;
+      case 'glitch_hunter':
+        setLandmarkType('anomaly');
+        setMinScenicScore(90);
+        setMinBuildingScore(70);
+        setClusterCategory('any');
+        setMaxDistance(1500);
+        break;
     }
   };
 
@@ -323,6 +331,18 @@ export default function WishlistFinder({
       activeClass:
         'border-[#FADB44] bg-[#D49B1E]/20 shadow-[0_0_15px_rgba(212,155,30,0.35)]',
       iconColor: 'text-[#FADB44]',
+    },
+    {
+      id: 'glitch_hunter' as PlaystylePresetId,
+      title: t.presetGlitchHunterTitle,
+      role: t.presetGlitchHunterRole,
+      desc: t.presetGlitchHunterDesc,
+      icon: Zap,
+      badge: 'Glitch & Void',
+      colorClass: 'border-[#9333EA] hover:border-[#A855F7] bg-[#9333EA]/10',
+      activeClass:
+        'border-[#A855F7] bg-[#9333EA]/20 shadow-[0_0_15px_rgba(147,51,234,0.35)]',
+      iconColor: 'text-[#C084FC]',
     },
   ];
 

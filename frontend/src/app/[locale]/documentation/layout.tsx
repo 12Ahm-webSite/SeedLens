@@ -63,6 +63,14 @@ const faqSchema = {
         text: 'إطلاقاً! تم ضغط كافة الصور بدقة متوازنة وبتقنية WebP الحديثة ليتراوح حجم الصورة بين 10 إلى 45 كيلوبايت فقط، مما يجعلها خفيفة جداً ومتوافقة تماماً مع باقات وبيانات الهاتف المتنقل (3G/4G/5G). كما تتوفر آلية تحويل فوري للرسومات المتجهية SVG إذا انقطع الاتصال.',
       },
     },
+    {
+      '@type': 'Question',
+      name: 'ما هي بذور خوارق التوليد (Glitched Seeds) وكيف أستكشفها بأمان؟ / What are Glitched Seeds and how do I explore them safely?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'بذور خوارق التوليد هي عوالم نادرة جداً تتضمن ظواهر غير طبيعية ناتجة عن حالات حسابية شاذة في توليد ماينكرافت: مثل المناجم الخشبية اللانهائية الممتدة على طول محور كامل تحت الـ Spawn مباشرة (البذرة 107038380838084)، وعالم الإند المفرغ (MC-267423) حيث يختفي حجر الإند ويطفو التنين فوق الفراغ المطلق (البذور 7593177223396 و 8994765102493). عند استكشاف إند الفويد، احرص على رمي إندر بيرل أو البناء السريع لتفادي السقوط في الفراغ.',
+      },
+    },
   ],
 };
 
@@ -75,12 +83,12 @@ export async function generateMetadata({
   const isEn = locale === 'en';
 
   const title = isEn
-    ? 'Official Documentation & Technical Architecture Reference'
-    : 'دليل التوثيق والمعمارية وسجل التحديثات';
+    ? 'Official Documentation, Worldgen Anomalies & Technical Reference v4.5'
+    : 'دليل التوثيق، خوارق التوليد والمعمارية وسجل التحديثات v4.5';
 
   const description = isEn
-    ? 'SeedLens technical guide: Side-by-side comparison, community vault, reverse finder, Cubiomes C simulation pipeline, and Bedrock parity.'
-    : 'الدليل الشامل لمنصة SeedLens: مقارنة البذور، مستودع المجتمع، البحث العكسي، محاكي Cubiomes C، وتكافؤ البيدروك التضاريسي.';
+    ? 'SeedLens technical guide: Worldgen anomalies, side-by-side comparison, community vault, reverse finder, Cubiomes C pipeline, and Bedrock parity.'
+    : 'الدليل الشامل لمنصة SeedLens v4.5: خوارق وقلتشات التوليد، مقارنة البذور، مستودع المجتمع، البحث العكسي، ومحاكي Cubiomes C.';
 
   return {
     title,
