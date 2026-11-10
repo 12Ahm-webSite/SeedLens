@@ -580,16 +580,93 @@ export default function DocumentationView() {
             {/* Intro text */}
             <div className="bg-[#B8B8B8] dark:bg-[#181B22] p-4 text-xs font-mc-mono border-t border-l border-[#FFFFFF] dark:border-[#303644] border-b border-r border-[#555555] dark:border-[#0E1015]">
               <h3 className="font-mc-heading text-sm font-bold text-[#EF4444] mb-1">
-                {isAr ? 'ما هي بذور خوارق التوليد (Glitched Seeds) في ماينكرافت؟' : 'What are Worldgen Anomalies in Minecraft?'}
+                {isAr ? 'ما هي بذور خوارق التوليد (Glitched Seeds) ومحرك الاكتشاف المتقدم في SeedLens v4.5؟' : 'What are Worldgen Anomalies & the v4.5 Discovery Engine?'}
               </h3>
-              <p className="text-[#333333] dark:text-[#CBD5E1] leading-relaxed">
+              <p className="text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
                 {isAr
-                  ? 'في عالم ماينكرافت الواسع، تعتمد اللعبة على معادلات رياضية وعشوائية (PRNG) لتوليد الجبال والكهوف والمناجم والإند. وفي حالات نادرة جداً تكاد تكون مستحيلة (بذرة واحدة من بين مليارات البذور)، تتعرض هذه المعادلات لحالات شاذة تخلق عوالم مكسورة مذهلة ومحيرة تبدو كأنها خيال أو تعديل مودات! قام محرك SeedLens v4.5 ببرمجة فحص رياضي مستقل لرصد هذه الظواهر واكتشافها فوراً.'
-                  : 'Minecraft uses pseudo-random number generators (PRNG) and noise equations to create terrain, caves, and dimensions. In extraordinarily rare mathematical edge-cases, these algorithms produce breathtaking broken worlds that feel like modded phenomena. SeedLens v4.5 introduces direct mathematical engines to identify, classify, and verify these anomalies instantly.'}
+                  ? 'في عالم ماينكرافت الواسع، تعتمد اللعبة على خوارزميات نويز معقدة ومولدات أرقام شبه عشوائية (PRNG) لتوزيع التضاريس والكهوف والمناجم وأبعاد الإند والنذر. وفي حالات نادرة جداً تكاد تكون مستحيلة (بذرة واحدة من بين مئات المليارات)، تتعرض هذه المعادلات لحالات شاذة تخلق عوالم مكسورة مذهلة ومحيرة تبدو كأنها خيال أو تعديل مودات! يقدم SeedLens v4.5 أول محرك بحث واكتشاف متقدم يجمع بين الرصد الخوارزمي المباشر للقلتشات الموثقة وبين محرك استكشاف رياضي مفتوح لاكتشاف الشواذ غير المعروفة مسبقاً.'
+                  : 'Minecraft uses complex noise algorithms and pseudo-random number generators (PRNG) to generate terrain, caves, mineshafts, Nether, and End dimensions. In extraordinarily rare mathematical edge-cases, these algorithms produce breathtaking broken worlds that feel like modded phenomena. SeedLens v4.5 introduces an advanced discovery engine combining algorithmic detection of known glitches with open-ended statistical discovery of unknown anomalies.'}
               </p>
             </div>
 
-            {/* 3 Main Glitches Cards */}
+            {/* The 5 Anomaly Classification Tiers */}
+            <div className="mc-slot p-5 border border-[#F59E0B]/40">
+              <h3 className="font-mc-heading text-sm font-bold text-[#F59E0B] mb-2 flex items-center gap-2">
+                <span>🛡️</span>
+                <span>{isAr ? 'مستويات تصنيف خوارق التوليد (The 5 Anomaly Tiers)' : 'The 5 Anomaly Classification Tiers'}</span>
+              </h3>
+              <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                {isAr
+                  ? 'لضمان الدقة العلمية والنزاهة وتفادي الخلط بين التوليد الطبيعي والعيوب الحقيقية، يصنف SeedLens كل اكتشاف وفق خمس درجات صارمة:'
+                  : 'To maintain scientific rigor and separate natural generation from genuine worldgen bugs, SeedLens assigns every discovery to one of five strict tiers:'}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-5 gap-2 text-xs font-mc-mono">
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <span className="text-[#10B981] font-bold block text-xs">{isAr ? '1. توليد نادر' : '1. Rare Gen'}</span>
+                  <span className="text-[#64748B] text-[10px] block mt-1">{isAr ? 'تضاريس طبيعية مسموحة لكنها استثنائية الحدوث' : 'Valid generation within normal game physics'}</span>
+                </div>
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <span className="text-[#38BDF8] font-bold block text-xs">{isAr ? '2. ظاهرة شاذة' : '2. Anomaly'}</span>
+                  <span className="text-[#64748B] text-[10px] block mt-1">{isAr ? 'شذوذ إحصائي أو انحدار فجائي يفوق 3.8 انحراف معياري' : 'Statistical outlier deviating > 3.8 sigma'}</span>
+                </div>
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <span className="text-[#FBBF24] font-bold block text-xs">{isAr ? '3. قلتش مشتبه' : '3. Suspected'}</span>
+                  <span className="text-[#64748B] text-[10px] block mt-1">{isAr ? 'تصادم هياكل عميقة أو انعدام إنتروبيا 48-بت' : 'Subterranean collision or low-entropy seed'}</span>
+                </div>
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <span className="text-[#EF4444] font-bold block text-xs">{isAr ? '4. قلتش موثق' : '4. Verified'}</span>
+                  <span className="text-[#64748B] text-[10px] block mt-1">{isAr ? 'خلل برمجي مثبت مثل MC-267423 ومناجم المحور' : 'Proven bug tracker issue (e.g. MC-267423)'}</span>
+                </div>
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <span className="text-[#A855F7] font-bold block text-xs">{isAr ? '5. قلتش تاريخي' : '5. Historical'}</span>
+                  <span className="text-[#64748B] text-[10px] block mt-1">{isAr ? 'ظواهر اختفت في التحديثات الحديثة (Far Lands)' : 'Legacy phenomena fixed in modern updates'}</span>
+                </div>
+              </div>
+            </div>
+
+            {/* The 4 Discovery Engines */}
+            <div className="mc-slot p-5 border border-[#9333EA]/40">
+              <h3 className="font-mc-heading text-sm font-bold text-[#C084FC] mb-2 flex items-center gap-2">
+                <span>⚙️</span>
+                <span>{isAr ? 'محركات الاكتشاف الأربعة في SeedLens (The 4 Discovery Engines)' : 'The 4 Specialized Discovery Engines'}</span>
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-mc-mono mt-3">
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-3 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <strong className="text-[#FADB44] block mb-1">1. صائد الأنماط (Pattern Hunter)</strong>
+                  <p className="text-[#4E4E4E] dark:text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'يفحص معاملات مصفوفة الـ PRNG لجافا وانعدام معاملات الضرب (a=0 أو b=0) ورصد انهيار إنتروبيا الـ 48-بت الدنيا.'
+                      : 'Evaluates Java PRNG state multipliers, detecting zero multiplier collapse and lower-48-bit entropy zeroing.'}
+                  </p>
+                </div>
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-3 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <strong className="text-[#06B6D4] block mb-1">2. صائد خوارق الأبعاد (Historical & Dimensional)</strong>
+                  <p className="text-[#4E4E4E] dark:text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'فحص رياضي ديناميكي لارتفاع أرضية الإند عبر getEndSurfaceHeight دون الاعتماد على قوائم بذور ثابتة؛ يرصد انعدام كثافة حجر الإند.'
+                      : 'Dynamic mathematical verification of End island elevation via getEndSurfaceHeight, eliminating hardcoded seed lists.'}
+                  </p>
+                </div>
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-3 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <strong className="text-[#EC4899] block mb-1">3. صائد تصادم الهياكل (Structure Collision Hunter)</strong>
+                  <p className="text-[#4E4E4E] dark:text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'يرصد تداخل غرف المحاكمة النحاسية (Trial Chambers) مع المدينة القديمة (Ancient City) في الأعماق، وتوليد أبراج النهابين داخل القرى.'
+                      : 'Detects subterranean 3D overlaps between Trial Chambers and Ancient Cities, as well as Pillager Outposts inside villages.'}
+                  </p>
+                </div>
+                <div className="bg-[#DFDFDF] dark:bg-[#161820] p-3 border border-[#A8A8A8] dark:border-[#2E3342]">
+                  <strong className="text-[#10B981] block mb-1">4. محرك الاستكشاف المفتوح (Unknown Outlier Engine)</strong>
+                  <p className="text-[#4E4E4E] dark:text-[#CBD5E1] text-[11px] leading-relaxed">
+                    {isAr
+                      ? 'تحليل إحصائي متعدد الأبعاد لـ 441 نقطة في محيط الـ Spawn لاستخراج الشواذ الإحصائية (Z > 3.8σ) والجدران العمودية وملتقى الحضارات الثلاثي.'
+                      : 'Multi-parametric statistical analysis across 441 regional sample points discovering unclassified outliers (Z > 3.8 sigma) and triple nexuses.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Main Glitches Cards */}
             <div className="space-y-4">
               {/* Glitch 1: Infinite Mineshafts */}
               <div className="mc-slot p-5 border border-[#EF4444]/40">
@@ -601,7 +678,7 @@ export default function DocumentationView() {
                     </h3>
                   </div>
                   <span className="text-[11px] font-mc-mono px-2 py-0.5 bg-[#7F1D1D] text-[#FCA5A5] font-bold">
-                    Java 1.21+ • X-Axis / Z-Axis
+                    Java 1.21+ • X-Axis / Z-Axis • Verified Glitch
                   </span>
                 </div>
                 <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
@@ -635,7 +712,7 @@ export default function DocumentationView() {
                     </h3>
                   </div>
                   <span className="text-[11px] font-mc-mono px-2 py-0.5 bg-[#083344] text-[#67E8F9] font-bold">
-                    Java 1.20+ / 1.21+ • The End
+                    Java 1.20+ / 1.21+ • The End • Verified Glitch
                   </span>
                 </div>
                 <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
@@ -668,22 +745,56 @@ export default function DocumentationView() {
                 </div>
               </div>
 
-              {/* Glitch 3: Repeating Monoliths */}
+              {/* Glitch 3: Structure Collision */}
+              <div className="mc-slot p-5 border border-[#EC4899]/40">
+                <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="text-base">⚔️</span>
+                    <h3 className="font-mc-heading text-sm font-bold text-[#F472B6]">
+                      {isAr ? '3. تصادم غرف المحاكمة والمدينة القديمة (Trial Chambers & Ancient City Collision)' : '3. Trial Chambers & Ancient City Collision'}
+                    </h3>
+                  </div>
+                  <span className="text-[11px] font-mc-mono px-2 py-0.5 bg-[#831843] text-[#FBCFE8] font-bold">
+                    Java 1.21+ • Subterranean • Suspected Glitch
+                  </span>
+                </div>
+                <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
+                  {isAr
+                    ? 'تصادم بنيوي استثنائي في أعماق حجر الديب سليت: تتداخل غرف المحاكمة النحاسية مباشرة مع أروقة المدينة القديمة! يجد اللاعب نفسه يقاتل وحوش البريز وفخاخ المحاكمة وسط مستشعرات السكالك وتحت مراقبة الواردن في مشهد قتالي ملحمي متصل.'
+                    : 'Dramatic 3D subterranean structure collision: copper Trial Chambers intersect directly with Deepslate Ancient City halls! Breeze combat and trial spawners generate alongside Shriekers and Warden territory.'}
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mc-mono">
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'بذرة الاصطدام الموثقة' : 'Collision Seed'}</span>
+                    <span className="font-bold text-[#FADB44] text-xs">7593177223396 / -4128538606513875612</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'إحداثيات التصادم' : 'Coordinates'}</span>
+                    <span className="font-bold text-[#10B981] text-xs">/tp 672 -35 624</span>
+                  </div>
+                  <div className="bg-[#DFDFDF] dark:bg-[#161820] p-2.5 border border-[#A8A8A8] dark:border-[#2E3342]">
+                    <span className="text-[#94A3B8] block text-[10px]">{isAr ? 'المسافة البينية' : 'Separation'}</span>
+                    <span className="font-bold text-[#38BDF8] text-xs">{isAr ? 'أقل من 180 متراً (تداخل مباشر)' : '< 180m (Direct Intersect)'}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Glitch 4: Repeating Monoliths */}
               <div className="mc-slot p-5 border border-[#A855F7]/40">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
                   <div className="flex items-center gap-2">
                     <span className="text-base">🌀</span>
                     <h3 className="font-mc-heading text-sm font-bold text-[#C084FC]">
-                      {isAr ? '3. تضاريس العالم المستنسخة والمكررة (Infinite Repeating Terrain Grid)' : '3. Infinite Repeating Terrain Grid'}
+                      {isAr ? '4. عالم المرايا المتكرر - تضاريس وجبال منسوخة (Infinite Repeating Terrain Grid)' : '4. Infinite Repeating Terrain Grid'}
                     </h3>
                   </div>
                   <span className="text-[11px] font-mc-mono px-2 py-0.5 bg-[#3B0764] text-[#E9D5FF] font-bold">
-                    Java 1.18+ • Repeating Geometry
+                    Java 1.18+ • Repeating Geometry • Verified Glitch
                   </span>
                 </div>
                 <p className="text-xs text-[#333333] dark:text-[#CBD5E1] leading-relaxed mb-3">
                   {isAr
-                    ? 'خلل رياضي عجيب في دوال النويز (Noise Functions) يجعل تضاريس العالم تنسخ نفسها في خط مستقيم مثل المرايا المتطابقة! إذا مشيت في اتجاه التكرار، ستجد نفس شكل الجبل ونفس فتحة الكهف ونفس الشجرة تتكرر أمامك بالمسطرة كل مسافة ثابتة كأنك داخل حلقة زمنية.'
+                    ? 'ظاهرة بصرية وتضاريسية مذهلة يتكرر فيها شكل الجبال والكهوف والكتل كل مسافة ثابتة في خط مستقيم وكأنك تشاهد انعكاساً لا نهائياً في مرآة، مما يسمح لك باستكشاف جبال متطابقة وبناء قواعد متناظرة بدقة.'
                     : 'A mathematical anomaly in terrain noise equations that stamps identical landscape features along a straight line like facing mirrors. Traversing the repetition axis reveals identical mountains, cave cavities, and cliffs cloned at precise intervals.'}
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs font-mc-mono">
@@ -725,8 +836,8 @@ export default function DocumentationView() {
                 <li>
                   <strong className="text-[#10B981]">{isAr ? 'تنبيه النيون عند فحص أي بذرة:' : 'Automatic Glowing Alert Banner:'}</strong>{' '}
                   {isAr
-                    ? 'إذا قمت بإدخال أي بذرة تحوي خللاً معروفاً، ستظهر لك بطاقة تنبيه حمراء متوهجة في أعلى النتائج تشرح القلتش وموقعه وكيفية استكشافه.'
-                    : 'Whenever an analyzed seed contains a known anomaly, a glowing neon red alert banner appears at the top explaining the glitch in clear terms.'}
+                    ? 'إذا قمت بإدخال أي بذرة تحوي خللاً معروفاً، ستظهر لك بطاقة تنبيه متوهجة في أعلى النتائج تشرح القلتش وموقعه وكيفية استكشافه مع مقاييس الانحراف الإحصائي.'
+                    : 'Whenever an analyzed seed contains a known anomaly, a glowing alert banner appears at the top explaining the glitch in clear terms with deviation metrics.'}
                 </li>
               </ul>
             </div>

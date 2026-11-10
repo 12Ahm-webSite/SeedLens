@@ -947,14 +947,16 @@ export default function SeedMapInner({
       anomalies.items.forEach((an) => {
         const title = locale === 'ar' ? an.name_ar : an.name_en;
         const desc = locale === 'ar' ? an.description_ar : an.description_en;
+        const pinBg = an.tier === 4 ? '#DC2626' : an.is_unclassified ? '#DB2777' : an.category === 'structure_collision' ? '#7C3AED' : '#9333EA';
+        const pinBorder = an.tier === 4 ? '#FDE047' : an.is_unclassified ? '#F472B6' : an.category === 'structure_collision' ? '#67E8F9' : '#FDE047';
         const anIcon = L.divIcon({
           className: 'custom-anomaly-pin',
           html: `<div style="
             width: 26px;
             height: 26px;
-            background: #9333EA;
-            border: 2px solid #FDE047;
-            box-shadow: 0 0 12px #9333EA, 1px 1px 0 #000;
+            background: ${pinBg};
+            border: 2px solid ${pinBorder};
+            box-shadow: 0 0 12px ${pinBg}, 1px 1px 0 #000;
             display: flex;
             align-items: center;
             justify-content: center;

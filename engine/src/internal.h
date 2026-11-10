@@ -128,4 +128,43 @@ int collect_anomalies_internal(
     SeedLensAnomaliesResult *out_anomalies
 );
 
+/* Specialized Discovery Components & Engines */
+int detect_pattern_anomalies(
+    uint64_t seed,
+    const VersionProfile *profile,
+    Pos spawn_pos,
+    SeedLensAnomaly *out_items,
+    int max_items
+);
+
+int detect_structural_and_terrain_anomalies(
+    uint64_t seed,
+    const VersionProfile *profile,
+    Pos spawn_pos,
+    SeedLensAnomaly *out_items,
+    int max_items
+);
+
+int detect_historical_and_dimensional_anomalies(
+    uint64_t seed,
+    const VersionProfile *profile,
+    Pos spawn_pos,
+    SeedLensAnomaly *out_items,
+    int max_items
+);
+
+int detect_unknown_outlier_anomalies(
+    uint64_t seed,
+    const VersionProfile *profile,
+    Pos spawn_pos,
+    SeedLensAnomaly *out_items,
+    int max_items
+);
+
+void validate_and_classify_anomaly(
+    SeedLensAnomaly *anomaly,
+    uint64_t seed,
+    const VersionProfile *profile
+);
+
 #endif /* SEEDLENS_INTERNAL_H */

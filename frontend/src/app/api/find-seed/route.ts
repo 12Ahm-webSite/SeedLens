@@ -269,7 +269,17 @@ export async function POST(req: Request) {
     } else if (preset === 'economy_mogul' || clusterCategory === 'trading_metropolis') {
       candidateSeeds.sort((a) => (['123456789', '2026', '42'].includes(a) ? -1 : 1));
     } else if (preset === 'glitch_hunter' || landmarkType === 'anomaly') {
-      const glitchPool = ['107038380838084', '7593177223396', '8994765102493', '1643112', '32896149644487', '45459229772041'];
+      const glitchPool = [
+        '107038380838084',
+        '7593177223396',
+        '8994765102493',
+        '-4128538606513875612',
+        '1643112',
+        '32896149644487',
+        '45459229772041',
+        '42',
+        '16979051323156451578',
+      ];
       glitchPool.sort(() => Math.random() - 0.5);
       candidateSeeds.sort((a, b) => {
         const idxA = glitchPool.indexOf(a);
@@ -286,7 +296,7 @@ export async function POST(req: Request) {
       seed: string;
       result: SeedLensResult;
       highlight: WishlistMatchResult['highlight'];
-      type: 'landmark' | 'cluster' | 'discovery';
+      type: 'landmark' | 'cluster' | 'discovery' | 'anomaly';
       title: string;
       score: number;
     } | null = null;
@@ -439,8 +449,36 @@ export async function POST(req: Request) {
         }
       }
 
+      // 4. Evaluate Worldgen Anomalies & Glitches (Glitch Hunter preset)
+      if (preset === 'glitch_hunter' || landmarkType === 'anomaly') {
+        const anomalies = res.anomalies?.items || [];
+        if (anomalies.length > 0) {
+          const an = anomalies[0];
+          const matchScore = 500 - an.distance_to_spawn / 100;
+          if (!bestMatch || matchScore > bestMatch.score) {
+            bestMatch = {
+              seed: seedCandidate,
+              result: res,
+              highlight: {
+                name: an.name_ar ? `${an.name_ar} (${an.name_en})` : an.name_en,
+                category: an.category,
+                x: an.x,
+                y: an.y,
+                z: an.z,
+                distance: an.distance_to_spawn,
+                tpCommand: an.teleport_command,
+                description: an.description_ar || an.description_en,
+              },
+              type: 'anomaly',
+              title: an.name_ar || an.name_en,
+              score: matchScore,
+            };
+          }
+        }
+      }
+
       // If we found a great match in early seeds, stop early to optimize response time
-      if (bestMatch && evaluatedCount >= 3) {
+      if (bestMatch && evaluatedCount >= 2) {
         break;
       }
     }
@@ -450,9 +488,28 @@ export async function POST(req: Request) {
       const fallbackSeed = candidateSeeds[0];
       const res = await runSeedlens(binaryPath, fallbackSeed, version);
       if (res) {
+        const an = res.anomalies?.items?.[0];
         const lm = res.landmarks?.spots?.[0];
         const cl = res.clusters?.[0];
-        if (lm) {
+        if (an && (preset === 'glitch_hunter' || landmarkType === 'anomaly')) {
+          bestMatch = {
+            seed: fallbackSeed,
+            result: res,
+            highlight: {
+              name: an.name_ar ? `${an.name_ar} (${an.name_en})` : an.name_en,
+              category: an.category,
+              x: an.x,
+              y: an.y,
+              z: an.z,
+              distance: an.distance_to_spawn,
+              tpCommand: an.teleport_command,
+              description: an.description_ar || an.description_en,
+            },
+            type: 'anomaly',
+            title: an.name_ar || an.name_en,
+            score: 50,
+          };
+        } else if (lm) {
           bestMatch = {
             seed: fallbackSeed,
             result: res,

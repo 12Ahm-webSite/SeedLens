@@ -8,13 +8,34 @@ import { Zap, Copy, Check, MapPin, Compass } from 'lucide-react';
 interface AnomalyBannerProps {
   anomalies?: AnomaliesSummary;
   onFocusCoordinates?: (x: number, z: number) => void;
+  edition?: 'java' | 'bedrock';
 }
 
 function formatAxis(axis: string, isAr: boolean) {
   if (axis === 'x_axis') return isAr ? 'محور الشرق والغرب (المحور X)' : 'East-West Axis (X-Axis)';
   if (axis === 'z_axis') return isAr ? 'محور الشمال والجنوب (المحور Z)' : 'North-South Axis (Z-Axis)';
+  if (axis === 'dual_axis') return isAr ? 'المحورين المتقاطعين (X و Z)' : 'Dual Axes (X & Z)';
   if (axis === 'dimension_end') return isAr ? 'بُعد الإند (The End)' : 'The End Dimension';
+  if (axis === 'subterranean') return isAr ? 'أعماق العالم السفلي' : 'Deep Subterranean';
+  if (axis === 'statistical_cluster') return isAr ? 'نطاق تضاريسي شاذ' : 'Regional Cluster';
   return axis;
+}
+
+function formatTier(tierName: string | undefined, isAr: boolean) {
+  switch (tierName) {
+    case 'verified_glitch':
+      return isAr ? 'قلتش موثق بالكامل' : 'Verified Glitch';
+    case 'suspected_glitch':
+      return isAr ? 'قلتش محتمل' : 'Suspected Glitch';
+    case 'anomaly':
+      return isAr ? 'ظاهرة تضاريسية شاذة' : 'Worldgen Anomaly';
+    case 'rare_generation':
+      return isAr ? 'توليد طبيعي نادر' : 'Rare Generation';
+    case 'historical_glitch':
+      return isAr ? 'قلتش تاريخي' : 'Historical Glitch';
+    default:
+      return isAr ? 'ظاهرة غير عادية' : 'Anomaly';
+  }
 }
 
 function formatTag(tag: string, isAr: boolean) {
@@ -31,6 +52,9 @@ function formatTag(tag: string, isAr: boolean) {
     chunk_loop: { ar: 'عالم_متكرر', en: 'Chunk Loop' },
     anomaly: { ar: 'ظاهرة_خارقة', en: 'Anomaly' },
     monolith_glitch: { ar: 'مرايا_التوليد', en: 'Monolith Glitch' },
+    dense_mineshafts: { ar: 'مناجم_كثيفة', en: 'Dense Mineshafts' },
+    subterranean: { ar: 'تحت_الأرض', en: 'Subterranean' },
+    rare_worldgen: { ar: 'توليد_نادر', en: 'Rare Worldgen' },
   };
   if (map[tag]) {
     return isAr ? map[tag].ar : map[tag].en;
@@ -41,6 +65,7 @@ function formatTag(tag: string, isAr: boolean) {
 export default function AnomalyBanner({
   anomalies,
   onFocusCoordinates,
+  edition = 'java',
 }: AnomalyBannerProps) {
   const { locale, t } = useLanguage();
   const [copiedId, setCopiedId] = useState<number | null>(null);
@@ -82,6 +107,28 @@ export default function AnomalyBanner({
                     <span>{t.anomalyBannerTitle}</span>
                   </span>
 
+                  {an.tier_name && (
+                    <span className="inline-flex items-center px-2 py-0.5 bg-[#F59E0B]/20 border border-[#F59E0B] text-[#FCD34D] font-mc-mono text-[11px] font-bold">
+                      {formatTier(an.tier_name, isAr)}
+                    </span>
+                  )}
+
+                  {an.is_unclassified && (
+                    <span className="inline-flex items-center px-2 py-0.5 bg-[#EC4899]/20 border border-[#EC4899] text-[#F472B6] font-mc-mono text-[11px] font-bold">
+                      ✨ {isAr ? 'اكتشاف ذكي غير مسبوق' : 'Discovered by Unknown Engine'}
+                    </span>
+                  )}
+
+                  {an.edition_support === 'java_exclusive' ? (
+                    <span className="inline-flex items-center px-2 py-0.5 bg-[#451A03]/60 border border-[#B45309] text-[#FDE68A] font-mc-mono text-[10px] font-bold">
+                      ☕ {isAr ? 'حصري لجافا' : 'Java Only'}
+                    </span>
+                  ) : (
+                    <span className="inline-flex items-center px-2 py-0.5 bg-[#0369A1]/40 border border-[#0EA5E9] text-[#BAE6FD] font-mc-mono text-[10px] font-bold">
+                      🪨 {isAr ? 'جافا وبيدروك' : 'Java & Bedrock'}
+                    </span>
+                  )}
+
                   <span className="inline-flex items-center px-2 py-0.5 bg-[#06B6D4]/20 border border-[#06B6D4] text-[#67E8F9] font-mc-mono text-[11px] font-bold">
                     {an.severity === 'legendary'
                       ? t.anomalyBadgeLegendary
@@ -89,6 +136,12 @@ export default function AnomalyBanner({
                       ? t.anomalyBadgeExtreme
                       : t.anomalyBadgeRare}
                   </span>
+
+                  {an.outlier_metric && (
+                    <span className="inline-flex items-center px-2 py-0.5 bg-black/50 border border-white/20 text-[#E2E8F0] font-mc-mono text-[10px]">
+                      📊 {an.outlier_metric}
+                    </span>
+                  )}
 
                   <span className="font-mc-mono text-[11px] text-[#A855F7] font-bold">
                     // {t.anomalyConfidenceLabel}: {an.confidence_score}%
@@ -104,6 +157,17 @@ export default function AnomalyBanner({
                 <p className="font-mc-body text-xs sm:text-sm text-[#D8B4FE] leading-relaxed">
                   {desc}
                 </p>
+
+                {edition === 'bedrock' && an.edition_support === 'java_exclusive' && (
+                  <div className="bg-[#451A03]/40 border border-[#F59E0B]/50 p-2 text-[11px] font-mc-mono text-[#FDE68A] flex items-center gap-1.5 mt-1">
+                    <span>⚠️</span>
+                    <span>
+                      {isAr
+                        ? 'تنبيه بيدروك: هذا الخلل الحسابي خاص بنظام PRNG لماينكرافت جافا؛ قد لا يتكرر التوليد في نسخة بيدروك على نفس الإحداثيات.'
+                        : 'Bedrock Note: This PRNG calculation defect is specific to Minecraft Java Edition and may not reproduce in Bedrock.'}
+                    </span>
+                  </div>
+                )}
 
                 {/* Tags and Location */}
                 <div className="flex flex-wrap items-center gap-2 pt-1 font-mc-mono text-xs text-[#CBD5E1]">

@@ -45,6 +45,10 @@ static int handle_find_command(int argc, char *argv[])
         {
             query.cluster_category = argv[++i];
         }
+        else if ((strcmp(argv[i], "--anomaly-category") == 0 || strcmp(argv[i], "--anomaly") == 0) && i + 1 < argc)
+        {
+            query.anomaly_category = argv[++i];
+        }
         else if (strcmp(argv[i], "--min-scenic") == 0 && i + 1 < argc)
         {
             query.min_scenic_score = atoi(argv[++i]);

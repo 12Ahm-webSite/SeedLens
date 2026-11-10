@@ -24,7 +24,7 @@ def main():
     for s in test_seeds:
         for ver in ['1.20.6', '1.21.1']:
             data = run_seedlens(s, ver)
-            
+
             # Check within discovery structures
             disc_structures = data.get('discovery', {}).get('structures', [])
             seen_disc = set()
@@ -32,7 +32,7 @@ def main():
                 key = (st['type'], st['x'], st['z'])
                 assert key not in seen_disc, f'Duplicate discovered structure found in seed {s}: {key}'
                 seen_disc.add(key)
-                
+
             # Check within each individual cluster
             for cl in data.get('clusters', []):
                 seen_cl = set()
@@ -49,17 +49,17 @@ def main():
         data = run_seedlens(s)
         sp_x = data['world_spawn']['x']
         sp_z = data['world_spawn']['z']
-        
+
         # Check discovery structures
         for st in data.get('discovery', {}).get('structures', []):
             dx_sp = st['x'] - sp_x
             dz_sp = st['z'] - sp_z
             expected_sp = math.sqrt(dx_sp * dx_sp + dz_sp * dz_sp)
             assert abs(st['distance_to_spawn'] - expected_sp) < 0.2, f'Spawn distance error: got {st["distance_to_spawn"]}, expected {expected_sp}'
-            
+
             expected_org = math.sqrt(st['x'] * st['x'] + st['z'] * st['z'])
             assert abs(st['distance_to_origin'] - expected_org) < 0.2, f'Origin distance error: got {st["distance_to_origin"]}, expected {expected_org}'
-            
+
         # Check cluster centers
         for cl in data.get('clusters', []):
             cx = cl['center']['x']
@@ -113,14 +113,14 @@ def main():
     for s, ver_data in snapshot.items():
         for ver, expected_summary in ver_data.items():
             curr_data = run_seedlens(s, ver)
-            
+
             assert curr_data['summary']['useful_clusters'] == expected_summary['useful_clusters'], f'Seed {s} ver {ver} useful_clusters changed!'
             assert curr_data['summary']['total_clusters'] == expected_summary['total_clusters'], f'Seed {s} ver {ver} total_clusters changed!'
-            
+
             curr_ids = [c['id'] for c in curr_data['clusters']]
             exp_ids = [c['id'] for c in expected_summary['clusters']]
             assert curr_ids == exp_ids, f'Seed {s} ver {ver} cluster IDs changed: {curr_ids} vs {exp_ids}'
-            
+
             for c_curr, c_exp in zip(curr_data['clusters'], expected_summary['clusters']):
                 assert c_curr['primary_category'] == c_exp['primary_category']
                 assert c_curr['categories'] == c_exp['categories']
@@ -190,9 +190,39 @@ def main():
     assert parsed_find['highlightType'] == 'anomaly'
     print('  -> PASSED: Worldgen Anomalies & Glitched Seeds successfully detected in C Engine.')
 
+    # Property 10: Unknown Anomaly Discovery & Multi-Category Architectural Framework (v4.5)
+    print('[Test 10] Unknown Anomaly Discovery & Multi-Category Architectural Framework')
+
+    # 1. Structure Collision & Unknown Engine verification in Seed 7593177223396
+    data_adv = run_seedlens('7593177223396', '1.21.1')
+    anomalies_adv = data_adv['anomalies']
+
+    assert anomalies_adv['total_found'] >= 3, f'Expected at least 3 anomalies, got {anomalies_adv["total_found"]}'
+    assert anomalies_adv['verified_glitch_count'] >= 1, 'Expected at least 1 verified glitch'
+    assert anomalies_adv['unclassified_count'] >= 1, 'Expected at least 1 unclassified discovery from unknown engine'
+
+    # Check Structure Collision
+    collision_items = [an for an in anomalies_adv['items'] if an['category'] == 'structure_collision']
+    assert len(collision_items) > 0, 'Missing structure collision in seed 7593177223396'
+    col = collision_items[0]
+    assert col['subcategory'] == 'ancient_city_trial_chamber'
+    assert col['tier'] == 3  # suspected_glitch
+    assert 'Trial Chambers' in col['technical_evidence']
+
+    # Check Unknown Engine Discovery (Statistical Outlier & Triple Nexus)
+    unknown_items = [an for an in anomalies_adv['items'] if an.get('is_unclassified') is True]
+    assert len(unknown_items) >= 1, 'No unclassified discoveries found from unknown engine'
+    outlier = unknown_items[0]
+    assert outlier['component_name'] == 'unknown_engine'
+    assert len(outlier['discovery_uuid']) == 36, f'Invalid UUID: {outlier["discovery_uuid"]}'
+    assert '-' in outlier['discovery_uuid']
+    assert len(outlier['outlier_metric']) > 0, 'Missing outlier metric string'
+
+    print('  -> PASSED: Unknown Anomaly Discovery Engine, 3D Collisions & Architectural UUIDs verified.')
+
     print()
     print('======================================================================')
-    print('ALL 9 PROPERTY & BENCHMARK FOUNDATION TESTS COMPLETED SUCCESSFULLY!')
+    print('ALL 10 PROPERTY & BENCHMARK FOUNDATION TESTS COMPLETED SUCCESSFULLY!')
     print('======================================================================')
 
 if __name__ == '__main__':

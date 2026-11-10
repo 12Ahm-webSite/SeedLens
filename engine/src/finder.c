@@ -135,22 +135,46 @@ int seedlens_find(
         {
             SeedLensAnomaliesResult an_res;
             int an_count = collect_anomalies_internal(seed, profile, spawn_pos, &an_res);
+            int match_idx = -1;
             if (an_count > 0)
+            {
+                if (query->anomaly_category && query->anomaly_category[0] &&
+                    strcmp(query->anomaly_category, "all") != 0 &&
+                    strcmp(query->anomaly_category, "any") != 0)
+                {
+                    for (int k = 0; k < an_count; k++)
+                    {
+                        if (strstr(an_res.items[k].category, query->anomaly_category) != NULL ||
+                            strstr(an_res.items[k].subcategory, query->anomaly_category) != NULL ||
+                            strstr(an_res.items[k].tier_name, query->anomaly_category) != NULL)
+                        {
+                            match_idx = k;
+                            break;
+                        }
+                    }
+                }
+                else
+                {
+                    match_idx = 0;
+                }
+            }
+
+            if (match_idx >= 0)
             {
                 result->found = 1;
                 result->seed = (int64_t)seed;
                 snprintf(result->highlight_type, sizeof(result->highlight_type), "anomaly");
-                snprintf(result->highlight_title, sizeof(result->highlight_title), "%s", an_res.items[0].name_ar);
-                snprintf(result->highlight_name, sizeof(result->highlight_name), "%s", an_res.items[0].name_en);
-                snprintf(result->highlight_category, sizeof(result->highlight_category), "%s", an_res.items[0].category);
-                result->highlight_x = an_res.items[0].x;
-                result->highlight_y = an_res.items[0].y;
-                result->highlight_z = an_res.items[0].z;
-                result->highlight_distance = an_res.items[0].distance_to_spawn;
+                snprintf(result->highlight_title, sizeof(result->highlight_title), "%s", an_res.items[match_idx].name_ar);
+                snprintf(result->highlight_name, sizeof(result->highlight_name), "%s", an_res.items[match_idx].name_en);
+                snprintf(result->highlight_category, sizeof(result->highlight_category), "%s", an_res.items[match_idx].category);
+                result->highlight_x = an_res.items[match_idx].x;
+                result->highlight_y = an_res.items[match_idx].y;
+                result->highlight_z = an_res.items[match_idx].z;
+                result->highlight_distance = an_res.items[match_idx].distance_to_spawn;
                 result->highlight_scenic_score = 99;
                 result->highlight_building_score = 95;
-                snprintf(result->highlight_tp_command, sizeof(result->highlight_tp_command), "%s", an_res.items[0].teleport_command);
-                snprintf(result->highlight_description, sizeof(result->highlight_description), "%s", an_res.items[0].description_ar);
+                snprintf(result->highlight_tp_command, sizeof(result->highlight_tp_command), "%s", an_res.items[match_idx].teleport_command);
+                snprintf(result->highlight_description, sizeof(result->highlight_description), "%s", an_res.items[match_idx].description_ar);
                 snprintf(result->highlight_primary_biome, sizeof(result->highlight_primary_biome), "Glitched Anomaly");
                 found = 1;
                 break;
@@ -160,7 +184,6 @@ int seedlens_find(
                 107038380838084ULL,
                 7593177223396ULL,
                 8994765102493ULL,
-                1643112ULL,
                 32896149644487ULL,
                 45459229772041ULL
             };

@@ -301,6 +301,10 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
     jbuf_append(&b, "  \"anomalies\": {\n");
     jbuf_printf(&b, "    \"total_found\": %d,\n", result->anomalies.total_found);
     jbuf_printf(&b, "    \"anomaly_count\": %d,\n", result->anomalies.anomaly_count);
+    jbuf_printf(&b, "    \"verified_glitch_count\": %d,\n", result->anomalies.verified_glitch_count);
+    jbuf_printf(&b, "    \"anomaly_tier_count\": %d,\n", result->anomalies.anomaly_tier_count);
+    jbuf_printf(&b, "    \"rare_generation_count\": %d,\n", result->anomalies.rare_generation_count);
+    jbuf_printf(&b, "    \"unclassified_count\": %d,\n", result->anomalies.unclassified_count);
     jbuf_append(&b, "    \"items\": [\n");
 
     for (int i = 0; i < result->anomalies.anomaly_count; i++)
@@ -308,7 +312,11 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
         const SeedLensAnomaly *an = &result->anomalies.items[i];
         jbuf_append(&b, "      {\n");
         jbuf_printf(&b, "        \"id\": %d,\n", an->id);
+        jbuf_printf(&b, "        \"discovery_uuid\": \"%s\",\n", an->discovery_uuid);
+        jbuf_printf(&b, "        \"tier\": %d,\n", an->tier);
+        jbuf_printf(&b, "        \"tier_name\": \"%s\",\n", an->tier_name);
         jbuf_printf(&b, "        \"category\": \"%s\",\n", an->category);
+        jbuf_printf(&b, "        \"subcategory\": \"%s\",\n", an->subcategory);
         jbuf_printf(&b, "        \"severity\": \"%s\",\n", an->severity);
         jbuf_append(&b, "        \"name_ar\": \"");
         jbuf_append_escaped(&b, an->name_ar);
@@ -320,9 +328,22 @@ char *seedlens_result_to_json(const SeedLensAnalysisResult *result)
         jbuf_printf(&b, "        \"y\": %d,\n", an->y);
         jbuf_printf(&b, "        \"z\": %d,\n", an->z);
         jbuf_printf(&b, "        \"distance_to_spawn\": %.1f,\n", an->distance_to_spawn);
+        jbuf_printf(&b, "        \"dimension\": \"%s\",\n", an->dimension);
+        jbuf_printf(&b, "        \"edition_support\": \"%s\",\n", an->edition_support);
+        jbuf_printf(&b, "        \"tested_version\": \"%s\",\n", an->tested_version);
         jbuf_printf(&b, "        \"axis\": \"%s\",\n", an->axis);
-        jbuf_printf(&b, "        \"teleport_command\": \"%s\",\n", an->teleport_command);
+        jbuf_printf(&b, "        \"component\": %d,\n", an->component);
+        jbuf_printf(&b, "        \"component_name\": \"%s\",\n", an->component_name);
+        jbuf_printf(&b, "        \"validation_status\": %d,\n", an->validation_status);
+        jbuf_printf(&b, "        \"validation_status_name\": \"%s\",\n", an->validation_status_name);
+        jbuf_printf(&b, "        \"is_unclassified\": %s,\n", an->is_unclassified ? "true" : "false");
+        jbuf_printf(&b, "        \"outlier_metric\": \"%s\",\n", an->outlier_metric);
         jbuf_printf(&b, "        \"confidence_score\": %d,\n", an->confidence_score);
+        jbuf_printf(&b, "        \"rarity_estimate\": %.6f,\n", an->rarity_estimate);
+        jbuf_append(&b, "        \"technical_evidence\": \"");
+        jbuf_append_escaped(&b, an->technical_evidence);
+        jbuf_append(&b, "\",\n");
+        jbuf_printf(&b, "        \"teleport_command\": \"%s\",\n", an->teleport_command);
 
         /* Tags */
         jbuf_append(&b, "        \"tags\": [");

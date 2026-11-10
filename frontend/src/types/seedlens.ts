@@ -107,20 +107,54 @@ export interface LandmarksSummary {
   spots: LandmarkSpot[];
 }
 
+export type AnomalyTier =
+  | 'rare_generation'
+  | 'anomaly'
+  | 'suspected_glitch'
+  | 'verified_glitch'
+  | 'historical_glitch';
+
+export type DiscoveryComponentId =
+  | 'pattern_hunter'
+  | 'anomaly_hunter'
+  | 'historical_glitch'
+  | 'unknown_engine';
+
+export type ValidationStatus =
+  | 'unverified'
+  | 'statistical_candidate'
+  | 'provisional'
+  | 'verified';
+
 export interface WorldgenAnomaly {
   id: number;
+  discovery_uuid?: string;
+  tier?: number;
+  tier_name?: AnomalyTier;
   category: string;
-  severity: 'legendary' | 'rare' | 'extreme' | string;
+  subcategory?: string;
+  severity: 'legendary' | 'rare' | 'extreme' | 'curiosity' | string;
   name_ar: string;
   name_en: string;
   x: number;
   y: number;
   z: number;
   distance_to_spawn: number;
+  dimension?: 'overworld' | 'the_nether' | 'the_end' | string;
+  edition_support?: 'java_exclusive' | 'parity_compatible' | string;
+  tested_version?: string;
   axis: string;
-  teleport_command: string;
+  component?: number;
+  component_name?: DiscoveryComponentId;
+  validation_status?: number;
+  validation_status_name?: ValidationStatus;
+  is_unclassified?: boolean;
+  outlier_metric?: string;
   confidence_score: number;
+  rarity_estimate?: number;
+  technical_evidence?: string;
   tags: string[];
+  teleport_command: string;
   description_ar: string;
   description_en: string;
 }
@@ -128,6 +162,10 @@ export interface WorldgenAnomaly {
 export interface AnomaliesSummary {
   total_found: number;
   anomaly_count: number;
+  verified_glitch_count?: number;
+  anomaly_tier_count?: number;
+  rare_generation_count?: number;
+  unclassified_count?: number;
   items: WorldgenAnomaly[];
 }
 
@@ -184,6 +222,7 @@ export interface WishlistQuery {
   minScenicScore?: number;
   minBuildingScore?: number;
   clusterCategory?: string;
+  anomalyCategory?: string;
   maxSpawnDistance?: number;
   version: string;
 }
@@ -207,7 +246,7 @@ export interface WishlistMatchResult {
   version: string;
   matchedPreset?: PlaystylePresetId;
   highlightTitle: string;
-  highlightType: 'landmark' | 'cluster' | 'discovery';
+  highlightType: 'landmark' | 'cluster' | 'discovery' | 'anomaly';
   highlight: WishlistMatchHighlight;
   seedsEvaluatedCount: number;
   searchTimeMs: number;

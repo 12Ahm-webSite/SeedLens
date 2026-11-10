@@ -149,24 +149,66 @@ typedef struct {
     SeedLensLandmark spots[SEEDLENS_MAX_LANDMARKS];
 } SeedLensLandmarksResult;
 
-#define SEEDLENS_MAX_ANOMALIES 16
+#define SEEDLENS_MAX_ANOMALIES 32
 
-/* Worldgen Anomaly / Glitch spot (v4.5) */
+/* Classification Tier for Worldgen Discoveries & Glitches */
+typedef enum {
+    ANOMALY_TIER_UNKNOWN = 0,
+    ANOMALY_TIER_RARE_GENERATION = 1,   /* Statistically rare but standard generation */
+    ANOMALY_TIER_ANOMALY = 2,           /* Extreme geometric, height, or noise outlier */
+    ANOMALY_TIER_SUSPECTED_GLITCH = 3,  /* Highly probable generation glitch/collision */
+    ANOMALY_TIER_VERIFIED_GLITCH = 4,   /* Proven glitch (MC tracker or math proof) */
+    ANOMALY_TIER_HISTORICAL_GLITCH = 5  /* Version-specific legacy glitch */
+} SeedLensAnomalyTier;
+
+/* Responsible discovery component / engine */
+typedef enum {
+    DISCOVERY_COMPONENT_UNKNOWN = 0,
+    DISCOVERY_COMPONENT_PATTERN_HUNTER,      /* Math, PRNG, periodic noise */
+    DISCOVERY_COMPONENT_ANOMALY_HUNTER,      /* Terrain, cliffs, floating islands, collisions */
+    DISCOVERY_COMPONENT_HISTORICAL_GLITCH,   /* Version bugs, MC tracker issues */
+    DISCOVERY_COMPONENT_UNKNOWN_ENGINE       /* Statistical outlier & cross-correlation */
+} SeedLensDiscoveryComponent;
+
+/* Validation status of a discovery */
+typedef enum {
+    VALIDATION_STATUS_UNVERIFIED = 0,
+    VALIDATION_STATUS_STATISTICAL_CANDIDATE, /* Identified by outlier detection */
+    VALIDATION_STATUS_PROVISIONAL,           /* Passes local bounding checks */
+    VALIDATION_STATUS_VERIFIED               /* Fully verified and reproducible */
+} SeedLensValidationStatus;
+
+/* Worldgen Anomaly / Discovery record (v4.5 Advanced Discovery Engine) */
 typedef struct {
     int id;
-    char category[48];         /* "infinite_repeating_mineshaft", "void_end_island", etc. */
-    char severity[24];         /* "legendary", "rare", "extreme" */
+    char discovery_uuid[40];            /* RFC 4122 formatted UUID or deterministic ID */
+    int tier;                           /* SeedLensAnomalyTier (1-5) */
+    char tier_name[24];                 /* "rare_generation", "anomaly", "suspected_glitch", etc. */
+    char category[48];                  /* e.g., "structure_collision", "void_end_island", "infinite_repeating_mineshaft" */
+    char subcategory[48];               /* e.g., "ancient_city_trial_chamber", "prng_axis_degeneracy" */
+    char severity[24];                  /* "legendary", "extreme", "rare", "curiosity" */
     char name_ar[128];
     char name_en[128];
     int x;
     int y;
     int z;
     double distance_to_spawn;
-    char axis[24];             /* "x_axis", "z_axis", "dimension_end", etc. */
-    char teleport_command[64];
-    int confidence_score;      /* 0-100 */
-    char tags[6][32];
+    char dimension[16];                 /* "overworld", "the_nether", "the_end" */
+    char edition_support[24];           /* "java_exclusive", "parity_compatible" */
+    char tested_version[16];            /* Exact version tested, e.g. "1.21.1" */
+    char axis[24];                      /* "x_axis", "z_axis", "dimension_end", "none" */
+    int component;                      /* SeedLensDiscoveryComponent */
+    char component_name[32];            /* "pattern_hunter", "anomaly_hunter", etc. */
+    int validation_status;              /* SeedLensValidationStatus */
+    char validation_status_name[24];    /* "verified", "statistical_candidate", etc. */
+    int is_unclassified;                /* 1 if discovered without predefined rule */
+    char outlier_metric[96];            /* e.g., "z_score_height: 4.1", "density_drop: 100%" */
+    int confidence_score;               /* 0-100 */
+    double rarity_estimate;             /* Estimated frequency (e.g. 0.00001 = 1 in 100k) */
+    char technical_evidence[256];       /* Mathematical proof, formula, or bug tracker ID */
+    char tags[6][48];
     int tag_count;
+    char teleport_command[80];
     char description_ar[512];
     char description_en[512];
 } SeedLensAnomaly;
@@ -175,6 +217,10 @@ typedef struct {
 typedef struct {
     int total_found;
     int anomaly_count;
+    int verified_glitch_count;
+    int anomaly_tier_count;
+    int rare_generation_count;
+    int unclassified_count;
     SeedLensAnomaly items[SEEDLENS_MAX_ANOMALIES];
 } SeedLensAnomaliesResult;
 
@@ -221,9 +267,10 @@ void seedlens_free_json(
 /* Find Query for Reverse Seed Finder */
 typedef struct {
     const char *version;
-    const char *preset;             /* "mega_builder", "dungeon_raider", "aesthetic_creator", "castaway_survivor", "economy_mogul" */
+    const char *preset;             /* "mega_builder", "dungeon_raider", "aesthetic_creator", "castaway_survivor", "economy_mogul", "glitch_hunter" */
     const char *landmark_type;      /* "cherry_caldera", "mountain_crater", "epic_clifftop", "prime_building_basin", "isolated_island", "any" */
     const char *cluster_category;   /* "trading_metropolis", "abyssal_hub", "trial_chambers", "spawn_outpost", "strategic_mega_hub", "any" */
+    const char *anomaly_category;   /* "all", "glitch", "collision", "repeating", "void_end", "outlier", "any" */
     int min_scenic_score;
     int min_building_score;
     int max_spawn_distance;
@@ -247,7 +294,7 @@ typedef struct {
     double highlight_distance;
     int highlight_scenic_score;
     int highlight_building_score;
-    char highlight_tp_command[64];
+    char highlight_tp_command[80];
     char highlight_description[512];
     char highlight_primary_biome[64];
     int seeds_evaluated;

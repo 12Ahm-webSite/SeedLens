@@ -138,6 +138,51 @@ export default function WishlistFinder({
                 ],
               }
             : undefined,
+        anomalies:
+          matchResult.highlightType === 'anomaly'
+            ? {
+                total_found: 1,
+                anomaly_count: 1,
+                verified_glitch_count: 1,
+                anomaly_tier_count: 0,
+                rare_generation_count: 0,
+                unclassified_count: 0,
+                items: [
+                  {
+                    id: 1,
+                    discovery_uuid: '00000000-0000-4000-8000-000000000001',
+                    tier: 4,
+                    tier_name: 'verified_glitch',
+                    category: matchResult.highlight.category,
+                    subcategory: 'highlight_anomaly',
+                    severity: 'legendary',
+                    name_ar: matchResult.highlight.name,
+                    name_en: matchResult.highlight.name,
+                    x: matchResult.highlight.x,
+                    y: matchResult.highlight.y || 64,
+                    z: matchResult.highlight.z,
+                    distance_to_spawn: matchResult.highlight.distance,
+                    dimension: 'overworld',
+                    edition_support: 'java_exclusive',
+                    tested_version: matchResult.version,
+                    axis: 'x_axis',
+                    component: 1,
+                    component_name: 'anomaly_hunter',
+                    validation_status: 3,
+                    validation_status_name: 'verified',
+                    is_unclassified: false,
+                    outlier_metric: '',
+                    confidence_score: 100,
+                    rarity_estimate: 0.000001,
+                    technical_evidence: 'Verified worldgen anomaly match from discovery catalog',
+                    tags: ['قلتش_نادر', 'توليد_استثنائي'],
+                    teleport_command: matchResult.highlight.tpCommand,
+                    description_ar: matchResult.highlight.description,
+                    description_en: matchResult.highlight.description,
+                  },
+                ],
+              }
+            : undefined,
       }
     : null;
 
@@ -777,6 +822,12 @@ export default function WishlistFinder({
                         {matchResult.highlight.buildingScore}%
                       </span>
                     </div>
+                  )}
+                  {matchResult.highlightType === 'anomaly' && (
+                    <span className="text-[11px] font-mc-mono px-2.5 py-0.5 rounded bg-[#9333EA]/20 text-[#C084FC] border border-[#9333EA]/40 font-bold flex items-center gap-1">
+                      <Zap className="w-3 h-3 text-[#FDE047]" />
+                      <span>{locale === 'ar' ? 'ظاهرة خارقة / قلتش' : 'Worldgen Glitch'}</span>
+                    </span>
                   )}
                 </div>
 

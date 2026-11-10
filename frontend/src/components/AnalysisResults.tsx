@@ -362,7 +362,7 @@ export default function AnalysisResults({
       </div>
 
       {/* Worldgen Anomalies & Glitched Phenomena Banner (v4.5) */}
-      <AnomalyBanner anomalies={anomalies} />
+      <AnomalyBanner anomalies={anomalies} edition={edition} />
 
       {/* Prominent Callout Banner for Scenic & Building Spots */}
       {landmarks && landmarks.spot_count > 0 && (
